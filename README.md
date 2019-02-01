@@ -1,4 +1,5 @@
 # modulist
+A better way to manage checklists.
 
 ## Konsept og formål
 Jeg ønsker å lage en app for lister. Mange - undertegnede inkludert - bruker lister til å huske ting, og
@@ -46,7 +47,7 @@ listene sine.
 * t-skjorter
 
 #### Pakke til vinterferie
-* __Pakke til ferie__ 
+* __Pakke til ferie__
 * minst to gode bøker
 * vinterjakke
 * ulgenser
