@@ -1,6 +1,11 @@
 # modulist
 A better way to manage checklists.
 
+## TODO: 
+- [ ] Navigation bytter fragment 
+- [ ] Theme 
+
+
 ## Konsept og formål
 Jeg ønsker å lage en app for lister. Mange - undertegnede inkludert - bruker lister til å huske ting, og
 til å organisere hverdagen. Det være seg handlelister, pakkelister, generelle huskelister, osv. osv.
