@@ -1,5 +1,7 @@
 package org.olaven.modulist
 
+import org.olaven.modulist.models.Item
+import org.olaven.modulist.models.ModuleList
 import kotlin.random.Random
 
 fun getModuleLists(count: Int): List<ModuleList>{
