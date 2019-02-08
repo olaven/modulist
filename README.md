@@ -2,8 +2,11 @@
 A better way to manage checklists.
 
 ## TODO: 
-- [ ] Navigation bytter fragment 
-- [ ] Theme 
+- [X] Navigation bytter fragment
+- [ ] legge ved sketch av home-page
+- [ ] vise en vilkårlig liste i et generisk view (activity eller fragment?)
+- [ ] bytte mellom themes
+- [ ] lagre theme-preferanse i userpreferences
 
 
 ## Konsept og formål
