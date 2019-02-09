@@ -4,7 +4,9 @@ A better way to manage checklists.
 ## TODO: 
 - [X] Navigation bytter fragment
 - [X] legge ved sketch av home-page
+- [X] enkel oversikt på home-fragment
 - [ ] vise en vilkårlig liste i et generisk view (activity eller fragment?)
+- [ ] klikke på en et listenavn skal vise listen i egen activity
 - [ ] bytte mellom themes
 - [ ] lagre theme-preferanse i userpreferences
 
