@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity() {
 
     private var drawerToggle: ActionBarDrawerToggle? = null
 
+    //TODO: hvis savedInstance IKKE er null, hent ut forrige fragment
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -40,6 +41,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // sett riktig fragment
+    override fun onPause() {
+        super.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 

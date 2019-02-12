@@ -6,6 +6,9 @@ A better way to manage checklists.
 - [X] legge ved sketch av home-page
 - [X] enkel oversikt på home-fragment
 - [X] fragments må ikke overlappe
+- [X] klikk på home-liste gjør noe
+- [ ] Få opp liste når man klikker på den
+- [ ] Bytte til standard card view i Home
 - [ ] vise en vilkårlig liste i et generisk view (activity eller fragment?)
 - [ ] klikke på en et listenavn skal vise listen i egen activity
 - [ ] bytte mellom themes

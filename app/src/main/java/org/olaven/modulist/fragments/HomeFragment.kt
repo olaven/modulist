@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-
 import org.olaven.modulist.R
 import org.olaven.modulist.adapters.RecyclerAdapter
 import org.olaven.modulist.getModuleLists
@@ -20,9 +19,19 @@ class HomeFragment : Fragment() {
         val recyclerView = homeFragment.findViewById<RecyclerView>(R.id.fragment_home_recyclerView)
 
         recyclerView.layoutManager = LinearLayoutManager(activity, LinearLayout.HORIZONTAL, false)
-        recyclerView.adapter = RecyclerAdapter(getModuleLists(10)) //TODO: using mock items, replace with "real" data!
+        recyclerView.adapter = // necessary as context is optional
+            context?.let { RecyclerAdapter(it, getModuleLists(10)) } //TODO: using mock items, replace with "real" data!
 
         return homeFragment
     }
 
+
+    // TODO: lagre initialisering her? Går det?
+    override fun onPause() {
+        super.onPause()
+    }
+    // TODO: vise initialisering her?
+    override fun onResume() {
+        super.onResume()
+    }
 }

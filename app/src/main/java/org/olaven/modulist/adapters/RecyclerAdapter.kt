@@ -1,17 +1,21 @@
 package org.olaven.modulist.adapters
 
+import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import kotlinx.android.synthetic.main.list_card.view.*
 import org.olaven.modulist.R
+import org.olaven.modulist.activities.ModuleListActivity
 import org.olaven.modulist.models.ModuleList
 
-class RecyclerAdapter(private val lists: List<ModuleList>) : RecyclerView.Adapter<RecyclerAdapter.MyViewHolder>() {
+class RecyclerAdapter(private val context: Context, private val moduleLists: List<ModuleList>) : RecyclerView.Adapter<RecyclerAdapter.MyViewHolder>() {
 
     override fun getItemCount(): Int =
-        lists.count()
+        moduleLists.count()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
 
@@ -22,10 +26,22 @@ class RecyclerAdapter(private val lists: List<ModuleList>) : RecyclerView.Adapte
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val moduleList = lists[position]
+
+        val moduleList = moduleLists[position]
         holder.view.list_card_name.text = moduleList.name
         holder.view.list_card_favourite.text = "not favourite"
     }
 
-    inner class MyViewHolder(val view: View) : RecyclerView.ViewHolder(view) //TODO: Finn ut av hva jeg kan bruke viewholder til.
+    inner class MyViewHolder(val view: View): RecyclerView.ViewHolder(view) {
+
+        init {
+            view.setOnClickListener {
+
+                val moduleList = moduleLists[adapterPosition]
+                val intent = Intent(context, ModuleListActivity::class.java)
+                context.startActivity(intent)
+            }
+        }
+    }
+
 }
