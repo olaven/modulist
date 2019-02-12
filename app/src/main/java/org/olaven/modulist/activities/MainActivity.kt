@@ -1,7 +1,6 @@
 package org.olaven.modulist.activities
 
 import android.os.Bundle
-import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
@@ -22,19 +21,21 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        replaceMainFragment(HomeFragment())
+
         setUpActionBarWithDrawer()
         setupDrawerItemListeners()
     }
 
     private fun setupDrawerItemListeners() {
-        main_activity_navigation_view.bringToFront()
-        main_activity_navigation_view.setNavigationItemSelectedListener {
+        activity_main_navigation_view.bringToFront()
+        activity_main_navigation_view.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_home -> replaceMainFragment(HomeFragment())
                 R.id.nav_my_lists -> replaceMainFragment(MyListsFragment())
                 R.id.nav_settings -> replaceMainFragment(SettingsFragment())
             }
-            main_activity_drawer.closeDrawer(Gravity.START)
+            activity_main_drawer.closeDrawer(Gravity.START)
             true
         }
     }
@@ -52,16 +53,16 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun setUpActionBarWithDrawer() {
-        drawerToggle = ActionBarDrawerToggle(this, main_activity_drawer, R.string.open, R.string.close)
+        drawerToggle = ActionBarDrawerToggle(this, activity_main_drawer, R.string.open, R.string.close)
 
-        main_activity_drawer.addDrawerListener(drawerToggle!!)
+        activity_main_drawer.addDrawerListener(drawerToggle!!)
         drawerToggle?.syncState()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun replaceMainFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.main_activity_fragment, fragment)
+        transaction.replace(R.id.activity_main_frameLayout, fragment)
         transaction.commit()
 
     }

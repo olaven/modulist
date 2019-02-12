@@ -27,9 +27,5 @@ class RecyclerAdapter(private val lists: List<ModuleList>) : RecyclerView.Adapte
         holder.view.list_card_favourite.text = "not favourite"
     }
 
-    inner class MyViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-
-
-
-    }
+    inner class MyViewHolder(val view: View) : RecyclerView.ViewHolder(view) //TODO: Finn ut av hva jeg kan bruke viewholder til.
 }

@@ -5,6 +5,7 @@ A better way to manage checklists.
 - [X] Navigation bytter fragment
 - [X] legge ved sketch av home-page
 - [X] enkel oversikt på home-fragment
+- [X] fragments må ikke overlappe
 - [ ] vise en vilkårlig liste i et generisk view (activity eller fragment?)
 - [ ] klikke på en et listenavn skal vise listen i egen activity
 - [ ] bytte mellom themes
@@ -63,6 +64,9 @@ listene sine.
 * ulgenser
 
 
+## Dokumentasjon
+Har fragments i en framelayout pga .https://stackoverflow.com/questions/43858926/set-androidname-of-fragment-programmatically
 
 
-Lever over tid -> appen må også gjøre det
+
+Lever(alive) over tid -> appen må også gjøre det

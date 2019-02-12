@@ -25,5 +25,4 @@ class HomeFragment : Fragment() {
         return homeFragment
     }
 
-
 }
