@@ -1,6 +1,8 @@
 # modulist
 A better way to manage checklists.
 
+This project is in an early state of development. 
+
 ## TODO: 
 - [X] Navigation bytter fragment
 - [X] legge ved sketch av home-page
