@@ -4,6 +4,18 @@ import org.olaven.modulist.models.Item
 import org.olaven.modulist.models.ModuleList
 import kotlin.random.Random
 
+
+
+
+
+private class Mocker {
+
+    companion object {
+        var id: Int = 0
+        var nameIndex = 0
+    }
+}
+
 fun getModuleLists(count: Int): List<ModuleList>{
 
     val list = mutableListOf<ModuleList>()
@@ -16,7 +28,8 @@ fun getModuleLists(count: Int): List<ModuleList>{
 
 fun getModuleList(): ModuleList {
     val names = listOf("Pakkeliste", "Sommerferie", "Vinterferie", "Lekse", "Jobb")
-    val name = getRandomFrom(names)
+    val name = names[Mocker.nameIndex % 5];
+    Mocker.nameIndex++
 
     val items = listOf(
         Item("$name - one undone item", false),
@@ -27,10 +40,5 @@ fun getModuleList(): ModuleList {
         Item("$name - glad I did this", true)
     )
 
-    return ModuleList(name, items)
-}
-
-fun<T> getRandomFrom(list: List<T>): T {
-    val index = Random.nextInt(list.count())
-    return list[index]
+    return ModuleList(name, items, id= ++Mocker.id)
 }

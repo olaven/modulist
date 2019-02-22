@@ -7,10 +7,11 @@ A better way to manage checklists.
 - [X] enkel oversikt på home-fragment
 - [X] fragments må ikke overlappe
 - [X] klikk på home-liste gjør noe
-- [ ] Få opp liste når man klikker på den
+- [ ] klikke på en et listenavn skal vise listen i egen activity
+- [ ] Sette opp lokal datbase med Room
+- [ ] Lagre data i database
 - [ ] Bytte til standard card view i Home
 - [ ] vise en vilkårlig liste i et generisk view (activity eller fragment?)
-- [ ] klikke på en et listenavn skal vise listen i egen activity
 - [ ] bytte mellom themes
 - [ ] lagre theme-preferanse i userpreferences
 

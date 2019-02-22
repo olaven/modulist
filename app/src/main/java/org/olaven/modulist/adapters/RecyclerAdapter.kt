@@ -28,8 +28,12 @@ class RecyclerAdapter(private val context: Context, private val moduleLists: Lis
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
         val moduleList = moduleLists[position]
-        holder.view.list_card_name.text = moduleList.name
-        holder.view.list_card_favourite.text = "not favourite"
+
+        holder.view.apply {
+
+            list_card_name.text = moduleList.name
+            list_card_favourite.text = "not favourite"
+        }
     }
 
     inner class MyViewHolder(val view: View): RecyclerView.ViewHolder(view) {
@@ -39,6 +43,7 @@ class RecyclerAdapter(private val context: Context, private val moduleLists: Lis
 
                 val moduleList = moduleLists[adapterPosition]
                 val intent = Intent(context, ModuleListActivity::class.java)
+                intent.putExtra("id", moduleList.id)
                 context.startActivity(intent)
             }
         }
