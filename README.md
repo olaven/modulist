@@ -1,6 +1,11 @@
 # modulist
 A better way to manage checklists.
 
+Kan en pakkeliste settes for antall dager -> sier hvor mange man trenger avhengig av antal dager
+Kjøre all inn på pakking?
+* Remind before date / calendar event
+* when arriving, leaving
+
 ## TODO: 
 - [X] Navigation bytter fragment
 - [X] legge ved sketch av home-page
@@ -10,9 +15,13 @@ A better way to manage checklists.
 - [ ] klikke på en et listenavn skal vise listen i egen activity
 - [ ] Sette opp lokal datbase med Room
 - [ ] Lagre data i database
+- [ ] V-modell i dokumentasjon
 - [ ] Bytte til standard card view i Home
 - [ ] vise en vilkårlig liste i et generisk view (activity eller fragment?)
+- [ ] Gå over dokumentasajonsliste i tictactoe og agenda
 - [ ] bytte mellom themes
+- [ ] om multidexing eksplisitt for API < 21
+- [ ] snakk om alle dependecies i dokumentasjon (og vis kilde)
 - [ ] lagre theme-preferanse i userpreferences
 
 
@@ -70,7 +79,7 @@ listene sine.
 
 ## Dokumentasjon
 Har fragments i en framelayout pga .https://stackoverflow.com/questions/43858926/set-androidname-of-fragment-programmatically
-
+Navngitt parametere i annotations
 
 
 Lever(alive) over tid -> appen må også gjøre det

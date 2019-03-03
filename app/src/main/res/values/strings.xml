@@ -14,5 +14,6 @@
     <string name="my_lists">My lists</string>
     <string name="home">Home</string>
     <string name="unloaded">Unloaded</string>
+    <string name="db_name">modulist_db</string>
 
 </resources>

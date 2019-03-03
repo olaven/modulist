@@ -4,8 +4,6 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_module_list.*
 import org.olaven.modulist.R
-import org.olaven.modulist.getModuleList
-import org.olaven.modulist.getModuleLists
 
 class ModuleListActivity : AppCompatActivity() {
 
@@ -16,7 +14,7 @@ class ModuleListActivity : AppCompatActivity() {
         val id: Int = intent.extras["id"] as Int
         id.let {
             // TODO: Replace mock with fetching from database
-            activity_module_list_name.text = getModuleLists(10)[id].name
+            activity_module_list_name.text = "PLACEHOLDER"
         }
     }
 

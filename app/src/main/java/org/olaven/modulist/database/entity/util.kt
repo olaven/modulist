@@ -1,4 +1,4 @@
-package org.olaven.modulist.models
+package org.olaven.modulist.database.entity
 
 import android.graphics.Color
 import kotlin.random.Random

@@ -10,20 +10,29 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import org.olaven.modulist.R
 import org.olaven.modulist.adapters.RecyclerAdapter
-import org.olaven.modulist.getModuleLists
+import org.olaven.modulist.database.AppDatabase
+import org.olaven.modulist.database.entity.ModuleList
+import kotlin.concurrent.thread
 
 class HomeFragment : Fragment() {
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val homeFragment = inflater.inflate(R.layout.fragment_home, container, false)
         val recyclerView = homeFragment.findViewById<RecyclerView>(R.id.fragment_home_recyclerView)
 
         recyclerView.layoutManager = LinearLayoutManager(activity, LinearLayout.HORIZONTAL, false)
-        recyclerView.adapter = // necessary as context is optional
-            context?.let { RecyclerAdapter(it, getModuleLists(10)) } //TODO: using mock items, replace with "real" data!
+
+        readAll {
+            recyclerView.adapter =
+                context?.let {
+                    RecyclerAdapter(it, AppDatabase.instance(it).moduleListDao().getAllModuleLists())
+                }
+        }
 
         return homeFragment
     }
+
 
 
     // TODO: lagre initialisering her? Går det?
@@ -33,5 +42,15 @@ class HomeFragment : Fragment() {
     // TODO: vise initialisering her?
     override fun onResume() {
         super.onResume()
+    }
+
+    private fun readAll(callback: (list: List<ModuleList>) -> Unit) {
+        thread {
+            context?.let {
+                val data = AppDatabase.instance(it).moduleListDao()
+                    .getAllModuleLists()
+                callback(data)
+            }
+        }
     }
 }
