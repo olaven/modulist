@@ -4,29 +4,39 @@ import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.content.Context
-import org.olaven.modulist.R
-import org.olaven.modulist.database.dao.ItemDao
+import org.olaven.modulist.database.dao.ItemDAO
 import org.olaven.modulist.database.dao.ModuleListDao
 import org.olaven.modulist.database.entity.Item
-import org.olaven.modulist.database.entity.ModuleList
 
-@Database(entities = arrayOf(Item::class, ModuleList::class), version = 2)
+@Database(entities = [Item::class], version = 1, exportSchema = false)
 abstract class AppDatabase: RoomDatabase() {
 
-    abstract fun getItemDao(): ItemDao
-    abstract fun moduleListDao(): ModuleListDao
+    abstract fun itemDAO(): ItemDAO
 
     companion object {
 
-        private val INSTANCE: AppDatabase? = null
-        fun instance(context: Context): AppDatabase {
+        @Volatile
+        private var INSTANCE: AppDatabase? = null
 
-            return INSTANCE ?: Room.databaseBuilder(
-                context,
-                AppDatabase::class.java,
-                context.getString(R.string.db_name))
-                .fallbackToDestructiveMigration()
-                .build()
-        }
+            fun getDatabase(context: Context): AppDatabase {
+
+                val tempInstance = INSTANCE
+                if (tempInstance != null)
+                    return tempInstance
+
+                synchronized(this) {
+
+                    val instance = Room.databaseBuilder(
+                        context.applicationContext,
+                        AppDatabase::class.java,
+                        "modulist_database"
+                    ).build()
+
+                    INSTANCE = instance
+                    return instance
+                }
+
+            }
     }
 }
+

@@ -23,12 +23,15 @@ class HomeFragment : Fragment() {
 
         recyclerView.layoutManager = LinearLayoutManager(activity, LinearLayout.HORIZONTAL, false)
 
+        //TODO: I need to implement modulelist for databsae
+        /*
         readAll {
             recyclerView.adapter =
                 context?.let {
-                    RecyclerAdapter(it, AppDatabase.instance(it).moduleListDao().getAllModuleLists())
+                    RecyclerAdapter(it, moduleListModel.getAll())
                 }
         }
+        */
 
         return homeFragment
     }
@@ -45,12 +48,17 @@ class HomeFragment : Fragment() {
     }
 
     private fun readAll(callback: (list: List<ModuleList>) -> Unit) {
+
+        //TODO: I need to implement modulelist for databsae
+        /*
         thread {
             context?.let {
-                val data = AppDatabase.instance(it).moduleListDao()
+                val data = moduleListModel.getAll())
                     .getAllModuleLists()
                 callback(data)
             }
         }
+        */
+
     }
 }
