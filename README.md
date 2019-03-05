@@ -1,10 +1,13 @@
 # modulist
 A better way to manage checklists.
 
+
 Kan en pakkeliste settes for antall dager -> sier hvor mange man trenger avhengig av antal dager
 Kjøre all inn på pakking?
 * Remind before date / calendar event
 * when arriving, leaving
+
+This project is in an early state of development.
 
 ## TODO: 
 - [X] Navigation bytter fragment
@@ -17,7 +20,7 @@ Kjøre all inn på pakking?
 - [ ] dokumentasjon -> navngiving av SQL-tabeller og fields , vise at jeg vet at man kan oversrkrive, men ikke har gjort det
 - [ ] klikke på en et listenavn skal vise listen i egen activity
 - [ ] Sette opp lokal datbase med Room
-- [ ] Lagre data i database
+- [X] Lagre data i database
 - [ ] V-modell i dokumentasjon
 - [ ] modell for databaselogikk i dokumentasjon
 - [ ] Black-box vs White-box testing (doc, men også før, vite hva som er viktig hvor)
