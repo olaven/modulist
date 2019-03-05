@@ -9,28 +9,49 @@ Kjøre all inn på pakking?
 
 This project is in an early state of development.
 
-## TODO: 
-- [X] Navigation bytter fragment
-- [X] legge ved sketch av home-page
+## Funksjonalitet
 - [X] enkel oversikt på home-fragment
-- [X] fragments må ikke overlappe
 - [X] klikk på home-liste gjør noe
-- [ ] Strategi på migrering av db
-- [ ] Rydde i Todos (dette dok)
-- [ ] dokumentasjon -> navngiving av SQL-tabeller og fields , vise at jeg vet at man kan oversrkrive, men ikke har gjort det
-- [ ] klikke på en et listenavn skal vise listen i egen activity
-- [ ] Sette opp lokal datbase med Room
+- [X] Navigation bytter fragment
+- [X] Sette opp lokal datbase med Room
 - [X] Lagre data i database
-- [ ] V-modell i dokumentasjon
-- [ ] modell for databaselogikk i dokumentasjon
-- [ ] Black-box vs White-box testing (doc, men også før, vite hva som er viktig hvor)
-- [ ] Bytte til standard card view i Home
-- [ ] vise en vilkårlig liste i et generisk view (activity eller fragment?)
-- [ ] Gå over dokumentasajonsliste i tictactoe og agenda
+- [ ] Fullfør databasearkitektur (entiteter)
+- [ ] lag modell av databasearkitektur
+- [ ] klikke på en et listenavn skal vise listen i egen activity
+- [ ] Opprette liste
 - [ ] bytte mellom themes
-- [ ] om multidexing eksplisitt for API < 21
-- [ ] snakk om alle dependecies i dokumentasjon (og vis kilde)
 - [ ] lagre theme-preferanse i userpreferences
+- [ ] Skikkelig håndtering av databasemigrering
+## GUI
+- [ ] Bytte til standard card view i Home
+- [ ] lag settings-fragment
+## Testing
+- [ ] Sjekk testing
+- [ ] Bruk V-modell
+## Dokumentasjon
+- [ ] Skriv om appens ide og formål
+- [ ] Bruk statistikk forå vise at telefonen er et vitkig verktøy hvor denne appen passer
+- [ ] Skriv om API-version. Hvorfor er valgt slik det er?
+- [ ] Bruk statistikk fra statistia for å forsvare versjonvalg
+- [ ] Skriv om fragment-arkitektur
+- [ ] Lag modell av database-løsningen (klasser)
+- [ ] Lag modell av database-løsningen (database)
+- [ ] Snakke om at jeg ikke har overskrevet tabellnavn o.l. for lesbarehetens skyld (viser at jeg kjenner muligheten)
+- [ ] Asynkronitet i databaseoperasjoner og hvorfor det er nødvendig
+- [ ] Gå gjennom alle dependencies i gradle
+- [ ] V-model for testing
+- [ ] Black-box vs White-box testing (doc, men også før, vite hva som er viktig hvor) -> vis til eksempler
+- [ ] litt om assertJ kontra ren Junit
+- [ ] Sørg for at alle punkter i hele TODO er nevt på en eller annen måte
+- [ ] Sørg for at absolutt alle deler av eksamensoppgaven dekkes
+- [ ] Skriv om sketcher
+
+## Øvring
+- [X] fragments må ikke overlappe
+- [X] legge ved sketch av home-page
+- [ ] Rydde i Todos (dette dok)
+- [ ] Gå over dokumentasajonsliste i tictactoe og agenda
+- [ ] Lansering til Google Play
 
 
 ## Konsept og formål
