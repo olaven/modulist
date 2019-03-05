@@ -1,5 +1,6 @@
 package org.olaven.modulist.fragments
 
+import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -12,9 +13,12 @@ import org.olaven.modulist.R
 import org.olaven.modulist.adapters.RecyclerAdapter
 import org.olaven.modulist.database.AppDatabase
 import org.olaven.modulist.database.entity.ModuleList
+import org.olaven.modulist.database.model.ModuleListModel
 import kotlin.concurrent.thread
 
 class HomeFragment : Fragment() {
+
+    lateinit var moduleListModel: ModuleListModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -23,7 +27,11 @@ class HomeFragment : Fragment() {
 
         recyclerView.layoutManager = LinearLayoutManager(activity, LinearLayout.HORIZONTAL, false)
 
-        //TODO: I need to implement modulelist for databsae
+        moduleListModel = ModuleListModel(activity.application)
+        moduleListModel.allModuleListsLive.observe(this, Observer {packageType ->
+            recyclerView.adapter = RecyclerAdapter(context, )
+        })
+
         /*
         readAll {
             recyclerView.adapter =
@@ -33,6 +41,15 @@ class HomeFragment : Fragment() {
         }
         */
 
+
+        /*
+        personModel.allPersons.observe(this, Observer { packageTypes ->
+            personAdapter.clear()
+            packageTypes?.forEach {
+                personAdapter.add(it.name)
+            }
+        })
+        */
         return homeFragment
     }
 
@@ -45,20 +62,5 @@ class HomeFragment : Fragment() {
     // TODO: vise initialisering her?
     override fun onResume() {
         super.onResume()
-    }
-
-    private fun readAll(callback: (list: List<ModuleList>) -> Unit) {
-
-        //TODO: I need to implement modulelist for databsae
-        /*
-        thread {
-            context?.let {
-                val data = moduleListModel.getAll())
-                    .getAllModuleLists()
-                callback(data)
-            }
-        }
-        */
-
     }
 }

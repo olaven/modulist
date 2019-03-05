@@ -5,13 +5,15 @@ import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.content.Context
 import org.olaven.modulist.database.dao.ItemDAO
-import org.olaven.modulist.database.dao.ModuleListDao
+import org.olaven.modulist.database.dao.ModuleListDAO
 import org.olaven.modulist.database.entity.Item
+import org.olaven.modulist.database.entity.ModuleList
 
-@Database(entities = [Item::class], version = 1, exportSchema = false)
+@Database(entities = [Item::class, ModuleList::class], version = 1, exportSchema = false)
 abstract class AppDatabase: RoomDatabase() {
 
     abstract fun itemDAO(): ItemDAO
+    abstract fun moduleListDAO(): ModuleListDAO
 
     companion object {
 

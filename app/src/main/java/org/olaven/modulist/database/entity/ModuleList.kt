@@ -5,8 +5,6 @@ import android.arch.persistence.room.PrimaryKey
 import android.arch.persistence.room.Relation
 
 
-//TODO: Implement me
-//TODO: make generic implementations common for dao, entity, model, repository
 
 @Entity
 data class ModuleList (
