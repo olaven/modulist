@@ -12,6 +12,7 @@ import android.widget.LinearLayout
 import org.olaven.modulist.R
 import org.olaven.modulist.adapters.RecyclerAdapter
 import org.olaven.modulist.database.AppDatabase
+import org.olaven.modulist.database.entity.Item
 import org.olaven.modulist.database.entity.ModuleList
 import org.olaven.modulist.database.model.ModuleListModel
 import kotlin.concurrent.thread
@@ -27,10 +28,27 @@ class HomeFragment : Fragment() {
 
         recyclerView.layoutManager = LinearLayoutManager(activity, LinearLayout.HORIZONTAL, false)
 
-        moduleListModel = ModuleListModel(activity.application)
-        moduleListModel.allModuleListsLive.observe(this, Observer {packageType ->
-            recyclerView.adapter = RecyclerAdapter(context, )
+        moduleListModel = ModuleListModel(activity!!.application)
+        moduleListModel.allModuleListsLive.observe(this, Observer {liveData ->
+            // if data != null and context != null
+            liveData?.let { data ->
+                context?.let { context ->
+                    recyclerView.adapter = RecyclerAdapter(context, data)
+                }
+            }
         })
+
+        val items = arrayOf(
+            Item("first", false),
+            Item("second", true),
+            Item("third", true)
+        )
+
+        moduleListModel.insert(ModuleList("first module list"))
+        moduleListModel.insert(ModuleList("second module list"))
+        moduleListModel.insert(ModuleList("third module list"))
+        moduleListModel.insert(ModuleList("fourth module list"))
+
 
         /*
         readAll {

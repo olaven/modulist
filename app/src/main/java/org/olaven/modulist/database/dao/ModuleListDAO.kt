@@ -19,5 +19,5 @@ interface ModuleListDAO: CommonDAO<ModuleList> {
     fun getAllModuleListsLive(): LiveData<List<ModuleList>>
 
     @Query("select * from ModuleList where id = :id")
-    fun getById(id: Long)
+    fun getById(id: Long): ModuleList
 }

@@ -8,9 +8,9 @@ import android.arch.persistence.room.Relation
 
 @Entity
 data class ModuleList (
+    var name: String,
     @field:PrimaryKey(autoGenerate = true)
-    var id: Int? = null,
-    var name: String//,
+    var id: Int? = null//,
     //@Relation(parentColumn = "id", entityColumn = "id")
     //var items: List<Item>
     //@Relation(parentColumn = "id", entityColumn = "superLists") // referencing itself.

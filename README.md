@@ -12,10 +12,15 @@ Kjøre all inn på pakking?
 - [X] enkel oversikt på home-fragment
 - [X] fragments må ikke overlappe
 - [X] klikk på home-liste gjør noe
+- [ ] Strategi på migrering av db
+- [ ] Rydde i Todos (dette dok)
+- [ ] dokumentasjon -> navngiving av SQL-tabeller og fields , vise at jeg vet at man kan oversrkrive, men ikke har gjort det
 - [ ] klikke på en et listenavn skal vise listen i egen activity
 - [ ] Sette opp lokal datbase med Room
 - [ ] Lagre data i database
 - [ ] V-modell i dokumentasjon
+- [ ] modell for databaselogikk i dokumentasjon
+- [ ] Black-box vs White-box testing (doc, men også før, vite hva som er viktig hvor)
 - [ ] Bytte til standard card view i Home
 - [ ] vise en vilkårlig liste i et generisk view (activity eller fragment?)
 - [ ] Gå over dokumentasajonsliste i tictactoe og agenda
