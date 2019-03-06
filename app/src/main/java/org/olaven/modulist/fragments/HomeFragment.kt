@@ -10,25 +10,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import org.olaven.modulist.R
-import org.olaven.modulist.adapters.RecyclerAdapter
-import org.olaven.modulist.database.AppDatabase
+import org.olaven.modulist.adapters.HomeFragmentRecyclerAdapter
 import org.olaven.modulist.database.Models
-import org.olaven.modulist.database.entity.Item
-import org.olaven.modulist.database.entity.ModuleList
-import org.olaven.modulist.database.entity.pickRandomColor
-import org.olaven.modulist.database.model.ModuleListModel
-import kotlin.concurrent.thread
 
 class HomeFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val homeFragment = inflater.inflate(R.layout.fragment_home, container, false)
-        val recyclerView = homeFragment.findViewById<RecyclerView>(R.id.fragment_home_recyclerView)
+        val recyclerView = homeFragment.findViewById<RecyclerView>(R.id.fragment_home_recycler_view)
 
         recyclerView.layoutManager = LinearLayoutManager(activity, LinearLayout.HORIZONTAL, false)
 
-        populateRecycleViews(recyclerView)
+        setupRecycleViews(recyclerView)
 
         return homeFragment
     }
@@ -45,13 +39,14 @@ class HomeFragment : Fragment() {
         super.onResume()
     }
 
-    private fun populateRecycleViews(recyclerView: RecyclerView) {
-        val moduleListModel = Models.getModuleListModel(activity!!.application) ;
+    private fun setupRecycleViews(recyclerView: RecyclerView) {
+
+        val moduleListModel = Models.getModuleListModel(activity!!.application)
         moduleListModel?.allModuleListsLive?.observe(this, Observer { liveData ->
             // if data != null and context != null
             liveData?.let { data ->
                 context?.let { context ->
-                    recyclerView.adapter = RecyclerAdapter(context, data)
+                    recyclerView.adapter = HomeFragmentRecyclerAdapter(context, data)
                 }
             }
         })

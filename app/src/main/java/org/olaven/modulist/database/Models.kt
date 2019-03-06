@@ -10,23 +10,24 @@ class Models {
     companion object {
         @Volatile
         private var itemModelInstance: ItemModel? = null
+
         @Volatile
         private var moduleListInstance: ModuleListModel? = null
 
         fun getItemModel(application: Application) =
                 if (itemModelInstance != null)
-                    itemModelInstance
+                    itemModelInstance!!
                 else {
                     itemModelInstance = ItemModel(application)
-                    itemModelInstance
+                    itemModelInstance!!
                 }
 
         fun getModuleListModel(application: Application) =
                 if (moduleListInstance != null)
-                    moduleListInstance
+                    moduleListInstance!!
                 else {
                     moduleListInstance = ModuleListModel(application)
-                    moduleListInstance
+                    moduleListInstance!!
                 }
 
     }

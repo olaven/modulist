@@ -11,7 +11,7 @@ import org.olaven.modulist.R
 import org.olaven.modulist.activities.ModuleListActivity
 import org.olaven.modulist.database.entity.ModuleList
 
-class RecyclerAdapter(private val context: Context, private val moduleLists: List<ModuleList>) : RecyclerView.Adapter<RecyclerAdapter.MyViewHolder>() {
+class HomeFragmentRecyclerAdapter(private val context: Context, private val moduleLists: List<ModuleList>) : RecyclerView.Adapter<HomeFragmentRecyclerAdapter.MyViewHolder>() {
 
     override fun getItemCount(): Int =
         moduleLists.count()

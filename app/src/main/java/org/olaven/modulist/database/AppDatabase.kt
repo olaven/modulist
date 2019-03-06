@@ -9,7 +9,7 @@ import org.olaven.modulist.database.dao.ModuleListDAO
 import org.olaven.modulist.database.entity.Item
 import org.olaven.modulist.database.entity.ModuleList
 
-@Database(entities = [Item::class, ModuleList::class], version = 1, exportSchema = false)
+@Database(entities = [Item::class, ModuleList::class], version = 2, exportSchema = false)
 abstract class AppDatabase: RoomDatabase() {
 
     abstract fun itemDAO(): ItemDAO
@@ -32,7 +32,7 @@ abstract class AppDatabase: RoomDatabase() {
                         context.applicationContext,
                         AppDatabase::class.java,
                         "modulist_database"
-                    ).build()
+                    ).fallbackToDestructiveMigration().build()
 
                     INSTANCE = instance
                     return instance

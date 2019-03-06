@@ -2,6 +2,7 @@ package org.olaven.modulist.database.model
 
 import android.app.Application
 import android.arch.lifecycle.LiveData
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.olaven.modulist.database.AppDatabase
 import org.olaven.modulist.database.entity.Item
@@ -15,11 +16,10 @@ class ItemModel(application: Application): CommonModel<Item>(application) {
     )
 
 
-    val allItems: LiveData<List<Item>> = repository.allItemsLive
+    val allItems = repository.allItemsLive
 
-    fun otherRepoOperation() {
-        scope.launch {
+    suspend fun getByModuleListId(id: Long) =
+        repository.getByModuleListId(id)
 
-        }
-    }
+
 }
