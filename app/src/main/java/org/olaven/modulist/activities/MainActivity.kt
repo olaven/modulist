@@ -1,6 +1,7 @@
 package org.olaven.modulist.activities
 
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
@@ -41,9 +42,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // sett riktig fragment
-    override fun onPause() {
-        super.onPause()
+    override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
+        super.onSaveInstanceState(outState, outPersistentState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
     }
 
     override fun onResume() {

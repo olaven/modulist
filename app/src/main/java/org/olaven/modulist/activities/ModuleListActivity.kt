@@ -15,6 +15,7 @@ class ModuleListActivity : AppCompatActivity() {
         id.let {
             // TODO: Replace mock with fetching from database
             activity_module_list_name.text = "PLACEHOLDER"
+            activity_module_list_name.text = id.toString()
         }
     }
 

@@ -17,7 +17,7 @@ This project is in an early state of development.
 - [X] Lagre data i database
 - [x] Fullfør databasearkitektur (entiteter)
 - [ ] lag modell av databasearkitektur
-- [ ] klikke på en et listenavn skal vise listen i egen activity
+- [ ] Vise en liste i egen activity
 - [ ] Opprette liste
 - [ ] bytte mellom themes
 - [ ] lagre theme-preferanse i userpreferences
@@ -39,6 +39,7 @@ This project is in an early state of development.
 - [ ] Bruk statistikk fra statistia for å forsvare versjonvalg
 - [ ] Skriv om fragment-arkitektur
 - [ ] Lag modell av database-løsningen (klasser)
+- [ ] Modeller er singletons -> kommer frem i arkitektur
 - [ ] Lag modell av database-løsningen (database)
 - [ ] Snakke om at jeg ikke har overskrevet tabellnavn o.l. for lesbarehetens skyld (viser at jeg kjenner muligheten)
 - [ ] Asynkronitet i databaseoperasjoner og hvorfor det er nødvendig

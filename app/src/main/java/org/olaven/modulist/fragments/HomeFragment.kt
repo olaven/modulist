@@ -12,6 +12,7 @@ import android.widget.LinearLayout
 import org.olaven.modulist.R
 import org.olaven.modulist.adapters.RecyclerAdapter
 import org.olaven.modulist.database.AppDatabase
+import org.olaven.modulist.database.Models
 import org.olaven.modulist.database.entity.Item
 import org.olaven.modulist.database.entity.ModuleList
 import org.olaven.modulist.database.entity.pickRandomColor
@@ -20,8 +21,6 @@ import kotlin.concurrent.thread
 
 class HomeFragment : Fragment() {
 
-    lateinit var moduleListModel: ModuleListModel
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val homeFragment = inflater.inflate(R.layout.fragment_home, container, false)
@@ -29,8 +28,26 @@ class HomeFragment : Fragment() {
 
         recyclerView.layoutManager = LinearLayoutManager(activity, LinearLayout.HORIZONTAL, false)
 
-        moduleListModel = ModuleListModel(activity!!.application)
-        moduleListModel.allModuleListsLive.observe(this, Observer {liveData ->
+        populateRecycleViews(recyclerView)
+
+        return homeFragment
+    }
+
+    //TODO: Lagre state
+    // TODO: sjekk om riktig metode fra slide/notater
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+    }
+
+    //TODO: Lagre state
+    // TODO: sjekk om riktig metode fra slide/notater
+    override fun onResume() {
+        super.onResume()
+    }
+
+    private fun populateRecycleViews(recyclerView: RecyclerView) {
+        val moduleListModel = Models.getModuleListModel(activity!!.application) ;
+        moduleListModel?.allModuleListsLive?.observe(this, Observer { liveData ->
             // if data != null and context != null
             liveData?.let { data ->
                 context?.let { context ->
@@ -38,29 +55,8 @@ class HomeFragment : Fragment() {
                 }
             }
         })
-
-        val items = arrayOf(
-            Item("first", false,6 ),
-            Item("second", true, 3),
-            Item("third", true, 2)
-        )
-
-        moduleListModel.insert(ModuleList("first module list", pickRandomColor()))
-        moduleListModel.insert(ModuleList("second module list", pickRandomColor()))
-        moduleListModel.insert(ModuleList("third module list", pickRandomColor()))
-        moduleListModel.insert(ModuleList("fourth module list", pickRandomColor()))
-
-        return homeFragment
     }
 
 
 
-    // TODO: lagre initialisering her? Går det?
-    override fun onPause() {
-        super.onPause()
-    }
-    // TODO: vise initialisering her?
-    override fun onResume() {
-        super.onResume()
-    }
 }
