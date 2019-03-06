@@ -15,7 +15,7 @@ This project is in an early state of development.
 - [X] Navigation bytter fragment
 - [X] Sette opp lokal datbase med Room
 - [X] Lagre data i database
-- [ ] Fullfør databasearkitektur (entiteter)
+- [x] Fullfør databasearkitektur (entiteter)
 - [ ] lag modell av databasearkitektur
 - [ ] klikke på en et listenavn skal vise listen i egen activity
 - [ ] Opprette liste
@@ -26,7 +26,11 @@ This project is in an early state of development.
 - [ ] Bytte til standard card view i Home
 - [ ] lag settings-fragment
 ## Testing
-- [ ] Sjekk testing
+- [ ] Sett opp automatisk testing på travis
+- [ ] Skriv tester for
+    - [ ] database
+    - [ ] settingsfragment
+    - [ ] views i home-fragment
 - [ ] Bruk V-modell
 ## Dokumentasjon
 - [ ] Skriv om appens ide og formål
@@ -45,11 +49,11 @@ This project is in an early state of development.
 - [ ] Sørg for at alle punkter i hele TODO er nevt på en eller annen måte
 - [ ] Sørg for at absolutt alle deler av eksamensoppgaven dekkes
 - [ ] Skriv om sketcher
-
 ## Øvring
 - [X] fragments må ikke overlappe
 - [X] legge ved sketch av home-page
-- [ ] Rydde i Todos (dette dok)
+- [X] Rydde i Todos (dette dok)
+- [ ] Fiks alle warnings
 - [ ] Gå over dokumentasajonsliste i tictactoe og agenda
 - [ ] Lansering til Google Play
 

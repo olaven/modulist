@@ -14,6 +14,7 @@ import org.olaven.modulist.adapters.RecyclerAdapter
 import org.olaven.modulist.database.AppDatabase
 import org.olaven.modulist.database.entity.Item
 import org.olaven.modulist.database.entity.ModuleList
+import org.olaven.modulist.database.entity.pickRandomColor
 import org.olaven.modulist.database.model.ModuleListModel
 import kotlin.concurrent.thread
 
@@ -39,35 +40,16 @@ class HomeFragment : Fragment() {
         })
 
         val items = arrayOf(
-            Item("first", false),
-            Item("second", true),
-            Item("third", true)
+            Item("first", false,6 ),
+            Item("second", true, 3),
+            Item("third", true, 2)
         )
 
-        moduleListModel.insert(ModuleList("first module list"))
-        moduleListModel.insert(ModuleList("second module list"))
-        moduleListModel.insert(ModuleList("third module list"))
-        moduleListModel.insert(ModuleList("fourth module list"))
+        moduleListModel.insert(ModuleList("first module list", pickRandomColor()))
+        moduleListModel.insert(ModuleList("second module list", pickRandomColor()))
+        moduleListModel.insert(ModuleList("third module list", pickRandomColor()))
+        moduleListModel.insert(ModuleList("fourth module list", pickRandomColor()))
 
-
-        /*
-        readAll {
-            recyclerView.adapter =
-                context?.let {
-                    RecyclerAdapter(it, moduleListModel.getAll())
-                }
-        }
-        */
-
-
-        /*
-        personModel.allPersons.observe(this, Observer { packageTypes ->
-            personAdapter.clear()
-            packageTypes?.forEach {
-                personAdapter.add(it.name)
-            }
-        })
-        */
         return homeFragment
     }
 
