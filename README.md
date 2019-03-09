@@ -20,12 +20,14 @@ This project is in an early state of development.
 - [ ] lag modell av databasearkitektur
 - [ ] Vise en liste i egen activity
 - [ ] check/uncheck all
+- [ ] legge til event til liste i kalender
 - [ ] Opprette liste
 - [ ] bytte mellom themes
 - [ ] lagre theme-preferanse i userpreferences
 - [ ] Skikkelig håndtering av databasemigrering
 ## GUI
 - [ ] Bytte til standard card view i Home
+- [ ] Tema
 - [ ] lag settings-fragment
 ## Testing
 - [ ] Sett opp automatisk testing på travis
@@ -46,6 +48,7 @@ This project is in an early state of development.
 - [ ] Snakke om at jeg ikke har overskrevet tabellnavn o.l. for lesbarehetens skyld (viser at jeg kjenner muligheten)
 - [ ] Asynkronitet i databaseoperasjoner og hvorfor det er nødvendig
 - [ ] Gå gjennom alle dependencies i gradle
+- [ ] mappestrutkur -> preferences i /xml fordi preferences-biblioteket forventer det
 - [ ] V-model for testing
 - [ ] Black-box vs White-box testing (doc, men også før, vite hva som er viktig hvor) -> vis til eksempler
 - [ ] litt om assertJ kontra ren Junit
