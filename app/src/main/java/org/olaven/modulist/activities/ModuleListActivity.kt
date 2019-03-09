@@ -11,7 +11,7 @@ import org.olaven.modulist.R
 import org.olaven.modulist.adapters.ModuleListRecyclerAdapter
 import org.olaven.modulist.database.Models
 
-class ModuleListActivity : AppCompatActivity() {
+class ModuleListActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

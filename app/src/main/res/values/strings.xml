@@ -5,7 +5,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_settings">Settings</string>
 
-    <!--Drawer -->
+    <!-- Menu, drawer -->
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="title_activity_main">MainActivity</string>
@@ -13,13 +13,22 @@
     <string name="my_lists">My lists</string>
     <string name="home">Home</string>
 
+    <!-- Menu, theme-->
+    <string name="default_theme">Default</string>
+    <string name="dark_theme">Dark</string>
+    <string name="fruit_theme">Fruit</string>
+    <string name="cabin_theme">Cabin</string>
+
     <!-- Other -->
     <string name="unloaded">Unloaded</string>
     <string name="db_name">modulist_db</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="load_demo_data">Load Demo Data</string>
     <string name="change_theme">Change Theme</string>
+
+    <!-- Preferences -->
+    <string name="preferences_modulist">preferences_modulist</string>
+    <string name="theme_key">theme_key</string>
+
 
 </resources>

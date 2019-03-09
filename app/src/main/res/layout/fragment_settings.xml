@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LienarLayout
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context=".fragments.SettingsFragment">
+
+    <LinearLayout
+            android:id="@+id/fragment_settings"
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            tools:context=".fragments.SettingsFragment">
+            android:orientation="vertical">
 
-    <Button
-        android:text="@string/load_demo_data"/>
-    <Button
-        android:text="@string/change_theme"/>
-</LienarLayout>
+        <Button
+                android:id="@+id/fragment_settings_button_load_demo_data"
+                android:text="@string/load_demo_data"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"/>
+        <Button
+                android:id="@+id/fragment_settings_button_change_theme"
+                android:text="@string/change_theme"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"/>
+    </LinearLayout>
+
+</FrameLayout>

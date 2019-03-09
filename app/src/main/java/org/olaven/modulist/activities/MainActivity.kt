@@ -7,13 +7,14 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Gravity
 import android.view.MenuItem
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import org.olaven.modulist.R
 import org.olaven.modulist.fragments.HomeFragment
 import org.olaven.modulist.fragments.MyListsFragment
 import org.olaven.modulist.fragments.SettingsFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private var drawerToggle: ActionBarDrawerToggle? = null
 
@@ -33,9 +34,12 @@ class MainActivity : AppCompatActivity() {
         activity_main_navigation_view.bringToFront()
         activity_main_navigation_view.setNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.nav_home -> replaceMainFragment(HomeFragment())
+                R.id.nav_home     -> replaceMainFragment(HomeFragment())
                 R.id.nav_my_lists -> replaceMainFragment(MyListsFragment())
-                R.id.nav_settings -> replaceMainFragment(SettingsFragment())
+                R.id.nav_settings -> {
+                    Toast.makeText(applicationContext, "SETTINGS", Toast.LENGTH_SHORT).show()
+                    replaceMainFragment(SettingsFragment())
+                }
             }
             activity_main_drawer.closeDrawer(Gravity.START)
             true

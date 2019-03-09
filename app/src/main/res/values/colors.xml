@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="background_holo_dark">#ff000000</color>
-    <color name="background_holo_light">#fff3f3f3</color>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+
+    <!-- DefaultTheme -->
+    <color name="defaultPrimary">#008577</color>
+    <color name="defaultPrimaryDark">#00574B</color>
+    <color name="defaultAccent">#D81B60</color>
+
+    <!-- DarkTheme -->
+    <color name="darkPrimary">#212121</color>
+    <!-- same value as "black", but separate for semantic reasons -->
+    <color name="darkPrimaryDark">#000000</color>
+    <color name="darkAccent">#484848</color>
+
+    <!-- FruitTheme -->
+    <color name="fruitPrimary">#00e676</color>
+    <color name="fruitPrimaryDark">#00b248</color>
+    <color name="fruitAccent">#ff1744</color>
+
+    <!-- CabinTheme -->
+    <color name="cabinPrimary">#ff7043</color>
+    <color name="cabinPrimaryDark">#33691e</color>
+    <color name="cabinAccent">#629749</color>
+
 </resources>
