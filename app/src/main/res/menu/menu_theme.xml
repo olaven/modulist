@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-            android:id="@+id/menu_theme_default"
-            android:title="@string/default_theme"/>
+        android:id="@+id/menu_theme_default"
+        android:title="@string/default_theme"/>
     <item
-            android:id="@+id/menu_theme_dark"
-            android:title="@string/dark_theme"/>
+        android:id="@+id/menu_theme_dark"
+        android:title="@string/dark_theme"/>
 
     <item
-            android:id="@+id/menu_theme_fruit"
-            android:title="@string/fruit_theme"/>
+        android:id="@+id/menu_theme_fruit"
+        android:title="@string/fruit_theme"/>
 
     <item
-            android:id="@+id/menu_theme_cabin"
-            android:title="@string/cabin_theme"/>
+        android:id="@+id/menu_theme_cabin"
+        android:title="@string/cabin_theme"/>
 
 </menu>

@@ -7,7 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.olaven.modulist.R
-import org.olaven.modulist.adapters.ModuleListRecyclerAdapter
+import org.olaven.modulist.adapters.ItemsRecyclerAdapter
 import org.olaven.modulist.database.Models
 
 class ModuleListActivity : BaseActivity() {
@@ -27,20 +27,19 @@ class ModuleListActivity : BaseActivity() {
         val moduleListModel = Models.getModuleListModel(application)
         val itemModel = Models.getItemModel(application)
 
-        val lifecycleOwner = this // "this" is th scope
+        val lifecycleOwner = this // "this" is the scope below
         GlobalScope.launch(Dispatchers.IO) {
 
             val moduleList = moduleListModel.getById(id)
-            var adapter = activity_module_list_recycler_view.adapter
 
             activity_module_list_name.text = moduleList.name
-            adapter = ModuleListRecyclerAdapter(applicationContext)
+            val liveItems = itemModel.getByModuleListId(id)
 
-            val items = itemModel.getByModuleListId(id)
-            items.observe(lifecycleOwner, Observer { packageTypes ->
-                adapter.clear()
-                packageTypes?.forEach { item ->
-                    adapter.addItem(item)
+            liveItems.observe(lifecycleOwner, Observer { liveData ->
+
+                liveData?.let { data ->
+                    activity_module_list_recycler_view.adapter =
+                            ItemsRecyclerAdapter(applicationContext, data)
                 }
             })
         }

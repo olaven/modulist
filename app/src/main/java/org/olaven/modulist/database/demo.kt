@@ -34,6 +34,7 @@ fun addDemoData(application: Application) {
 
         val items = createItemsFor(it)
         items.forEach {item ->
+            print("inserting item - ${item.name}")
             itemModel.insert(item)
         }
     }

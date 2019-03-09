@@ -24,5 +24,4 @@
         <item name="colorPrimaryDark">@color/cabinPrimaryDark</item>
         <item name="colorAccent">@color/cabinAccent</item>
     </style>
-
 </resources>

@@ -11,7 +11,7 @@ import org.olaven.modulist.R
 import org.olaven.modulist.activities.ModuleListActivity
 import org.olaven.modulist.database.entity.ModuleList
 
-class HomeFragmentRecyclerAdapter(private val context: Context, private val moduleLists: List<ModuleList>) : RecyclerView.Adapter<HomeFragmentRecyclerAdapter.MyViewHolder>() {
+class HomeFragmentRecyclerAdapter(private val context: Context, private val moduleLists: List<ModuleList>): RecyclerView.Adapter<HomeFragmentRecyclerAdapter.MyViewHolder>() {
 
     override fun getItemCount(): Int =
         moduleLists.count()
@@ -27,7 +27,6 @@ class HomeFragmentRecyclerAdapter(private val context: Context, private val modu
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
         val moduleList = moduleLists[position]
-
         holder.view.apply {
 
             list_card_name.text = moduleList.name
