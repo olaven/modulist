@@ -1,7 +1,6 @@
 package org.olaven.modulist.activities
 
 import android.arch.lifecycle.Observer
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_module_list.*
 import kotlinx.coroutines.Dispatchers
@@ -17,11 +16,13 @@ class ModuleListActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_module_list)
 
-        val id: Long = (intent.extras["id"] as Int).toLong()
+
+        val key = getString(R.string.extra_id_key)
+        val id = intent.extras[key] as Int
         setupModuleList(id)
     }
 
-    private fun setupModuleList(id: Long) {
+    private fun setupModuleList(id: Int) {
 
         val moduleListModel = Models.getModuleListModel(application)
         val itemModel = Models.getItemModel(application)

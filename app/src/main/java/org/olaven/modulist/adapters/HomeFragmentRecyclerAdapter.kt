@@ -42,7 +42,9 @@ class HomeFragmentRecyclerAdapter(private val context: Context, private val modu
 
                 val moduleList = moduleLists[adapterPosition]
                 val intent = Intent(context, ModuleListActivity::class.java)
-                intent.putExtra("id", moduleList.id)
+                val key = context.getString(R.string.extra_id_key)
+
+                intent.putExtra(key, moduleList.id)
                 context.startActivity(intent)
             }
         }

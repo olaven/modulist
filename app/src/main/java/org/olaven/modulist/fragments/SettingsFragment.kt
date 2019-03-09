@@ -10,20 +10,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
-import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_settings.*
 import org.olaven.modulist.R
+import org.olaven.modulist.database.addDemoData
 
 
 class SettingsFragment: Fragment() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-
-
-        super.onCreate(savedInstanceState)
-        Toast.makeText(activity!!.applicationContext, "create", Toast.LENGTH_SHORT).show()
-    }
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -35,13 +27,17 @@ class SettingsFragment: Fragment() {
 
         super.onViewCreated(view, savedInstanceState)
 
-        Toast.makeText(activity!!.applicationContext, "HELLO", Toast.LENGTH_SHORT).show()
         fragment_settings_button_change_theme.setOnClickListener {
 
             activity?.let {
 
                 setupThemePopup(it.applicationContext)
             }
+        }
+
+        fragment_settings_button_load_demo_data.setOnClickListener {
+
+            activity?.application?.let { application -> addDemoData(application) }
         }
 
     }
