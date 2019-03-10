@@ -24,20 +24,12 @@ class ItemsRecyclerAdapter(val context: Context, private val items: List<Item>):
         }
     }
 
-    init {
-        //NOTE: Jeg kjører!
-        Toast.makeText(context, "${items.count()} - count in items - from init", Toast.LENGTH_SHORT).show()
-    }
-
-    override fun getItemCount(): Int {
-        //NOTE: Jeg kjører ikke..
-        Toast.makeText(context, "${items.count()} - count in items", Toast.LENGTH_SHORT).show()
-        return items.count()
-    }
+    override fun getItemCount() =
+        items.count()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
 
-        val layoutInflater = LayoutInflater.from(parent?.context)
+        val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(R.layout.list_item, parent, false)
 
         return MyViewHolder(view)

@@ -16,13 +16,13 @@ This project is in an early state of development.
 - [X] Sette opp lokal datbase med Room
 - [X] Lagre data i database
 - [x] Fullfør databasearkitektur (entiteter)
-- [ ] knapp som legger til testdata -> se om recyclerviews faktisk fungerer når data er der
+- [X] knapp som legger til testdata -> se om recyclerviews faktisk fungerer når data er der
 - [ ] lag modell av databasearkitektur
-- [ ] Vise en liste i egen activity
+- [X] Vise en liste i egen activity
 - [ ] check/uncheck all
 - [ ] legge til event til liste i kalender
 - [ ] Opprette liste
-- [ ] bytte mellom themes
+- [X] bytte mellom themes
 - [ ] lagre theme-preferanse i userpreferences
 - [ ] Skikkelig håndtering av databasemigrering
 ## GUI
