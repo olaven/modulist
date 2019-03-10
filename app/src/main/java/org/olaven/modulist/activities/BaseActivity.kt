@@ -21,10 +21,10 @@ open class BaseActivity: AppCompatActivity() {
         Toast.makeText(applicationContext, themeName, Toast.LENGTH_SHORT)
 
         when(themeName) {
-            getString(R.string.default_theme) -> setTheme(R.style.DefaultTheme)
-            getString(R.string.dark_theme)    -> setTheme(R.style.DarkTheme)
-            getString(R.string.fruit_theme)   -> setTheme(R.style.FruitTheme)
-            getString(R.string.cabin_theme)   -> setTheme(R.style.CabinTheme)
+            getString(R.string.menu_theme_default) -> setTheme(R.style.DefaultTheme)
+            getString(R.string.menu_theme_dark)    -> setTheme(R.style.DarkTheme)
+            getString(R.string.menu_theme_fruit)   -> setTheme(R.style.FruitTheme)
+            getString(R.string.menu_theme_cabin)   -> setTheme(R.style.CabinTheme)
         }
     }
 
@@ -33,7 +33,7 @@ open class BaseActivity: AppCompatActivity() {
         val themeKey = getString(R.string.theme_key)
 
         val preferences = getSharedPreferences(preferenceKey, Context.MODE_PRIVATE)
-        val default = getString(R.string.default_theme)
+        val default = getString(R.string.menu_theme_default)
 
         val themeName = preferences.getString(themeKey, default)
         return themeName

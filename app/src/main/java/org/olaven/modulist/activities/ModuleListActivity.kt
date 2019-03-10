@@ -3,6 +3,8 @@ package org.olaven.modulist.activities
 import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.LinearLayout
 import kotlinx.android.synthetic.main.activity_module_list.*
 import kotlinx.coroutines.Dispatchers
@@ -22,6 +24,16 @@ class ModuleListActivity : BaseActivity() {
         val key = getString(R.string.extra_id_key)
         val id = intent.extras[key] as Int
         setupModuleList(id)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+
+        menuInflater.inflate(R.menu.menu_modulist, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return super.onOptionsItemSelected(item)
     }
 
     private fun setupModuleList(id: Int) {

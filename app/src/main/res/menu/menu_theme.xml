@@ -4,17 +4,17 @@
 
     <item
         android:id="@+id/menu_theme_default"
-        android:title="@string/default_theme"/>
+        android:title="@string/menu_theme_default"/>
     <item
         android:id="@+id/menu_theme_dark"
-        android:title="@string/dark_theme"/>
+        android:title="@string/menu_theme_dark"/>
 
     <item
         android:id="@+id/menu_theme_fruit"
-        android:title="@string/fruit_theme"/>
+        android:title="@string/menu_theme_fruit"/>
 
     <item
         android:id="@+id/menu_theme_cabin"
-        android:title="@string/cabin_theme"/>
+        android:title="@string/menu_theme_cabin"/>
 
 </menu>

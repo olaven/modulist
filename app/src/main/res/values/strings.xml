@@ -5,19 +5,25 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_settings">Settings</string>
 
-    <!-- Menu, drawer -->
+
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="title_activity_main">MainActivity</string>
-    <string name="settings">Settings</string>
-    <string name="my_lists">My lists</string>
-    <string name="home">Home</string>
+    <!-- Menu, drawer -->
+    <string name="menu_drawer_settings">Settings</string>
+    <string name="menu_drawer_my_lists">My lists</string>
+    <string name="menu_drawer_home">Home</string>
 
     <!-- Menu, theme-->
-    <string name="default_theme">Default</string>
-    <string name="dark_theme">Dark</string>
-    <string name="fruit_theme">Fruit</string>
-    <string name="cabin_theme">Cabin</string>
+    <string name="menu_theme_default">Default</string>
+    <string name="menu_theme_dark">Dark</string>
+    <string name="menu_theme_fruit">Fruit</string>
+    <string name="menu_theme_cabin">Cabin</string>
+
+    <!-- Menu, modulist -->
+    <string name="menu_modulist_share">Share list</string>
+    <string name="menu_modulist_add_location_reminder">Add location reminder</string>
+    <string name="menu_modulist_add_to_calendar">Add to calendar</string>
 
     <!-- Other -->
     <string name="unloaded">Unloaded</string>

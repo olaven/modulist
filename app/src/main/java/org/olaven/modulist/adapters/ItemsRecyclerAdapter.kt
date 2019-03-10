@@ -1,7 +1,6 @@
 package org.olaven.modulist.adapters
 
 import android.content.Context
-import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import kotlinx.android.synthetic.main.list_item.view.*
 import org.olaven.modulist.R
-import org.olaven.modulist.activities.ModuleListActivity
 import org.olaven.modulist.database.entity.Item
 
 class ItemsRecyclerAdapter(val context: Context, private val items: List<Item>):  RecyclerView.Adapter<ItemsRecyclerAdapter.MyViewHolder>() {
