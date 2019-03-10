@@ -66,14 +66,28 @@ This project is in an early state of development.
 - [ ] Lansering til Google Play
 
 
-## Konsept og formål
-Jeg ønsker å lage en app for lister. Mange - undertegnede inkludert - bruker lister til å huske ting, og
-til å organisere hverdagen. Det være seg handlelister, pakkelister, generelle huskelister, osv. osv.
-Etter hvert som det blir mange lister, blir det også mange ting som gjentar seg.
+# Dokumentasjon
+
+## Ide og formål
+I utgangspunktet er dette en vanlig todo-app. Vrien er at listene er modulære.
+Det vil si at en liste kan brukes om igjen, som del av andre lister.
+Mange - undertegnede inkludert - bruker lister til å huske ting, og til å organisere hverdagen.
+Etter hvert som antall lister vokser, er det også ting liste-elementer som gjentar seg.
+Utgangspunktet for appen er å eliminere disse gjentakelsene.
+
+## Konseptets utvikling
+Da jeg startet arbeidet ved semesterstart, var tanken å bygge en app som kunne dekke alle slags lister.
+Det være seg handlelister, pakkelister, generelle huskelister, osv.
+
+Kjappe søk på [Play Store](https://play.google.com/store/search?q=todo&c=apps) og [App Store](https://itunes.apple.com/us/app/wunderlist-to-do-list-tasks/id406644151?mt=8#see-all/customers-also-bought-apps) viser at
+dette ikke akkurat er nytt territorium. Min strategi mot dette markedet er å spisse konseptet. Det er nok av apper som
+lar brukeren skrive lister - jeg bør ikke lage enda en app som er god på å lage lister, men derimot en app som er _best_ på
+en spesiell type lister.
+
+Etter samtaler med venner og bekjente, kom jeg frem til at det spesielt var en type liste hvor flere så nytten av "liste-arv"-konseptet mitt:
+pakkelister
 
 ### Eksempel:
-
-Se for deg disse listene:
 #### Pakke til vinterfeire
 * tannbørste
 * telefon + lader
@@ -106,7 +120,7 @@ listene sine.
 * telefon + lader
 * minst to gode bøker
 
-#### Pakke til vinterfeire
+#### Pakke til sommerferie
 * __Pakke til ferie__
 * badebukse
 * t-skjorter

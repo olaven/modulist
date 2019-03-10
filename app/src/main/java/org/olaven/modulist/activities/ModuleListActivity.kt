@@ -20,7 +20,7 @@ import java.lang.StringBuilder
 
 class ModuleListActivity : BaseActivity() {
 
-    var items = mutableListOf<Item>()
+    private var items = mutableListOf<Item>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,22 +61,6 @@ class ModuleListActivity : BaseActivity() {
         startActivity(Intent.createChooser(intent, "Share list using.."))
     }
 
-    private fun toStringRepresentation(): String? {
-
-        val builder = StringBuilder()
-        items.forEach {
-
-            val done = if (it.done)
-                "[X]"
-            else
-                "[ ]"
-
-            builder.append("$done ${it.name} \n")
-        }
-
-        return builder.toString()
-    }
-
     private fun setupModuleList(id: Int) {
 
         val moduleListModel = Models.getModuleListModel(application)
@@ -100,8 +84,23 @@ class ModuleListActivity : BaseActivity() {
                 }
             })
         }
-
     }
+
+    private fun toStringRepresentation(): String? {
+
+        val builder = StringBuilder()
+        items.forEach {
+
+            val done = if (it.done)
+                "[X]"
+            else
+                "[ ]"
+
+            builder.append("$done ${it.name} \n")
+        }
+        return builder.toString()
+    }
+
 
 }
 

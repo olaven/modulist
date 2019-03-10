@@ -1,6 +1,5 @@
 package org.olaven.modulist.database
 
-import android.app.Activity
 import android.app.Application
 import android.graphics.Color
 import android.support.annotation.WorkerThread
@@ -14,11 +13,12 @@ fun addDemoData(application: Application) {
     val itemModel = Models.getItemModel(application)
 
     val moduleLists = listOf(
-        ModuleList("holiday", Color.MAGENTA),
-        ModuleList("Getting home", Color.RED),
-        ModuleList("Shopping", Color.BLUE),
-        ModuleList("winter holiday", Color.CYAN),
-        ModuleList("summer holiday", Color.RED)
+        ModuleList("Holiday", Color.MAGENTA),
+        ModuleList("General", Color.RED),
+        ModuleList("School", Color.BLUE),
+        ModuleList("Work", Color.YELLOW),
+        ModuleList("Winter holiday", Color.CYAN),
+        ModuleList("Summer holiday", Color.RED)
     )
 
 
@@ -45,7 +45,7 @@ private fun createItemsFor(moduleList: ModuleList): List<Item> {
 
     val items = mutableListOf<Item>()
     for (i in 0 until 5) {
-        items.add(Item("demo item $i in ${moduleList.name}", false, moduleList.id!!))
+        items.add(Item("demo item $i", false, moduleList.id!!))
     }
     return items
 }
