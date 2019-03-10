@@ -25,10 +25,12 @@ class ItemsRecyclerAdapter(val context: Context, private val items: List<Item>):
     }
 
     init {
+        //NOTE: Jeg kjører!
         Toast.makeText(context, "${items.count()} - count in items - from init", Toast.LENGTH_SHORT).show()
     }
 
     override fun getItemCount(): Int {
+        //NOTE: Jeg kjører ikke..
         Toast.makeText(context, "${items.count()} - count in items", Toast.LENGTH_SHORT).show()
         return items.count()
     }
@@ -40,6 +42,7 @@ class ItemsRecyclerAdapter(val context: Context, private val items: List<Item>):
 
         return MyViewHolder(view)
     }
+
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 

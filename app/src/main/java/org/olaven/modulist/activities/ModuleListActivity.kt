@@ -2,6 +2,8 @@ package org.olaven.modulist.activities
 
 import android.arch.lifecycle.Observer
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
+import android.widget.LinearLayout
 import kotlinx.android.synthetic.main.activity_module_list.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -38,6 +40,7 @@ class ModuleListActivity : BaseActivity() {
             liveItems.observe(lifecycleOwner, Observer { liveData ->
 
                 liveData?.let { data ->
+                    activity_module_list_recycler_view.layoutManager = LinearLayoutManager(applicationContext, LinearLayout.VERTICAL, false)
                     activity_module_list_recycler_view.adapter =
                             ItemsRecyclerAdapter(applicationContext, data)
                 }
