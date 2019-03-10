@@ -17,6 +17,7 @@ This project is in an early state of development.
 - [X] Lagre data i database
 - [x] Fullfør databasearkitektur (entiteter)
 - [X] knapp som legger til testdata -> se om recyclerviews faktisk fungerer når data er der
+- [ ] inherit lists
 - [ ] lag modell av databasearkitektur
 - [X] Vise en liste i egen activity
 - [ ] check/uncheck all
