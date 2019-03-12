@@ -16,8 +16,7 @@ interface CommonDAO<T> {
     @Insert
     fun insert(element: T)
 
-
-
     @Delete
     fun delete(element: T)
+
 }

@@ -9,7 +9,7 @@ import org.olaven.modulist.database.dao.ModuleListDAO
 import org.olaven.modulist.database.entity.Item
 import org.olaven.modulist.database.entity.ModuleList
 
-@Database(entities = [Item::class, ModuleList::class], version = 3, exportSchema = false)
+@Database(entities = [Item::class, ModuleList::class], version = 5, exportSchema = false)
 abstract class AppDatabase: RoomDatabase() {
 
     abstract fun itemDAO(): ItemDAO
@@ -39,6 +39,7 @@ abstract class AppDatabase: RoomDatabase() {
                 }
 
             }
+
     }
 }
 

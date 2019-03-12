@@ -10,4 +10,8 @@ class ModuleListRepository(private val moduleListDAO: ModuleListDAO) : CommonRep
 
     suspend fun getById(id: Int) =
         moduleListDAO.getById(id)
+
+    override fun deleteAll() {
+        moduleListDAO.deleteAll()
+    }
 }

@@ -17,7 +17,10 @@ This project is in an early state of development.
 - [X] Lagre data i database
 - [x] Fullfør databasearkitektur (entiteter)
 - [X] knapp som legger til testdata -> se om recyclerviews faktisk fungerer når data er der
-- [ ] inherit lists
+- [ ] lister arver av hverandre
+- [ ] items kan være X*antall dager (antall dager fylles ut hver gang man ser på listen)
+- [ ] Audio attachment
+- [ ] Ha både uses-feature og users-permission for kamera/kalender/mikrofon 
 - [ ] lag modell av databasearkitektur
 - [X] Vise en liste i egen activity
 - [ ] check/uncheck all
@@ -40,6 +43,8 @@ This project is in an early state of development.
 ## Dokumentasjon
 - [ ] Skriv om appens ide og formål
 - [ ] Bruk statistikk forå vise at telefonen er et vitkig verktøy hvor denne appen passer
+- [ ] Når Activity/Fragment -> activity når jeg vil ha eget livsløp -> state-håndtering. Ingen tydelige skiller
+- [ ] Hvorfor GUI er bygget opp som det er
 - [ ] Skriv om API-version. Hvorfor er valgt slik det er?
 - [ ] Bruk statistikk fra statistia for å forsvare versjonvalg
 - [ ] Skriv om fragment-arkitektur

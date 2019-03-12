@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.support.annotation.WorkerThread
 import org.olaven.modulist.database.entity.Item
 import org.olaven.modulist.database.entity.ModuleList
+import kotlin.random.Random
 
 @WorkerThread
 fun addDemoData(application: Application) {
@@ -45,7 +46,10 @@ private fun createItemsFor(moduleList: ModuleList): List<Item> {
 
     val items = mutableListOf<Item>()
     for (i in 0 until 5) {
-        items.add(Item("demo item $i", false, moduleList.id!!))
+        items.add(Item("demo item $i", false,  randomIntBelow(6), moduleList.id!!))
     }
     return items
 }
+
+private fun randomIntBelow(number: Int) =
+        Random.nextInt(number)

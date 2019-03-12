@@ -20,4 +20,7 @@ interface ModuleListDAO: CommonDAO<ModuleList> {
 
     @Query("select * from ModuleList where id = :id")
     fun getById(id: Int): ModuleList
+
+    @Query("delete from ModuleList")
+    fun deleteAll()
 }

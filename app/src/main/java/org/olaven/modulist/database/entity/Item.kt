@@ -8,6 +8,7 @@ import android.arch.persistence.room.PrimaryKey
 data class Item(
     var name: String,
     var done: Boolean,
+    var dayDistribution: Int,
     @ForeignKey(entity = ModuleList::class, parentColumns = ["id"], childColumns = ["moduleListId"])
     var moduleListId: Int,
     //@Relation()
