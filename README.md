@@ -19,8 +19,9 @@ This project is in an early state of development.
 - [X] knapp som legger til testdata -> se om recyclerviews faktisk fungerer når data er der
 - [ ] lister arver av hverandre
 - [ ] items kan være X*antall dager (antall dager fylles ut hver gang man ser på listen)
+- [ ] Se vær for et sted, en dag
 - [ ] Audio attachment
-- [ ] Ha både uses-feature og users-permission for kamera/kalender/mikrofon 
+- [ ] Ha både uses-feature og users-permission for kamera/kalender/mikrofon
 - [ ] lag modell av databasearkitektur
 - [X] Vise en liste i egen activity
 - [ ] check/uncheck all

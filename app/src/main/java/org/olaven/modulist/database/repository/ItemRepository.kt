@@ -13,7 +13,7 @@ class ItemRepository(private val itemDAO: ItemDAO): CommonRepository<Item>(itemD
     suspend fun getByModuleListId(id: Int): LiveData<List<Item>> =
             itemDAO.getByModuleListId(id)
 
-    override fun deleteAll() =
+    fun deleteAll() =
             itemDAO.deleteAll()
 
 }

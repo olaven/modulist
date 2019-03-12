@@ -15,6 +15,5 @@ abstract class CommonRepository<T>(val dao: CommonDAO<T>) {
     suspend fun delete(element: T) =
         dao.delete(element)
 
-    abstract fun deleteAll()
 
 }

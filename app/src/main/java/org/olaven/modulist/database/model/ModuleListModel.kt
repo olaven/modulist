@@ -16,7 +16,8 @@ class ModuleListModel(application: Application): CommonModel<ModuleList>(applica
         AppDatabase.getDatabase(application.applicationContext).moduleListDAO()
     )
 
-    val allModuleListsLive: LiveData<List<ModuleList>> = repository.allModuleListsLive
+    val allModuleListsLive: LiveData<List<ModuleList>> =
+        repository.allModuleListsLive
 
     suspend fun getById(id: Int) =
         repository.getById(id)

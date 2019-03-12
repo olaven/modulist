@@ -4,6 +4,7 @@ import android.app.Application
 import android.graphics.Color
 import android.support.annotation.WorkerThread
 import org.olaven.modulist.database.entity.Item
+import org.olaven.modulist.database.entity.ListRelation
 import org.olaven.modulist.database.entity.ModuleList
 import kotlin.random.Random
 
@@ -12,16 +13,25 @@ fun addDemoData(application: Application) {
 
     val moduleListModel = Models.getModuleListModel(application)
     val itemModel = Models.getItemModel(application)
+    val listRelationModuleList = Models.getListRelationModel(application)
+
+    val holiday = ModuleList("Holiday", Color.MAGENTA)
+    val winterHoliday = ModuleList("Winter holiday", Color.CYAN)
+    val summerHoliday = ModuleList("Summer holiday", Color.RED)
 
     val moduleLists = listOf(
-        ModuleList("Holiday", Color.MAGENTA),
-        ModuleList("General", Color.RED),
-        ModuleList("School", Color.BLUE),
-        ModuleList("Work", Color.YELLOW),
-        ModuleList("Winter holiday", Color.CYAN),
-        ModuleList("Summer holiday", Color.RED)
+        holiday,
+        winterHoliday,
+        summerHoliday
     )
 
+
+    listRelationModuleList.insert(
+        ListRelation(winterHoliday.id, holiday.id)
+    )
+    listRelationModuleList.insert(
+        ListRelation(summerHoliday.id, holiday.id)
+    )
 
     moduleLists.forEach {
 
@@ -35,7 +45,6 @@ fun addDemoData(application: Application) {
 
         val items = createItemsFor(it)
         items.forEach {item ->
-            print("inserting item - ${item.name}")
             itemModel.insert(item)
         }
     }
