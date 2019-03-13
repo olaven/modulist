@@ -13,6 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.olaven.modulist.R
+import org.olaven.modulist.adapters.HomeFragmentRecyclerAdapter
 import org.olaven.modulist.adapters.ItemsRecyclerAdapter
 import org.olaven.modulist.database.Models
 import org.olaven.modulist.database.entity.Item
@@ -72,18 +73,29 @@ class ModuleListActivity : BaseActivity() {
             val moduleList = moduleListModel.getById(id)
 
             activity_module_list_name.text = moduleList.name
-            val liveItems = itemModel.getByModuleListId(id)
 
 
-            liveItems.observe(lifecycleOwner, Observer { liveData ->
+            /* //NOTE: Fungerer!
+            itemModel.allItemsLive.observe(lifecycleOwner, Observer {items ->
 
-                liveData?.let { data ->
-                    items = data.toMutableList()
+                items?.let {
+
                     activity_module_list_recycler_view.layoutManager = LinearLayoutManager(applicationContext, LinearLayout.VERTICAL, false)
-                    activity_module_list_recycler_view.adapter =
-                            ItemsRecyclerAdapter(applicationContext, data)
+                    activity_module_list_recycler_view.adapter = ItemsRecyclerAdapter(applicationContext, items)
+                }
+            }) */
+
+
+            val id1 = moduleList.id!!
+            itemModel.getByModuleListId(id1).observe(lifecycleOwner, Observer { items ->
+
+                items?.let {
+
+                    activity_module_list_recycler_view.layoutManager = LinearLayoutManager(applicationContext, LinearLayout.VERTICAL, false)
+                    activity_module_list_recycler_view.adapter = ItemsRecyclerAdapter(applicationContext, items)
                 }
             })
+
         }
     }
 

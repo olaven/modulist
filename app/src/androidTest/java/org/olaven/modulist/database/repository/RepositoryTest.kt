@@ -49,7 +49,23 @@ class RepositoryTest {
         database.close()
     }
 
-    //TODO: Hør med TM hvordan få dette til å fungere.. Testen er true alltid
+    @Test
+    @Throws(Exception::class)
+    fun daoTest() {
+
+        val moduleListId = database.moduleListDAO().insert(
+            ModuleList("parent list", Color.BLUE)
+        )
+
+        val item = Item("some item", false, 3, moduleListId)
+        val id = database.itemDAO().insert(item)
+
+        val retrieved = database.itemDAO().getById(id).value
+        assertThat(retrieved)
+            .isEqualTo(item)
+
+    }
+
     @Test
     @Throws(IOException::class)
     fun insertAndRetrieve() {
@@ -58,8 +74,8 @@ class RepositoryTest {
             val moduleListId = moduleListRepository.insert(
                 ModuleList("parent list", Color.BLUE)
             )
-
             val item = Item("some item", false, 3, moduleListId)
+
             val id = itemRepository.insert(item)
 
             val retrieved = itemRepository.getByid(id)
