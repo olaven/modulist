@@ -26,7 +26,7 @@ class ItemRepositoryTest {
     @Test
     fun inserting() {
 
-        val item = Item("some item",false)
+        val item = Item("some item",false, 3, 0)
 
         //TODO: implement test
         //TODO: make as much as possible of it generic

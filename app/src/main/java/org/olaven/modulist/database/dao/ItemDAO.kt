@@ -17,6 +17,7 @@ interface ItemDAO: CommonDAO<Item> {
     @Query("select * from item where moduleListId = :id")
     fun getByModuleListId(id: Int): LiveData<List<Item>>
 
+
     @Query("delete from Item")
     fun deleteAll()
 

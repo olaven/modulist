@@ -55,7 +55,7 @@ private fun createItemsFor(moduleList: ModuleList): List<Item> {
 
     val items = mutableListOf<Item>()
     for (i in 0 until 5) {
-        items.add(Item("demo item $i", false,  randomIntBelow(6), moduleList.id!!))
+        items.add(Item("demo item $i in ${moduleList.name}", false,  randomIntBelow(6), moduleList.id!!))
     }
     return items
 }

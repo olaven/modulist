@@ -20,8 +20,6 @@ class HomeFragment : Fragment() {
         val homeFragment = inflater.inflate(R.layout.fragment_home, container, false)
         val recyclerView = homeFragment.findViewById<RecyclerView>(R.id.fragment_home_recycler_view)
 
-        recyclerView.layoutManager = LinearLayoutManager(activity, LinearLayout.HORIZONTAL, false)
-
         setupRecycleViews(recyclerView)
 
         return homeFragment
@@ -40,6 +38,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupRecycleViews(recyclerView: RecyclerView) {
+
+        recyclerView.layoutManager = LinearLayoutManager(activity, LinearLayout.HORIZONTAL, false)
 
         val moduleListModel = Models.getModuleListModel(activity!!.application)
         moduleListModel?.allModuleListsLive?.observe(this, Observer { liveData ->
