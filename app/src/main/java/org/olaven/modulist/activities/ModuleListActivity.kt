@@ -70,31 +70,35 @@ class ModuleListActivity : BaseActivity() {
         val lifecycleOwner = this // "this" is the scope below
         GlobalScope.launch(Dispatchers.IO) {
 
-            val moduleList = moduleListModel.getById(id)
+            val moduleList = moduleListModel.getById(id).value
+            moduleList?.let {
 
-            activity_module_list_name.text = moduleList.name
-
-
-            /* //NOTE: Fungerer!
-            itemModel.allItemsLive.observe(lifecycleOwner, Observer {items ->
-
-                items?.let {
-
-                    activity_module_list_recycler_view.layoutManager = LinearLayoutManager(applicationContext, LinearLayout.VERTICAL, false)
-                    activity_module_list_recycler_view.adapter = ItemsRecyclerAdapter(applicationContext, items)
-                }
-            }) */
+                activity_module_list_name.text = moduleList.name
 
 
+                /* //NOTE: Fungerer!
+                itemModel.allItemsLive.observe(lifecycleOwner, Observer {items ->
 
-            itemModel.getByModuleListId(moduleList.id!!).observe(lifecycleOwner, Observer { items ->
+                    items?.let {
 
-                items?.let {
+                        activity_module_list_recycler_view.layoutManager = LinearLayoutManager(applicationContext, LinearLayout.VERTICAL, false)
+                        activity_module_list_recycler_view.adapter = ItemsRecyclerAdapter(applicationContext, items)
+                    }
+                }) */
 
-                    activity_module_list_recycler_view.layoutManager = LinearLayoutManager(applicationContext, LinearLayout.VERTICAL, false)
-                    activity_module_list_recycler_view.adapter = ItemsRecyclerAdapter(applicationContext, items)
-                }
-            })
+
+
+                itemModel.getByModuleListId(moduleList.id!!).observe(lifecycleOwner, Observer { items ->
+
+                    items?.let {
+
+                        activity_module_list_recycler_view.layoutManager = LinearLayoutManager(applicationContext, LinearLayout.VERTICAL, false)
+                        activity_module_list_recycler_view.adapter = ItemsRecyclerAdapter(applicationContext, items)
+                    }
+                })
+            }
+
+
 
         }
     }

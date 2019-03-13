@@ -9,8 +9,8 @@ import org.olaven.modulist.database.entity.ListRelation
 interface ListRelationDAO: CommonDAO<ListRelation> {
 
     @Query("select * from ListRelation where child = :child")
-    fun getByChild(child: Int): LiveData<List<ListRelation>>
+    fun getByChild(child: Long): LiveData<List<ListRelation>>
 
     @Query("select * from ListRelation where parent = :parent")
-    fun getByParent(parent: Int): LiveData<List<ListRelation>>
+    fun getByParent(parent: Long): LiveData<List<ListRelation>>
 }

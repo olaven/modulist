@@ -9,10 +9,10 @@ class ListRelationRepository(private val listRelationDAO: ListRelationDAO): Comm
 
 
     @WorkerThread
-    suspend fun getByParentId(id: Int): LiveData<List<ListRelation>> =
+    suspend fun getByParentId(id: Long): LiveData<List<ListRelation>> =
         listRelationDAO.getByParent(id)
 
     @WorkerThread
-    suspend fun getByChildId(id: Int): LiveData<List<ListRelation>> =
+    suspend fun getByChildId(id: Long): LiveData<List<ListRelation>> =
         listRelationDAO.getByChild(id)
 }
