@@ -86,8 +86,8 @@ class ModuleListActivity : BaseActivity() {
             }) */
 
 
-            val id1 = moduleList.id!!
-            itemModel.getByModuleListId(id1).observe(lifecycleOwner, Observer { items ->
+
+            itemModel.getByModuleListId(moduleList.id!!).observe(lifecycleOwner, Observer { items ->
 
                 items?.let {
 

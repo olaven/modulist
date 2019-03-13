@@ -9,9 +9,6 @@ import org.olaven.modulist.database.entity.ModuleList
 @Dao
 interface ModuleListDAO: CommonDAO<ModuleList> {
 
-    @Insert
-    fun insertModuleList(moduleList: ModuleList)
-
     @Query("select * from ModuleList")
     fun getAllModuleLists(): List<ModuleList>
 

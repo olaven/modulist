@@ -42,7 +42,7 @@ This project is in an early state of development.
     - [ ] views i home-fragment
 - [ ] Bruk V-modell
 ## Dokumentasjon
-- [ ] Skriv om appens ide og formål
+- [X] Skriv om appens ide og formål
 - [ ] Bruk statistikk forå vise at telefonen er et vitkig verktøy hvor denne appen passer
 - [ ] Når Activity/Fragment -> activity når jeg vil ha eget livsløp -> state-håndtering. Ingen tydelige skiller
 - [ ] Hvorfor GUI er bygget opp som det er
@@ -75,7 +75,7 @@ This project is in an early state of development.
 # Dokumentasjon
 
 ## Ide og formål
-I utgangspunktet er dette en vanlig todo-app. Vrien er at listene er modulære.
+I utgangspunktet er dette en app som lar brukeren lage pakkelister. Vrien er at listene er modulære.
 Det vil si at en liste kan brukes om igjen, som del av andre lister.
 Mange - undertegnede inkludert - bruker lister til å huske ting, og til å organisere hverdagen.
 Etter hvert som antall lister vokser, er det også ting liste-elementer som gjentar seg.
