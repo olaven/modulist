@@ -2,6 +2,7 @@ package org.olaven.modulist.adapters
 
 import android.content.Context
 import android.content.Intent
+import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -23,7 +24,7 @@ class ListsFragmentRecyclerAdapter(val context: Context, private val moduleLists
         val layoutInflater = LayoutInflater.from(parent?.context)
         val view = layoutInflater.inflate(R.layout.list_card, parent, false)
 
-        return MyViewHolder(view)
+        return MyViewHolder(view as CardView)
     }
 
 
@@ -32,12 +33,13 @@ class ListsFragmentRecyclerAdapter(val context: Context, private val moduleLists
         val moduleList = moduleLists[position]
         holder.view.apply {
 
+            setCardBackgroundColor(moduleList.color)
             list_card_name.text = moduleList.name
             list_card_favourite.text = "not favourite"
         }
     }
 
-    inner class MyViewHolder(val view: View): RecyclerView.ViewHolder(view) {
+    inner class MyViewHolder(val view: CardView): RecyclerView.ViewHolder(view) {
 
         init {
             view.setOnClickListener {

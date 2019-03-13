@@ -67,38 +67,18 @@ class ModuleListActivity : BaseActivity() {
         val moduleListModel = Models.getModuleListModel(application)
         val itemModel = Models.getItemModel(application)
 
-        val lifecycleOwner = this // "this" is the scope below
+        val lifecycleOwner = this // needed as scope changes below
         GlobalScope.launch(Dispatchers.IO) {
 
-            val moduleList = moduleListModel.getById(id).value
-            moduleList?.let {
+            val itemsLive = itemModel.getByModuleListId(id)
+            itemsLive.observe(lifecycleOwner, Observer{ items ->
 
-                activity_module_list_name.text = moduleList.name
+                items?.let {
 
-
-                /* //NOTE: Fungerer!
-                itemModel.allItemsLive.observe(lifecycleOwner, Observer {items ->
-
-                    items?.let {
-
-                        activity_module_list_recycler_view.layoutManager = LinearLayoutManager(applicationContext, LinearLayout.VERTICAL, false)
-                        activity_module_list_recycler_view.adapter = ItemsRecyclerAdapter(applicationContext, items)
-                    }
-                }) */
-
-
-
-                itemModel.getByModuleListId(moduleList.id!!).observe(lifecycleOwner, Observer { items ->
-
-                    items?.let {
-
-                        activity_module_list_recycler_view.layoutManager = LinearLayoutManager(applicationContext, LinearLayout.VERTICAL, false)
-                        activity_module_list_recycler_view.adapter = ItemsRecyclerAdapter(applicationContext, items)
-                    }
-                })
-            }
-
-
+                    activity_module_list_recycler_view.layoutManager = LinearLayoutManager(applicationContext, LinearLayout.VERTICAL, false)
+                    activity_module_list_recycler_view.adapter = ItemsRecyclerAdapter(applicationContext, items)
+                }
+            })
 
         }
     }
@@ -120,4 +100,16 @@ class ModuleListActivity : BaseActivity() {
 
 
 }
+
+
+/* //NOTE: Fungerer!
+         itemModel.allItemsLive.observe(lifecycleOwner, Observer {items ->
+
+             items?.let {
+
+                 activity_module_list_recycler_view.layoutManager = LinearLayoutManager(applicationContext, LinearLayout.VERTICAL, false)
+                 activity_module_list_recycler_view.adapter = ItemsRecyclerAdapter(applicationContext, items)
+             }
+         }) */
+
 
