@@ -8,7 +8,7 @@ data class ModuleList(
     val name: String,
     val color: Int,
     @field:PrimaryKey(autoGenerate = true)
-    var id: Int? = null
+    var id: Long? = null
 )
 
 

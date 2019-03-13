@@ -19,7 +19,7 @@ interface ModuleListDAO: CommonDAO<ModuleList> {
     fun getAllModuleListsLive(): LiveData<List<ModuleList>>
 
     @Query("select * from ModuleList where id = :id")
-    fun getById(id: Int): ModuleList
+    fun getById(id: Long): ModuleList
 
     @Query("delete from ModuleList")
     fun deleteAll()

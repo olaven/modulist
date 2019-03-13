@@ -8,7 +8,7 @@ abstract class CommonRepository<T>(val dao: CommonDAO<T>) {
     // val allElements... ikke observator
 
     @WorkerThread
-    suspend fun insert(element: T) =
+    suspend fun insert(element: T): Long =
         dao.insert(element)
 
     @WorkerThread

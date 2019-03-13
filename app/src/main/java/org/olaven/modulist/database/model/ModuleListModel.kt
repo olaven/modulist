@@ -19,7 +19,7 @@ class ModuleListModel(application: Application): CommonModel<ModuleList>(applica
     val allModuleListsLive: LiveData<List<ModuleList>> =
         repository.allModuleListsLive
 
-    suspend fun getById(id: Int) =
+    suspend fun getById(id: Long) =
         repository.getById(id)
 
     fun deleteAll() = scope.launch(Dispatchers.IO) {

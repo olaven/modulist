@@ -42,7 +42,6 @@ fun addDemoData(application: Application) {
     // NOTE: have to read them back because their ID must be generated
     val moduleListsFromDB = moduleListModel.allModuleListsLive
     moduleListsFromDB.value?.forEach {
-
         val items = createItemsFor(it)
         items.forEach {item ->
             itemModel.insert(item)
@@ -55,7 +54,8 @@ private fun createItemsFor(moduleList: ModuleList): List<Item> {
 
     val items = mutableListOf<Item>()
     for (i in 0 until 5) {
-        items.add(Item("demo item $i in ${moduleList.name}", false,  randomIntBelow(6), moduleList.id!!))
+        val item = Item("item $i in ${moduleList.name}", false, randomIntBelow(4), moduleList.id!!)
+        items.add(item)
     }
     return items
 }

@@ -7,9 +7,9 @@ import android.arch.persistence.room.PrimaryKey
 @Entity
 data class ListRelation (
     @field:ForeignKey(entity = ListRelation::class, parentColumns = ["id"], childColumns = ["child"])
-    var child: Int? = null,
+    var child: Long? = null,
     @field:ForeignKey(entity = ListRelation::class, parentColumns = ["id"], childColumns = ["parent"])
-    var parent: Int? = null,
+    var parent: Long? = null,
     @PrimaryKey(autoGenerate = true)
     var id: Long? = null
 )

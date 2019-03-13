@@ -10,7 +10,11 @@ class ItemRepository(private val itemDAO: ItemDAO): CommonRepository<Item>(itemD
     val allItemsLive: LiveData<List<Item>> = itemDAO.getAllItemsLive()
 
     @WorkerThread
-    suspend fun getByModuleListId(id: Int): LiveData<List<Item>> =
+    suspend fun getByid(id: Long) =
+        itemDAO.getById(id)
+
+    @WorkerThread
+    suspend fun getByModuleListId(id: Long): LiveData<List<Item>> =
             itemDAO.getByModuleListId(id)
 
     fun deleteAll() =

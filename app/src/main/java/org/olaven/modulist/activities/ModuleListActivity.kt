@@ -28,7 +28,7 @@ class ModuleListActivity : BaseActivity() {
 
 
         val key = getString(R.string.extra_id_key)
-        val id = intent.extras[key] as Int
+        val id = intent.extras[key] as Long
         setupModuleList(id)
     }
 
@@ -61,7 +61,7 @@ class ModuleListActivity : BaseActivity() {
         startActivity(Intent.createChooser(intent, "Share list using.."))
     }
 
-    private fun setupModuleList(id: Int) {
+    private fun setupModuleList(id: Long) {
 
         val moduleListModel = Models.getModuleListModel(application)
         val itemModel = Models.getItemModel(application)
@@ -73,6 +73,7 @@ class ModuleListActivity : BaseActivity() {
 
             activity_module_list_name.text = moduleList.name
             val liveItems = itemModel.getByModuleListId(id)
+
 
             liveItems.observe(lifecycleOwner, Observer { liveData ->
 

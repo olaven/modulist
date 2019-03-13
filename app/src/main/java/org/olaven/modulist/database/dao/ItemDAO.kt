@@ -6,19 +6,18 @@ import android.arch.persistence.room.Query
 import org.olaven.modulist.database.entity.Item
 
 @Dao
-interface ItemDAO: CommonDAO<Item> {
+abstract class ItemDAO: CommonDAO<Item> {
 
-    @Query("select * from item")
-    fun getAllItemsLive(): LiveData<List<Item>>
+    @Query("select * from Item")
+    abstract fun getAllItemsLive(): LiveData<List<Item>>
 
     @Query("select * from Item where id = :id")
-    fun getById(id: Int): LiveData<Item>
+    abstract fun getById(id: Long): LiveData<Item>
 
-    @Query("select * from item where moduleListId = :id")
-    fun getByModuleListId(id: Int): LiveData<List<Item>>
-
+    @Query("select * from Item where moduleListId = :id")
+    abstract fun getByModuleListId(id: Long): LiveData<List<Item>>
 
     @Query("delete from Item")
-    fun deleteAll()
+    abstract fun deleteAll()
 
 }

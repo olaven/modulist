@@ -15,9 +15,9 @@ class ItemModel(application: Application): CommonModel<Item>(application) {
     )
 
 
-    val allItems = repository.allItemsLive
+    val allItemsLive = repository.allItemsLive
 
-    suspend fun getByModuleListId(id: Int) =
+    suspend fun getByModuleListId(id: Long) =
         repository.getByModuleListId(id)
 
     fun deleteAll() = scope.launch(Dispatchers.IO) {

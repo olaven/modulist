@@ -41,6 +41,7 @@ dependencies {
     androidTestImplementation "androidx.test:core:1.1.0"
     androidTestImplementation "androidx.test:runner:1.1.1"
     androidTestImplementation "org.assertj:assertj-core:3.11.1"
+    androidTestImplementation "android.arch.core:core-testing:1.0.0"
     // room stuff
     implementation "android.arch.persistence.room:runtime:$rootProject.room_version"
     kapt "android.arch.persistence.room:compiler:$rootProject.room_version"

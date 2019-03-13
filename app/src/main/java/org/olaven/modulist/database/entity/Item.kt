@@ -10,9 +10,9 @@ data class Item(
     var done: Boolean,
     var dayDistribution: Int,
     @ForeignKey(entity = ModuleList::class, parentColumns = ["id"], childColumns = ["moduleListId"])
-    var moduleListId: Int,
+    var moduleListId: Long,
     //@Relation()
     //val attachments: List<Any> = emptyList (),
     @field:PrimaryKey(autoGenerate = true)
-    var id: Int? = null
+    var id: Long? = null
 )
