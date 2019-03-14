@@ -15,4 +15,8 @@ class ListRelationRepository(private val listRelationDAO: ListRelationDAO): Comm
     @WorkerThread
     suspend fun getByChildId(id: Long): LiveData<List<ListRelation>> =
         listRelationDAO.getByChild(id)
+
+    @WorkerThread
+    suspend fun deleteAll() =
+            listRelationDAO.deleteAll()
 }

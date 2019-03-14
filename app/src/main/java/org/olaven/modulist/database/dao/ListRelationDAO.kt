@@ -13,4 +13,7 @@ interface ListRelationDAO: CommonDAO<ListRelation> {
 
     @Query("select * from ListRelation where parent = :parent")
     fun getByParent(parent: Long): LiveData<List<ListRelation>>
+
+    @Query("delete from ListRelation")
+    fun deleteAll()
 }

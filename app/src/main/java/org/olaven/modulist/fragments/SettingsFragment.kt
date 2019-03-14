@@ -62,16 +62,26 @@ class SettingsFragment: Fragment() {
             }
         }
 
+        fragment_settings_button_clear_data.setOnClickListener {
+
+            activity?.application?.let {
+                clearDatabase(it)
+            }
+        }
+
     }
 
     private fun insertDemoData(application: Application) {
 
-        Models.getItemModel(application)
-            .deleteAll()
-        Models.getModuleListModel(application)
-            .deleteAll()
-
+        clearDatabase(application)
         addDemoData(application)
+    }
+
+    private fun clearDatabase(application: Application) {
+
+       Models.getListRelationModel(application).deleteAll()
+        Models.getItemModel(application).deleteAll()
+        Models.getModuleListModel(application).deleteAll()
     }
 
     private fun setupThemePopup(context: Context) {

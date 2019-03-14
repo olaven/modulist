@@ -18,14 +18,18 @@
                 android:id="@+id/fragment_settings_button_load_demo_data"
                 android:text="@string/load_demo_data"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content"/>
+                android:layout_width="match_parent"/>
         <Button
                 android:id="@+id/fragment_settings_button_change_theme"
                 android:text="@string/change_theme"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content"/>
+                android:layout_width="match_parent"/>
 
-        <Button android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <Button
+                android:id="@+id/fragment_settings_button_clear_data"
+                android:text="Clear data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
     </LinearLayout>
 
 </FrameLayout>
