@@ -16,4 +16,5 @@ abstract class CommonRepository<T>(val dao: CommonDAO<T>) {
         dao.delete(element)
 
 
+
 }

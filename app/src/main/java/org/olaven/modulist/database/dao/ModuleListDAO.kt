@@ -20,4 +20,7 @@ interface ModuleListDAO: CommonDAO<ModuleList> {
 
     @Query("delete from ModuleList")
     fun deleteAll()
+
+    @Query("select * from ModuleList where name = :name")
+    abstract fun getByName(name: String): LiveData<List<ModuleList>>
 }

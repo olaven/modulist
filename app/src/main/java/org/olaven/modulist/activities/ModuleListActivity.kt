@@ -13,7 +13,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.olaven.modulist.R
-import org.olaven.modulist.adapters.HomeFragmentRecyclerAdapter
 import org.olaven.modulist.adapters.ItemsRecyclerAdapter
 import org.olaven.modulist.database.Models
 import org.olaven.modulist.database.entity.Item
@@ -28,7 +27,7 @@ class ModuleListActivity : BaseActivity() {
         setContentView(R.layout.activity_module_list)
 
 
-        val key = getString(R.string.extra_id_key)
+        val key = getString(R.string.extra_modulelist_key)
         val id = intent.extras[key] as Long
         setupModuleList(id)
     }
@@ -67,20 +66,33 @@ class ModuleListActivity : BaseActivity() {
         val moduleListModel = Models.getModuleListModel(application)
         val itemModel = Models.getItemModel(application)
 
-        val lifecycleOwner = this // needed as scope changes below
-        GlobalScope.launch(Dispatchers.IO) {
+        moduleListModel.getById(id).observe(this, Observer {
 
-            val itemsLive = itemModel.getByModuleListId(id)
-            itemsLive.observe(lifecycleOwner, Observer{ items ->
+            it?.let { moduleList ->
 
-                items?.let {
+                supportActionBar!!.title = moduleList.name
+            }
+        })
 
-                    activity_module_list_recycler_view.layoutManager = LinearLayoutManager(applicationContext, LinearLayout.VERTICAL, false)
-                    activity_module_list_recycler_view.adapter = ItemsRecyclerAdapter(applicationContext, items)
-                }
-            })
 
-        }
+        //TODO: REplace with demo
+        itemModel.insert(Item("Ths is added from activity1 to $id", false, 2, id))
+        itemModel.insert(Item("Ths is added from activity2 to $id", false, 2, id))
+        itemModel.insert(Item("Ths is added from activity3 to $id", false, 2, id))
+        itemModel.insert(Item("Ths is added from activity4 to $id", false, 2, id))
+
+        activity_module_list_recycler_view.layoutManager = LinearLayoutManager(applicationContext, LinearLayout.VERTICAL, false)
+        val adapter = ItemsRecyclerAdapter(applicationContext)
+        itemModel.getByModuleListId(id).observe(this, Observer { packageTypes ->
+
+            packageTypes?.forEach {item ->
+
+                adapter.add(item)
+            }
+
+        })
+        adapter.notifyDataSetChanged()
+        activity_module_list_recycler_view.adapter = adapter
     }
 
     private fun toStringRepresentation(): String? {

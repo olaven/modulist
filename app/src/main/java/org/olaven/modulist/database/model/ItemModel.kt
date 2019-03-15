@@ -19,7 +19,7 @@ class ItemModel(application: Application): CommonModel<Item>(application) {
 
     val allItemsLive = repository.allItemsLive
 
-    suspend fun getByModuleListId(id: Long) =
+    fun getByModuleListId(id: Long) =
         repository.getByModuleListId(id)
 
     fun deleteAll() = scope.launch(Dispatchers.IO) {

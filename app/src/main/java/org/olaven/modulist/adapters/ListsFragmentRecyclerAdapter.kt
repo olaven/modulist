@@ -5,7 +5,6 @@ import android.content.Intent
 import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.list_card.view.*
 import org.olaven.modulist.R
@@ -46,7 +45,7 @@ class ListsFragmentRecyclerAdapter(val context: Context, private val moduleLists
 
                 val moduleList = moduleLists[adapterPosition]
                 val intent = Intent(context, ModuleListActivity::class.java)
-                val key = context.getString(R.string.extra_id_key)
+                val key = context.getString(R.string.extra_modulelist_key)
 
                 intent.putExtra(key, moduleList.id)
                 context.startActivity(intent)

@@ -10,7 +10,13 @@ import kotlinx.android.synthetic.main.list_item.view.*
 import org.olaven.modulist.R
 import org.olaven.modulist.database.entity.Item
 
-class ItemsRecyclerAdapter(val context: Context, private val items: List<Item>):  RecyclerView.Adapter<ItemsRecyclerAdapter.MyViewHolder>() {
+class ItemsRecyclerAdapter(val context: Context):  RecyclerView.Adapter<ItemsRecyclerAdapter.MyViewHolder>() {
+
+    private val items = mutableListOf<Item>()
+
+    fun add(item: Item) {
+        items.add(item)
+    }
 
     inner class MyViewHolder(view: View): RecyclerView.ViewHolder(view) {
 

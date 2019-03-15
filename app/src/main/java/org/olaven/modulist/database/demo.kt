@@ -25,13 +25,13 @@ fun addDemoData(application: Application) {
         summerHoliday
     )
 
-
+    /*
     listRelationModuleList.insert(
         ListRelation(winterHoliday.id, holiday.id)
     )
     listRelationModuleList.insert(
         ListRelation(summerHoliday.id, holiday.id)
-    )
+    )*/
 
     moduleLists.forEach {
 
@@ -61,4 +61,4 @@ private fun createItemsFor(moduleList: ModuleList): List<Item> {
 }
 
 private fun randomIntBelow(number: Int) =
-        Random.nextInt(number)
+    Random.nextInt(number)
