@@ -1,5 +1,6 @@
 package org.olaven.modulist.fragments
 
+import android.app.AlertDialog
 import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -9,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import kotlinx.android.synthetic.main.activity_module_list.*
 import kotlinx.android.synthetic.main.fragment_my_lists.*
 
 import org.olaven.modulist.R
@@ -19,17 +21,22 @@ class MyListsFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        val recyclerViewFragment = inflater.inflate(R.layout.fragment_my_lists, container, false)
-
         // NOTE: kotlin view binding does not appear to work with recyclerviews
-        val fragment_my_lists_recycler_view = recyclerViewFragment.findViewById<RecyclerView>(R.id.fragment_my_lists_recycler_view)
-        setupRecycleViews(fragment_my_lists_recycler_view)
+        val view = inflater.inflate(R.layout.fragment_my_lists, container, false)
 
-        return recyclerViewFragment
+        setupRecycleViews(view, inflater, container)
+
+        return view
     }
 
-    private fun setupRecycleViews(recyclerView: RecyclerView) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        setupAddModuleListFab()
+    }
+
+    private fun setupRecycleViews(view: View, inflater: LayoutInflater, container: ViewGroup?) {
+
+        val recyclerView = view.findViewById<RecyclerView>(R.id.fragment_my_lists_recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
 
         val moduleListModel = Models.getModuleListModel(activity!!.application)
@@ -41,5 +48,17 @@ class MyListsFragment : Fragment() {
                 }
             }
         })
+    }
+
+    private fun setupAddModuleListFab() {
+
+        fragment_my_lists_fab_add_module_list.setOnClickListener {
+
+            val dialog = AlertDialog.Builder(activity)
+            dialog.apply {
+                setTitle("Add modulelist")
+            }
+            dialog.show()
+        }
     }
 }
