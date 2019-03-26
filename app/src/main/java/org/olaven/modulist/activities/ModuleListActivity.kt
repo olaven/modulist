@@ -1,20 +1,23 @@
 package org.olaven.modulist.activities
 
-import android.app.AlertDialog
 import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_module_list.*
 import org.olaven.modulist.R
 import org.olaven.modulist.adapters.ItemsRecyclerAdapter
+import org.olaven.modulist.createCustomDialog
 import org.olaven.modulist.database.Models
 import org.olaven.modulist.database.entity.Item
 import org.olaven.modulist.database.entity.ModuleList
+import java.lang.Exception
 
 class ModuleListActivity : BaseActivity() {
 
@@ -33,11 +36,57 @@ class ModuleListActivity : BaseActivity() {
 
         activity_module_list_fab_add_item.setOnClickListener {
 
-            val alert = AlertDialog.Builder(this);
-            alert.apply {
-                setTitle("Adding item")
+            var name = getString(R.string.unloaded)
+            var dayDistribution = Integer.MAX_VALUE
+
+            val alertContext = this
+            createCustomDialog(alertContext, "Add an item called...") {
+
+                val view = EditText(applicationContext)
+                it.setView(view)
+                it.setPositiveButton("continue") { _, _ ->
+
+                    name = view.text.toString()
+
+                    createCustomDialog(alertContext, "Pack one for every ... days") {
+
+                        val dayOptions = resources.getStringArray(R.array.day_options)
+                        it.setSingleChoiceItems(dayOptions,  -1) { _, item ->
+
+                            try {
+                                dayDistribution = dayOptions[item].toInt()
+                            } catch (e: Exception) {
+                                //Intentionally blank.
+                                //Distribution stays the same.
+                            }
+                        }
+                        it.setPositiveButton("continue") {_, _ ->
+
+                            val distributionMessage =
+                                if (dayDistribution == Integer.MAX_VALUE)
+                                    "Pack just the one."
+                                else
+                                    dayDistribution.toString()
+
+                            val view = TextView(applicationContext).apply {
+                                text = "Name: $name \n Distribution: $distributionMessage"
+                            }
+
+                            createCustomDialog(alertContext, "Does this look okay?") {
+
+                                it.setView(view)
+                                it.setPositiveButton("Looks good") {_, _ ->
+
+                                }
+                                it.setNegativeButton("Not what I intended") {_, _ ->
+
+
+                                }
+                            }
+                        }
+                    }
+                }
             }
-            alert.show()
         }
     }
 
@@ -88,11 +137,7 @@ class ModuleListActivity : BaseActivity() {
         })
 
 
-        //TODO: REplace with demo
-        itemModel.insert(Item("Ths is added from activity1 to $id", false, 2, id))
-        itemModel.insert(Item("Ths is added from activity2 to $id", false, 2, id))
-        itemModel.insert(Item("Ths is added from activity3 to $id", false, 2, id))
-        itemModel.insert(Item("Ths is added from activity4 to $id", false, 2, id))
+
 
         activity_module_list_recycler_view.layoutManager = LinearLayoutManager(applicationContext, LinearLayout.VERTICAL, false)
         val adapter = ItemsRecyclerAdapter(applicationContext)
@@ -102,6 +147,7 @@ class ModuleListActivity : BaseActivity() {
 
                 adapter.add(item)
             }
+            adapter.notifyDataSetChanged()
 
         })
         adapter.notifyDataSetChanged()
@@ -125,16 +171,5 @@ class ModuleListActivity : BaseActivity() {
 
 
 }
-
-
-/* //NOTE: Fungerer!
-         itemModel.allItemsLive.observe(lifecycleOwner, Observer {items ->
-
-             items?.let {
-
-                 activity_module_list_recycler_view.layoutManager = LinearLayoutManager(applicationContext, LinearLayout.VERTICAL, false)
-                 activity_module_list_recycler_view.adapter = ItemsRecyclerAdapter(applicationContext, items)
-             }
-         }) */
 
 

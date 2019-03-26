@@ -78,10 +78,10 @@ class MainActivity : BaseActivity() {
     }
 
     private fun replaceMainFragment(fragment: Fragment) {
+
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.activity_main_frameLayout, fragment)
         transaction.commit()
-
     }
 }
 

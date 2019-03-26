@@ -7,7 +7,7 @@ import android.arch.persistence.room.OnConflictStrategy
 
 
 @Dao
-interface CommonDAO<T> {
+interface  CommonDAO<T> {
 
     //TODO: Believe I can do more as long as I can figure out how to access calssname from generic
     // @Query(select * from ${T::class.simpleName})
