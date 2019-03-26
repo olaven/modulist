@@ -8,17 +8,36 @@
     tools:context=".activities.ModuleListActivity"
     android:fitsSystemWindows="true">
 
-    <android.support.v7.widget.RecyclerView
-            android:id="@+id/activity_module_list_recycler_view"
+
+    <TextView
+            android:id="@+id/activity_module_list_text_days"
+            android:text="@string/unloaded"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="8dp"/>
+    <SeekBar
+            android:id="@+id/activity_module_list_seekbar_days"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/activity_module_list_text_days"/>
+
+    <android.support.v7.widget.RecyclerView
+            android:id="@+id/activity_module_list_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="569dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-    />
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/activity_module_list_seekbar_days"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"/>
 
     <android.support.design.widget.FloatingActionButton
             android:id="@+id/activity_module_list_fab_add_item"

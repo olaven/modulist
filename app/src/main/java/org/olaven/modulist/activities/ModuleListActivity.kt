@@ -2,14 +2,12 @@ package org.olaven.modulist.activities
 
 import android.arch.lifecycle.Observer
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import kotlinx.android.synthetic.main.activity_module_list.*
 import org.olaven.modulist.R
 import org.olaven.modulist.adapters.ItemsRecyclerAdapter
@@ -23,13 +21,65 @@ class ModuleListActivity : BaseActivity() {
 
     private var items = mutableListOf<Item>()
     private lateinit var moduleList: ModuleList
+    private lateinit var adapter: ItemsRecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_module_list)
 
         setupModuleList()
+        setupSeekbar()
         setupAddItemFab()
+    }
+
+
+    private fun setupModuleList() {
+
+        val key = getString(R.string.extra_modulelist_key)
+        val id = intent.extras[key] as Long
+
+        val moduleListModel = Models.getModuleListModel(application)
+        val itemModel = Models.getItemModel(application)
+        adapter = ItemsRecyclerAdapter(applicationContext, activity_module_list_seekbar_days.progress)
+
+        moduleListModel.getById(id).observe(this, Observer {
+
+            it?.let {
+
+                moduleList = it
+                supportActionBar!!.title = it.name
+            }
+        })
+
+
+        activity_module_list_recycler_view.layoutManager = LinearLayoutManager(applicationContext, LinearLayout.VERTICAL, false)
+        itemModel.getByModuleListId(id).observe(this, Observer { packageTypes ->
+
+            packageTypes?.forEach {item ->
+
+                adapter.add(item)
+            }
+            adapter.notifyDataSetChanged()
+
+        })
+        adapter.notifyDataSetChanged()
+        activity_module_list_recycler_view.adapter = adapter
+    }
+
+    private fun setupSeekbar() {
+
+        activity_module_list_seekbar_days.max = 35
+        activity_module_list_seekbar_days.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener{
+
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+
+                activity_module_list_text_days.text = "Packing for $progress days"
+                adapter.days = progress
+                adapter.notifyDataSetChanged()
+            }
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
     }
 
     private fun setupAddItemFab() {
@@ -120,40 +170,7 @@ class ModuleListActivity : BaseActivity() {
         startActivity(Intent.createChooser(intent, "Share list using.."))
     }
 
-    private fun setupModuleList() {
 
-        val key = getString(R.string.extra_modulelist_key)
-        val id = intent.extras[key] as Long
-
-        val moduleListModel = Models.getModuleListModel(application)
-        val itemModel = Models.getItemModel(application)
-
-        moduleListModel.getById(id).observe(this, Observer {
-
-            it?.let {
-
-                moduleList = it
-                supportActionBar!!.title = it.name
-            }
-        })
-
-
-
-
-        activity_module_list_recycler_view.layoutManager = LinearLayoutManager(applicationContext, LinearLayout.VERTICAL, false)
-        val adapter = ItemsRecyclerAdapter(applicationContext)
-        itemModel.getByModuleListId(id).observe(this, Observer { packageTypes ->
-
-            packageTypes?.forEach {item ->
-
-                adapter.add(item)
-            }
-            adapter.notifyDataSetChanged()
-
-        })
-        adapter.notifyDataSetChanged()
-        activity_module_list_recycler_view.adapter = adapter
-    }
 
     private fun toStringRepresentation(): String? {
 

@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.list_item.view.*
 import org.olaven.modulist.R
 import org.olaven.modulist.database.entity.Item
 
-class ItemsRecyclerAdapter(val context: Context):  RecyclerView.Adapter<ItemsRecyclerAdapter.MyViewHolder>() {
+class ItemsRecyclerAdapter(val context: Context, var days: Int):  RecyclerView.Adapter<ItemsRecyclerAdapter.MyViewHolder>() {
 
     private val items = mutableListOf<Item>()
 
@@ -45,9 +45,21 @@ class ItemsRecyclerAdapter(val context: Context):  RecyclerView.Adapter<ItemsRec
         val item = items[position]
         holder.itemView.apply {
 
-            list_item_name.text = item.name
+            list_item_name.text = getItemText(item)
             list_item_info.text = "some attachments or somethign"
             list_item_checkbox.isChecked = item.done
         }
+    }
+
+    private fun getItemText(item: Item): String {
+
+        val name = item.name
+        val amount =
+            if (days / item.dayDistribution == 0)
+                1
+            else
+                days / item.dayDistribution
+
+        return "$name, x$amount"
     }
 }

@@ -38,6 +38,7 @@
     <string name="extra_modulelist_key">extra_modulelist_key</string>
 
     <string-array name="day_options">
+        <item>1</item>
         <item>2</item>
         <item>4</item>
         <item>6</item>
