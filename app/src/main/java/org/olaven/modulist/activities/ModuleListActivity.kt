@@ -77,11 +77,12 @@ class ModuleListActivity : BaseActivity() {
                                 it.setView(view)
                                 it.setPositiveButton("Looks good") {_, _ ->
 
+                                    val item = Item(name, false, dayDistribution, moduleList.id!!)
+                                    Models
+                                        .getItemModel(application)
+                                        .insert(item)
                                 }
-                                it.setNegativeButton("Not what I intended") {_, _ ->
-
-
-                                }
+                                it.setNegativeButton("Not what I intended") {_, _ ->}
                             }
                         }
                     }

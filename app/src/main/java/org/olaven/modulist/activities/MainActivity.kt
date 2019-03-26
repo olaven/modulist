@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Gravity
 import android.view.MenuItem
 import android.widget.Toast
+import com.facebook.stetho.Stetho
 import kotlinx.android.synthetic.main.activity_main.*
 import org.olaven.modulist.R
 import org.olaven.modulist.fragments.HomeFragment
@@ -22,12 +23,15 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
+        Stetho.initializeWithDefaults(this)
         setContentView(R.layout.activity_main)
 
         replaceMainFragment(HomeFragment())
 
         setUpActionBarWithDrawer()
         setupDrawerItemListeners()
+
+
     }
 
     private fun setupDrawerItemListeners() {
