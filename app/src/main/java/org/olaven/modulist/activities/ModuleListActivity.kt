@@ -1,5 +1,6 @@
 package org.olaven.modulist.activities
 
+import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.*
 import kotlinx.android.synthetic.main.activity_module_list.*
+import org.olaven.modulist.CameraTools
 import org.olaven.modulist.R
 import org.olaven.modulist.adapters.ItemsRecyclerAdapter
 import org.olaven.modulist.createCustomDialog
@@ -18,6 +20,7 @@ import java.lang.Exception
 
 class ModuleListActivity : BaseActivity() {
 
+    private lateinit var cameraTools: CameraTools
     private var items = mutableListOf<Item>()
     private lateinit var moduleList: ModuleList
     private lateinit var adapter: ItemsRecyclerAdapter
@@ -26,6 +29,7 @@ class ModuleListActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_module_list)
 
+        cameraTools = CameraTools(this)
         changeProgressText(1)
         setupModuleList()
         setupSeekbar()
@@ -137,6 +141,23 @@ class ModuleListActivity : BaseActivity() {
                         }
                     }
                 }
+            }
+        }
+    }
+
+
+    fun TESTtakePicture() {
+        if (cameraTools.isPresent()) {
+            cameraTools.takePicture()
+        }
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+        if (requestCode == cameraTools.CAMERA_REQUEST_CODE and Activity.RESULT_OK) {
+
+            data?.let {
+                val bitmap = cameraTools.getBitMap(it)
+                //TODO: Do something with bitmap, like storing in db 
             }
         }
     }

@@ -14,6 +14,7 @@ open class BaseActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
     }
 
+
     private fun applyTheme() {
 
         val themeName = getThemeName()
