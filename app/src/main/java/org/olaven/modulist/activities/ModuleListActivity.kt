@@ -2,7 +2,6 @@ package org.olaven.modulist.activities
 
 import android.arch.lifecycle.Observer
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
@@ -27,6 +26,7 @@ class ModuleListActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_module_list)
 
+        changeProgressText(1)
         setupModuleList()
         setupSeekbar()
         setupAddItemFab()
@@ -73,7 +73,7 @@ class ModuleListActivity : BaseActivity() {
 
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
 
-                activity_module_list_text_days.text = "Packing for $progress days"
+                changeProgressText(progress)
                 adapter.days = progress
                 adapter.notifyDataSetChanged()
             }
@@ -159,6 +159,12 @@ class ModuleListActivity : BaseActivity() {
                 return super.onOptionsItemSelected(item)
             }
         }
+    }
+
+    private fun changeProgressText(dayCount: Int) {
+
+        activity_module_list_text_days.text =
+                "Packing for $dayCount dayCount"
     }
 
     private fun triggerSharing() {
