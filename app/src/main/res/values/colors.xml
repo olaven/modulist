@@ -18,7 +18,7 @@
     <color name="fruitAccent">#ff1744</color>
 
     <!-- CabinTheme -->
-    <color name="cabinPrimary">#ff7043</color>
+    <color name="cabinPrimary">#FF7043</color>
     <color name="cabinPrimaryDark">#33691e</color>
     <color name="cabinAccent">#629749</color>
 

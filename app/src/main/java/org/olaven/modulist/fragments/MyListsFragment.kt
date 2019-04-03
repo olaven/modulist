@@ -1,6 +1,5 @@
 package org.olaven.modulist.fragments
 
-import android.app.AlertDialog
 import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -10,9 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import kotlinx.android.synthetic.main.activity_module_list.*
 import kotlinx.android.synthetic.main.fragment_my_lists.*
-
 import org.olaven.modulist.R
 import org.olaven.modulist.adapters.ListsFragmentRecyclerAdapter
 import org.olaven.modulist.database.Models
@@ -54,11 +51,8 @@ class MyListsFragment : Fragment() {
 
         fragment_my_lists_fab_add_module_list.setOnClickListener {
 
-            val dialog = AlertDialog.Builder(activity)
-            dialog.apply {
-                setTitle("Add modulelist")
-            }
-            dialog.show()
+            val alertContext = activity!!
+            //TODO: create dialog class
         }
     }
 }

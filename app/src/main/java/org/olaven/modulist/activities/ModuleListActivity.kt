@@ -12,10 +12,10 @@ import kotlinx.android.synthetic.main.activity_module_list.*
 import org.olaven.modulist.CameraTools
 import org.olaven.modulist.R
 import org.olaven.modulist.adapters.ItemsRecyclerAdapter
-import org.olaven.modulist.createCustomDialog
 import org.olaven.modulist.database.Models
 import org.olaven.modulist.database.entity.Item
 import org.olaven.modulist.database.entity.ModuleList
+import org.olaven.modulist.dialog.AddItemDialog
 import java.lang.Exception
 
 class ModuleListActivity : BaseActivity() {
@@ -90,73 +90,33 @@ class ModuleListActivity : BaseActivity() {
 
         activity_module_list_fab_add_item.setOnClickListener {
 
-            var name = getString(R.string.unloaded)
-            var dayDistribution = Integer.MAX_VALUE
 
-            val alertContext = this
-            createCustomDialog(alertContext, "Add an item called...") {
 
-                val view = EditText(applicationContext)
-                it.setView(view)
-                it.setPositiveButton("continue") { _, _ ->
+            AddItemDialog(moduleList, this)
+                .show()
 
-                    name = view.text.toString()
-
-                    createCustomDialog(alertContext, "Pack one for every ... days") {
-
-                        val dayOptions = resources.getStringArray(R.array.day_options)
-                        it.setSingleChoiceItems(dayOptions,  -1) { _, item ->
-
-                            try {
-                                dayDistribution = dayOptions[item].toInt()
-                            } catch (e: Exception) {
-                                //Intentionally blank.
-                                //Distribution stays the same.
-                            }
-                        }
-                        it.setPositiveButton("continue") {_, _ ->
-
-                            val distributionMessage =
-                                if (dayDistribution == Integer.MAX_VALUE)
-                                    "Pack just the one."
-                                else
-                                    dayDistribution.toString()
-
-                            val view = TextView(applicationContext).apply {
-                                text = "Name: $name \n Distribution: $distributionMessage"
-                            }
-
-                            createCustomDialog(alertContext, "Does this look okay?") {
-
-                                it.setView(view)
-                                it.setPositiveButton("Looks good") {_, _ ->
-
-                                    val item = Item(name, false, dayDistribution, moduleList.id!!)
-                                    Models
-                                        .getItemModel(application)
-                                        .insert(item)
-                                }
-                                it.setNegativeButton("Not what I intended") {_, _ ->}
-                            }
-                        }
-                    }
-                }
-            }
         }
     }
 
 
+    /**
+     * FOR DOING IMAGE STUFF -> not done
+     */
     fun TESTtakePicture() {
         if (cameraTools.isPresent()) {
             cameraTools.takePicture()
         }
     }
+    /**
+     * FOR DOING IMAGE STUFF -> not done
+     */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
         if (requestCode == cameraTools.CAMERA_REQUEST_CODE and Activity.RESULT_OK) {
 
             data?.let {
                 val bitmap = cameraTools.getBitMap(it)
+                print(bitmap)
                 //TODO: Do something with bitmap, like storing in db
             }
         }
