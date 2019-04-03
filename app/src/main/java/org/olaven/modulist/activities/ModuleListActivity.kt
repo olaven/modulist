@@ -90,11 +90,8 @@ class ModuleListActivity : BaseActivity() {
 
         activity_module_list_fab_add_item.setOnClickListener {
 
-
-
             AddItemDialog(moduleList, this)
                 .show()
-
         }
     }
 

@@ -9,7 +9,7 @@ import org.olaven.modulist.database.entity.Item
 import org.olaven.modulist.database.entity.ModuleList
 import java.lang.Exception
 
-class AddItemDialog(val moduleList: ModuleList, val activity: Activity): CustomDialog(activity) {
+class AddItemDialog(val moduleList: ModuleList, activity: Activity): CustomDialog(activity) {
 
     var name = activity.getString(R.string.unloaded)
     var dayDistribution = Integer.MAX_VALUE
@@ -17,7 +17,7 @@ class AddItemDialog(val moduleList: ModuleList, val activity: Activity): CustomD
 
     override fun show() {
 
-        createCustomDialog(activity, "Add an item called...") {
+        createCustomDialog("Add an item called...") {
 
             val view = EditText(alertContext)
             it.setView(view)
@@ -25,7 +25,7 @@ class AddItemDialog(val moduleList: ModuleList, val activity: Activity): CustomD
 
                 name = view.text.toString()
 
-                createCustomDialog(activity, "Pack one for every ... days") {
+                createCustomDialog("Pack one for every ... days") {
 
                     val dayOptions = activity.resources.getStringArray(R.array.day_options)
                     it.setSingleChoiceItems(dayOptions, -1) { _, item ->
@@ -49,7 +49,7 @@ class AddItemDialog(val moduleList: ModuleList, val activity: Activity): CustomD
                             text = "Name: $name \n Distribution: $distributionMessage"
                         }
 
-                        createCustomDialog(activity, "Does this look okay?") {
+                        createCustomDialog("Does this look okay?") {
 
                             it.setView(view)
                             it.setPositiveButton("Looks good") { _, _ ->
