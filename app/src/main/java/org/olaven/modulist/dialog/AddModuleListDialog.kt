@@ -1,22 +1,26 @@
 package org.olaven.modulist.dialog
 
 import android.app.Activity
+import android.graphics.Color
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.ListView
 import android.widget.Toast
 import org.olaven.modulist.R
+import org.olaven.modulist.database.Models
 import org.olaven.modulist.database.entity.ModuleList
 
 class AddModuleListDialog(private val inheritanceOptions: List<ModuleList>, activity: Activity): CustomDialog(activity) {
 
+    val names = inheritanceOptions.map { it.name }.map { it as CharSequence }.toTypedArray()
+    val checked = inheritanceOptions.map { false }.toBooleanArray()
+
+    var name: String = activity.getString(R.string.unloaded)
+    val selected = mutableListOf<ModuleList>()
+
     override fun show() {
 
-        val names = inheritanceOptions.map { it.name }.map { it as CharSequence }.toTypedArray()
-        val checked = inheritanceOptions.map { false }.toBooleanArray()
 
-        var name: String
-        val selected = mutableListOf<ModuleList>()
 
         displayCustomDialog("Add a list called..") {
 
@@ -25,10 +29,11 @@ class AddModuleListDialog(private val inheritanceOptions: List<ModuleList>, acti
             setPositiveButton {
 
                 val input = textView.text.toString()
-                name = if (input.count() > 0)
-                    input
-                else
-                    activity.getString(R.string.unloaded)
+
+                //otherwise, it stays as R.string.unloaded
+                if (input.count() > 0) {
+                    name = input
+                }
 
                 displayCustomDialog("What lists do you want to inherit from?") {
 
@@ -52,7 +57,8 @@ class AddModuleListDialog(private val inheritanceOptions: List<ModuleList>, acti
                             it.setView(listView)
 
                             setPositiveButton {
-                                Toast.makeText(activity, "I want to add new list", Toast.LENGTH_SHORT).show()
+
+                                addModuleList()
                             }
 
                             setNegativeButton {
@@ -63,5 +69,13 @@ class AddModuleListDialog(private val inheritanceOptions: List<ModuleList>, acti
                 }
             }
         }
+    }
+
+    private fun addModuleList() {
+
+        //TODO add items from iheritance 
+        val moduleList = ModuleList(name, Color.RED)
+        Models.getModuleListModel(activity.application)
+            .insert(moduleList)
     }
 }

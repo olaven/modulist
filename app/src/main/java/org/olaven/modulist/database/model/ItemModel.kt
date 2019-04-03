@@ -17,8 +17,6 @@ class ItemModel(application: Application): CommonModel<Item>(application) {
     )
 
 
-    val allItemsLive = repository.allItemsLive
-
     fun getByModuleListId(id: Long) =
         repository.getByModuleListId(id)
 

@@ -11,9 +11,9 @@ import java.lang.Exception
 
 class AddItemDialog(val moduleList: ModuleList, activity: Activity): CustomDialog(activity) {
 
-    var name = activity.getString(R.string.unloaded)
-    var dayDistribution = Integer.MAX_VALUE
-    val alertContext = activity.applicationContext
+    var name = activity.getString(R.string.unloaded)!!
+    private var dayDistribution = Integer.MAX_VALUE
+    private val alertContext = activity.applicationContext!!
 
     override fun show() {
 
@@ -21,7 +21,7 @@ class AddItemDialog(val moduleList: ModuleList, activity: Activity): CustomDialo
 
             val view = EditText(alertContext)
             it.setView(view)
-            setPositiveButton {  
+            setPositiveButton {
 
                 name = view.text.toString()
 
@@ -55,10 +55,7 @@ class AddItemDialog(val moduleList: ModuleList, activity: Activity): CustomDialo
                             it.setView(view)
                             setPositiveButton {
 
-                                val item = Item(name, false, dayDistribution, moduleList.id!!)
-                                Models
-                                    .getItemModel(activity.application)
-                                    .insert(item)
+                                addItem()
                             }
                             setNegativeButton {  }
                         }
@@ -66,5 +63,13 @@ class AddItemDialog(val moduleList: ModuleList, activity: Activity): CustomDialo
                 }
             }
         }
+    }
+
+    private fun addItem() {
+
+        val item = Item(name, false, dayDistribution, moduleList.id!!)
+        Models
+            .getItemModel(activity.application)
+            .insert(item)
     }
 }
