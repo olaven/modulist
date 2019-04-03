@@ -157,7 +157,7 @@ class ModuleListActivity : BaseActivity() {
 
             data?.let {
                 val bitmap = cameraTools.getBitMap(it)
-                //TODO: Do something with bitmap, like storing in db 
+                //TODO: Do something with bitmap, like storing in db
             }
         }
     }
