@@ -45,7 +45,7 @@ class ModuleListActivity : BaseActivity() {
         val itemModel = Models.getItemModel(application)
         adapter = ItemsRecyclerAdapter(applicationContext, activity_module_list_seekbar_days.progress)
 
-        moduleListModel.getById(id).observe(this, Observer {
+        moduleListModel.getByIdLive(id).observe(this, Observer {
 
             it?.let {
 

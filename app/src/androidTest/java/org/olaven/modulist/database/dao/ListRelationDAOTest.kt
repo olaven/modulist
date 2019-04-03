@@ -22,11 +22,11 @@ class ListRelationDAOTest: DAOTest() {
         listRelationDAO.insert(ListRelation(sub, firstSuper))
         listRelationDAO.insert(ListRelation(sub, secondSuper))
 
-        val onFirst = getValue(listRelationDAO.getByParent(firstSuper))
+        val onFirst = getValue(listRelationDAO.getByParentIdLive(firstSuper))
         assertThat(onFirst.count())
             .isEqualTo(1)
 
-        val onSecond = getValue(listRelationDAO.getByParent(secondSuper))
+        val onSecond = getValue(listRelationDAO.getByParentIdLive(secondSuper))
         assertThat(onSecond.count())
             .isEqualTo(1)
     }
@@ -42,7 +42,7 @@ class ListRelationDAOTest: DAOTest() {
         listRelationDAO.insert(ListRelation(sub, firstSuper))
         listRelationDAO.insert(ListRelation(sub, secondSuper))
 
-        val onSub = getValue(listRelationDAO.getByChild(sub))
+        val onSub = getValue(listRelationDAO.getByChildIdLive(sub))
         assertThat(onSub.count())
             .isEqualTo(2)
     }

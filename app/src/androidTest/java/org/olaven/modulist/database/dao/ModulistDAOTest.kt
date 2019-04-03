@@ -16,7 +16,7 @@ class ModulistDAOTest: DAOTest() {
         val list = ModuleList("some list", Color.BLUE)
         val id = moduleListDAO.insert(list)
 
-        val retrieved = getValue(moduleListDAO.getById(id))
+        val retrieved = getValue(moduleListDAO.getByIdLive(id))
         assertThat(retrieved)
             .isEqualToIgnoringGivenFields(list, "id")
     }
@@ -27,13 +27,13 @@ class ModulistDAOTest: DAOTest() {
         val list = ModuleList("some list", Color.BLUE)
         val id = moduleListDAO.insert(list)
 
-        val before = getValue(moduleListDAO.getById(id))
+        val before = getValue(moduleListDAO.getByIdLive(id))
         assertThat(before)
             .isNotNull
 
         moduleListDAO.delete(before)
 
-        val after = getValue(moduleListDAO.getById(before.id!!))
+        val after = getValue(moduleListDAO.getByIdLive(before.id!!))
 
         assertThat(after)
             .isNull()

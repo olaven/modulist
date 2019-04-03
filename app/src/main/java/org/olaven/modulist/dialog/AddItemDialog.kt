@@ -1,5 +1,7 @@
 package org.olaven.modulist.dialog
 
+import android.os.AsyncTask
+import android.support.annotation.WorkerThread
 import android.support.v7.app.AppCompatActivity
 import android.widget.EditText
 import android.widget.TextView
@@ -65,11 +67,28 @@ class AddItemDialog(val moduleList: ModuleList, activity: AppCompatActivity): Cu
         }
     }
 
+
+    //TODO: Run this on a separate thread -> also confirm that it works
     private fun addItem() {
 
+        val itemModel = Models.getItemModel(activity.application)
+        val listRelationModel = Models.getListRelationModel(activity.application)
+        val moduleListModel = Models.getModuleListModel(activity.application)
+
         val item = Item(name, false, dayDistribution, moduleList.id!!)
-        Models
-            .getItemModel(activity.application)
-            .insert(item)
+        itemModel.insert(item)
+
+        // add to children
+        val children =
+            listRelationModel.getByParentId(moduleList.id!!).map {
+                moduleListModel.getById(it.child!!)
+            }
+
+        children.forEach { child ->
+
+            item.moduleListId = child.id!!
+            itemModel.insert(item)
+        }
     }
 }
+

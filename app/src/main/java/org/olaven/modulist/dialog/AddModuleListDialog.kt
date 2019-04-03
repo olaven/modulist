@@ -12,6 +12,7 @@ import com.pes.androidmaterialcolorpickerdialog.ColorPicker
 import org.olaven.modulist.R
 import org.olaven.modulist.database.Models
 import org.olaven.modulist.database.entity.Item
+import org.olaven.modulist.database.entity.ListRelation
 import org.olaven.modulist.database.entity.ModuleList
 
 
@@ -102,16 +103,23 @@ private class InsertModulelistTask: AsyncTask<InsertModulelistTask.DTO, Any, Uni
 
                 val itemModel = Models.getItemModel(it.activity.application)
                 val moduleListModel = Models.getModuleListModel(it.activity.application)
+                val listRelationModel = Models.getListRelationModel(it.activity.application)
 
                 // persist the list
                 val moduleList = ModuleList(dto.name, dto.color)
                 val id = moduleListModel.insertForId(moduleList)
 
-                // fetching inerhited items
-                // persist copies of items, BUT change their modulelist id to current one
+
+                /*
+                 * For each parent
+                 * 1: fetch items and add them to current one
+                 * 2: store relation in database as ListRelation
+                 */
                 val items = mutableListOf<Item>()
                 dto.inheritanceOptions.forEach {parent ->
 
+
+                    //1:
                     val parentItemsLive = itemModel.getByModuleListId(parent.id!!)
                     parentItemsLive.observe(dto.activity, Observer {
 
@@ -125,6 +133,10 @@ private class InsertModulelistTask: AsyncTask<InsertModulelistTask.DTO, Any, Uni
                             }
                         }
                     })
+
+                    //2:
+                    val listRelation = ListRelation(moduleList.id, parent.id)
+                    listRelationModel.insert(listRelation)
                 }
             }
         }

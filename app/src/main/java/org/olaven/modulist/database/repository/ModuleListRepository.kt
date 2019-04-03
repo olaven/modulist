@@ -9,8 +9,11 @@ class ModuleListRepository(private val moduleListDAO: ModuleListDAO) : CommonRep
 
     val allModuleListsLive: LiveData<List<ModuleList>> = moduleListDAO.getAllModuleListsLive()
 
+    fun getByidLive(id: Long) =
+        moduleListDAO.getByIdLive(id)
+
     fun getById(id: Long) =
-        moduleListDAO.getById(id)
+            moduleListDAO.getById(id)
 
     fun deleteAll() {
         moduleListDAO.deleteAll()

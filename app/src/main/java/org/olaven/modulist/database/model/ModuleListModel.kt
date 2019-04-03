@@ -19,6 +19,9 @@ class ModuleListModel(application: Application): CommonModel<ModuleList>(applica
     val allModuleListsLive: LiveData<List<ModuleList>> =
         repository.allModuleListsLive
 
+    fun getByIdLive(id: Long) =
+            repository.getByidLive(id)
+
     fun getById(id: Long) =
             repository.getById(id)
 
