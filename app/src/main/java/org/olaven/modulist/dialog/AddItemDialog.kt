@@ -17,7 +17,7 @@ class AddItemDialog(val moduleList: ModuleList, activity: Activity): CustomDialo
 
     override fun show() {
 
-        createCustomDialog("Add an item called...") {
+        displayCustomDialog("Add an item called...") {
 
             val view = EditText(alertContext)
             it.setView(view)
@@ -25,7 +25,7 @@ class AddItemDialog(val moduleList: ModuleList, activity: Activity): CustomDialo
 
                 name = view.text.toString()
 
-                createCustomDialog("Pack one for every ... days") {
+                displayCustomDialog("Pack one for every ... days") {
 
                     val dayOptions = activity.resources.getStringArray(R.array.day_options)
                     it.setSingleChoiceItems(dayOptions, -1) { _, item ->
@@ -49,7 +49,7 @@ class AddItemDialog(val moduleList: ModuleList, activity: Activity): CustomDialo
                             text = "Name: $name \n Distribution: $distributionMessage"
                         }
 
-                        createCustomDialog("Does this look okay?") {
+                        displayCustomDialog("Does this look okay?") {
 
                             it.setView(view)
                             it.setPositiveButton("Looks good") { _, _ ->

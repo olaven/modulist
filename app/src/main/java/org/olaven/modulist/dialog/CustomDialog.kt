@@ -7,7 +7,7 @@ abstract class CustomDialog(protected val activity: Activity) {
 
     abstract fun show()
 
-    protected fun createCustomDialog(title: String, applied: (dialogBuilder: AlertDialog.Builder) -> Unit) {
+    protected fun displayCustomDialog(title: String, applied: (dialogBuilder: AlertDialog.Builder) -> Unit) {
 
         AlertDialog.Builder(activity).apply {
             setTitle(title)
