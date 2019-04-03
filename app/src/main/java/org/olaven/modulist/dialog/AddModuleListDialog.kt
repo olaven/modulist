@@ -41,7 +41,7 @@ class AddModuleListDialog(private val inheritanceOptions: List<ModuleList>, acti
                     name = input
                 }
 
-                showCustomDialog("What lists do you want to inherit from?") {
+                showCustomDialog("What lists do you want to extend?") {
 
                     it.setMultiChoiceItems(names, checked) {_, index, checked ->
 
@@ -98,25 +98,26 @@ private class InsertModulelistTask: AsyncTask<InsertModulelistTask.DTO, Any, Uni
 
         DTOs.forEach {
 
-            it?.let {
+            it?.let {dto ->
 
                 val itemModel = Models.getItemModel(it.activity.application)
                 val moduleListModel = Models.getModuleListModel(it.activity.application)
 
                 // persist the list
-                val moduleList = ModuleList(it.name, it.color)
+                val moduleList = ModuleList(dto.name, dto.color)
                 val id = moduleListModel.insertForId(moduleList)
 
                 // fetching inerhited items
                 // persist copies of items, BUT change their modulelist id to current one
                 val items = mutableListOf<Item>()
-                it.inheritanceOptions.forEach {parent ->
+                dto.inheritanceOptions.forEach {parent ->
 
-                    val liveItems = itemModel.getByModuleListId(parent.id!!)
-                    liveItems.observe(it.activity, Observer {
+                    val parentItemsLive = itemModel.getByModuleListId(parent.id!!)
+                    parentItemsLive.observe(dto.activity, Observer {
 
                         it?.let { items ->
 
+                            parentItemsLive.removeObservers(dto.activity)
                             items.forEach {
 
                                 val copy = Item(it.name, it.done, it.dayDistribution, id)
