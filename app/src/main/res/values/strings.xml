@@ -37,6 +37,10 @@
     <string name="theme_key">theme_key</string>
     <string name="extra_modulelist_key">extra_modulelist_key</string>
 
+    <!-- Dialogs -->
+    <string name="dialog_positive">(ᵔᴥᵔ)</string>
+    <string name="dialog_negative">ε(´סּ︵סּ`)з</string>
+
     <string-array name="day_options">
         <item>1</item>
         <item>2</item>

@@ -21,7 +21,7 @@ class AddItemDialog(val moduleList: ModuleList, activity: Activity): CustomDialo
 
             val view = EditText(alertContext)
             it.setView(view)
-            it.setPositiveButton("continue") { _, _ ->
+            setPositiveButton {  
 
                 name = view.text.toString()
 
@@ -37,7 +37,8 @@ class AddItemDialog(val moduleList: ModuleList, activity: Activity): CustomDialo
                             //Distribution stays the same.
                         }
                     }
-                    it.setPositiveButton("continue") { _, _ ->
+
+                   setPositiveButton {
 
                         val distributionMessage =
                             if (dayDistribution == Integer.MAX_VALUE)
@@ -52,14 +53,14 @@ class AddItemDialog(val moduleList: ModuleList, activity: Activity): CustomDialo
                         displayCustomDialog("Does this look okay?") {
 
                             it.setView(view)
-                            it.setPositiveButton("Looks good") { _, _ ->
+                            setPositiveButton {
 
                                 val item = Item(name, false, dayDistribution, moduleList.id!!)
                                 Models
                                     .getItemModel(activity.application)
                                     .insert(item)
                             }
-                            it.setNegativeButton("Not what I intended") { _, _ -> }
+                            setNegativeButton {  }
                         }
                     }
                 }

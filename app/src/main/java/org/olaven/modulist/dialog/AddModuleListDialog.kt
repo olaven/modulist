@@ -1,10 +1,10 @@
 package org.olaven.modulist.dialog
 
 import android.app.Activity
-import android.content.DialogInterface
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.ListView
+import android.widget.Toast
 import org.olaven.modulist.R
 import org.olaven.modulist.database.entity.ModuleList
 
@@ -22,7 +22,7 @@ class AddModuleListDialog(private val inheritanceOptions: List<ModuleList>, acti
 
             val textView = EditText(activity)
             it.setView(textView)
-            it.setPositiveButton("Next") { _, _ ->
+            setPositiveButton {
 
                 val input = textView.text.toString()
                 name = if (input.count() > 0)
@@ -40,7 +40,8 @@ class AddModuleListDialog(private val inheritanceOptions: List<ModuleList>, acti
                         else
                             selected.remove(element)
                     }
-                    it.setPositiveButton("Next") { _, _ ->
+
+                    setPositiveButton {
 
                         displayCustomDialog("Overview") {
 
@@ -50,13 +51,12 @@ class AddModuleListDialog(private val inheritanceOptions: List<ModuleList>, acti
                             it.setMessage("Name: $name \nSelected parents:")
                             it.setView(listView)
 
-
-                            it.setPositiveButton("Looks good") { _, _ ->
-
+                            setPositiveButton {
+                                Toast.makeText(activity, "I want to add new list", Toast.LENGTH_SHORT).show()
                             }
 
-                            it.setNegativeButton("Not what I intended") { _, _ ->
-
+                            setNegativeButton {
+                                Toast.makeText(activity, "I am not happy", Toast.LENGTH_SHORT).show()
                             }
                         }
                     }
