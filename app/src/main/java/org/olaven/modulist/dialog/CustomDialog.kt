@@ -2,10 +2,11 @@ package org.olaven.modulist.dialog
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.support.v7.app.AppCompatActivity
 import org.olaven.modulist.R
 import java.util.*
 
-abstract class CustomDialog(protected val activity: Activity) {
+abstract class CustomDialog(protected val activity: AppCompatActivity) {
 
     //private val dialogs = Stack<AlertDialog.Builder>()
     private var dialog:AlertDialog.Builder? = null

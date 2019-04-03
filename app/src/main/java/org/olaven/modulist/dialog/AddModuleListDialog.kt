@@ -1,22 +1,29 @@
 package org.olaven.modulist.dialog
 
-import android.app.Activity
+import android.arch.lifecycle.Observer
 import android.graphics.Color
+import android.os.AsyncTask
+import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.ListView
 import android.widget.Toast
+import com.pes.androidmaterialcolorpickerdialog.ColorPicker
 import org.olaven.modulist.R
 import org.olaven.modulist.database.Models
+import org.olaven.modulist.database.entity.Item
 import org.olaven.modulist.database.entity.ModuleList
 
-class AddModuleListDialog(private val inheritanceOptions: List<ModuleList>, activity: Activity): CustomDialog(activity) {
 
-    val names = inheritanceOptions.map { it.name }.map { it as CharSequence }.toTypedArray()
-    val checked = inheritanceOptions.map { false }.toBooleanArray()
+class AddModuleListDialog(private val inheritanceOptions: List<ModuleList>, activity: AppCompatActivity): CustomDialog(activity) {
+
+    private val names = inheritanceOptions.map { it.name }.map { it as CharSequence }.toTypedArray()
+    private val checked = inheritanceOptions.map { false }.toBooleanArray()
 
     var name: String = activity.getString(R.string.unloaded)
-    val selected = mutableListOf<ModuleList>()
+    private var color: Int = Color.GRAY//just default
+    private val selected = mutableListOf<ModuleList>()
 
     override fun show() {
 
@@ -48,22 +55,32 @@ class AddModuleListDialog(private val inheritanceOptions: List<ModuleList>, acti
 
                     setPositiveButton {
 
-                        displayCustomDialog("Overview") {
+                        ColorPicker(activity).apply {
+                            setCallback {color ->
 
-                            val listView = ListView(activity)
-                            listView.adapter = ArrayAdapter(activity.applicationContext, android.R.layout.simple_list_item_1, selected.map { it.name })
+                                this.color = color
 
-                            it.setMessage("Name: $name \nSelected parents:")
-                            it.setView(listView)
+                                displayCustomDialog("Overview") {
 
-                            setPositiveButton {
+                                    val listView = ListView(activity)
+                                    listView.adapter = ArrayAdapter(activity.applicationContext, android.R.layout.simple_list_item_1, selected.map { it.name })
 
-                                addModuleList()
+                                    it.setMessage("Name: $name \nSelected parents:")
+                                    it.setView(listView)
+
+                                    setPositiveButton {
+
+                                        val dto = InsertModulelistTask.DTO(activity, name, color, inheritanceOptions)
+                                        InsertModulelistTask().execute(dto)
+                                    }
+
+                                    setNegativeButton {
+                                        Toast.makeText(activity, "I am not happy", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
                             }
-
-                            setNegativeButton {
-                                Toast.makeText(activity, "I am not happy", Toast.LENGTH_SHORT).show()
-                            }
+                            show()
+                            enableAutoClose()
                         }
                     }
                 }
@@ -71,11 +88,45 @@ class AddModuleListDialog(private val inheritanceOptions: List<ModuleList>, acti
         }
     }
 
-    private fun addModuleList() {
+}
 
-        //TODO add items from iheritance 
-        val moduleList = ModuleList(name, Color.RED)
-        Models.getModuleListModel(activity.application)
-            .insert(moduleList)
+
+private class InsertModulelistTask: AsyncTask<InsertModulelistTask.DTO, Any, Unit>() {
+
+    class DTO(val activity: AppCompatActivity, val name: String, val color: Int, val inheritanceOptions: List<ModuleList>)
+
+    override fun doInBackground(vararg DTOs: DTO?) {
+
+        DTOs.forEach {
+
+            it?.let {
+
+                val itemModel = Models.getItemModel(it.activity.application)
+                val moduleListModel = Models.getModuleListModel(it.activity.application)
+
+                // persist the list
+                val moduleList = ModuleList(it.name, it.color)
+                val id = moduleListModel.insertForId(moduleList)
+
+                // fetching inerhited items
+                // persist copies of items, BUT change their modulelist id to current one
+                val items = mutableListOf<Item>()
+                it.inheritanceOptions.forEach {parent ->
+
+                    val liveItems = itemModel.getByModuleListId(parent.id!!)
+                    liveItems.observe(it.activity, Observer {
+
+                        it?.let { items ->
+
+                            items.forEach {
+
+                                val copy = Item(it.name, it.done, it.dayDistribution, id)
+                                itemModel.insert(copy)
+                            }
+                        }
+                    })
+                }
+            }
+        }
     }
 }

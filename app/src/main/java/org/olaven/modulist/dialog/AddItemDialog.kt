@@ -1,6 +1,7 @@
 package org.olaven.modulist.dialog
 
 import android.app.Activity
+import android.support.v7.app.AppCompatActivity
 import android.widget.EditText
 import android.widget.TextView
 import org.olaven.modulist.R
@@ -9,7 +10,7 @@ import org.olaven.modulist.database.entity.Item
 import org.olaven.modulist.database.entity.ModuleList
 import java.lang.Exception
 
-class AddItemDialog(val moduleList: ModuleList, activity: Activity): CustomDialog(activity) {
+class AddItemDialog(val moduleList: ModuleList, activity: AppCompatActivity): CustomDialog(activity) {
 
     var name = activity.getString(R.string.unloaded)!!
     private var dayDistribution = Integer.MAX_VALUE

@@ -55,5 +55,7 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:28.0.0'
     // for database debugging
     implementation 'com.facebook.stetho:stetho-okhttp3:1.5.1'
+    // color picker
+    implementation 'com.pes.materialcolorpicker:library:1.2.5'
 
 }

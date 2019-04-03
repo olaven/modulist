@@ -3,6 +3,7 @@ package org.olaven.modulist.fragments
 import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -52,7 +53,7 @@ class MyListsFragment : Fragment() {
 
         fragment_my_lists_fab_add_module_list.setOnClickListener {
 
-            val alertContext = activity!!
+            val alertContext = (activity as AppCompatActivity)
             moduleLists?.let {
                 AddModuleListDialog(it, alertContext)
                     .show()

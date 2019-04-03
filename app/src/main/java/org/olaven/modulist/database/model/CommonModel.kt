@@ -23,6 +23,9 @@ abstract class CommonModel<T>(application: Application): AndroidViewModel(applic
         repository.insert(element)
     }
 
+    fun insertForId(element: T) =
+            repository.insert(element)
+
     fun delete(element: T) = scope.launch(Dispatchers.IO) {
         repository.delete(element)
     }
