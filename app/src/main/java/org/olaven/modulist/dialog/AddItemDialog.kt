@@ -1,6 +1,5 @@
 package org.olaven.modulist.dialog
 
-import android.app.Activity
 import android.support.v7.app.AppCompatActivity
 import android.widget.EditText
 import android.widget.TextView
@@ -18,7 +17,7 @@ class AddItemDialog(val moduleList: ModuleList, activity: AppCompatActivity): Cu
 
     override fun show() {
 
-        displayCustomDialog("Add an item called...") {
+        showCustomDialog("Add an item called...") {
 
             val view = EditText(alertContext)
             it.setView(view)
@@ -26,7 +25,7 @@ class AddItemDialog(val moduleList: ModuleList, activity: AppCompatActivity): Cu
 
                 name = view.text.toString()
 
-                displayCustomDialog("Pack one for every ... days") {
+                showCustomDialog("Pack one for every ... days") {
 
                     val dayOptions = activity.resources.getStringArray(R.array.day_options)
                     it.setSingleChoiceItems(dayOptions, -1) { _, item ->
@@ -51,7 +50,7 @@ class AddItemDialog(val moduleList: ModuleList, activity: AppCompatActivity): Cu
                             text = "Name: $name \n Distribution: $distributionMessage"
                         }
 
-                        displayCustomDialog("Does this look okay?") {
+                        showCustomDialog("Does this look okay?") {
 
                             it.setView(view)
                             setPositiveButton {

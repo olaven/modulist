@@ -4,7 +4,6 @@ import android.arch.lifecycle.Observer
 import android.graphics.Color
 import android.os.AsyncTask
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.ListView
@@ -29,7 +28,7 @@ class AddModuleListDialog(private val inheritanceOptions: List<ModuleList>, acti
 
 
 
-        displayCustomDialog("Add a list called..") {
+        showCustomDialog("Add a list called..") {
 
             val textView = EditText(activity)
             it.setView(textView)
@@ -42,7 +41,7 @@ class AddModuleListDialog(private val inheritanceOptions: List<ModuleList>, acti
                     name = input
                 }
 
-                displayCustomDialog("What lists do you want to inherit from?") {
+                showCustomDialog("What lists do you want to inherit from?") {
 
                     it.setMultiChoiceItems(names, checked) {_, index, checked ->
 
@@ -60,7 +59,7 @@ class AddModuleListDialog(private val inheritanceOptions: List<ModuleList>, acti
 
                                 this.color = color
 
-                                displayCustomDialog("Overview") {
+                                showCustomDialog("Overview") {
 
                                     val listView = ListView(activity)
                                     listView.adapter = ArrayAdapter(activity.applicationContext, android.R.layout.simple_list_item_1, selected.map { it.name })

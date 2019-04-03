@@ -10,6 +10,7 @@ import android.support.annotation.WorkerThread
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
+import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,8 @@ import org.olaven.modulist.R
 import org.olaven.modulist.database.AppDatabase
 import org.olaven.modulist.database.Models
 import org.olaven.modulist.database.addDemoData
+import org.olaven.modulist.dialog.AddDemoDataDialog
+import org.olaven.modulist.dialog.ClearDataDialog
 
 
 class SettingsFragment: Fragment() {
@@ -44,45 +47,18 @@ class SettingsFragment: Fragment() {
 
         fragment_settings_button_load_demo_data.setOnClickListener {
 
-            activity?.let { activity ->
-
-                val dialog = AlertDialog.Builder(activity)
-                dialog.apply {
-
-                    setTitle("Demodata will PERMANENTLY replace your own data.")
-                    setPositiveButton("I understand") { _, _ ->
-
-                        activity.application?.let { insertDemoData(it) }
-                    }
-                    setNegativeButton("Nope, not what I want!") { dialogInterface, _ ->
-                       dialogInterface.cancel()
-                    }
-                    show()
-                }
-            }
+            AddDemoDataDialog(activity as AppCompatActivity)
+                .show()
         }
 
         fragment_settings_button_clear_data.setOnClickListener {
 
-            activity?.application?.let {
-                clearDatabase(it)
-            }
+            ClearDataDialog(activity as AppCompatActivity)
+                .show()
         }
 
     }
 
-    private fun insertDemoData(application: Application) {
-
-        clearDatabase(application)
-        addDemoData(application)
-    }
-
-    private fun clearDatabase(application: Application) {
-
-       Models.getListRelationModel(application).deleteAll()
-        Models.getItemModel(application).deleteAll()
-        Models.getModuleListModel(application).deleteAll()
-    }
 
     private fun setupThemePopup(context: Context) {
 

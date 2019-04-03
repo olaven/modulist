@@ -16,7 +16,6 @@ import org.olaven.modulist.database.Models
 import org.olaven.modulist.database.entity.Item
 import org.olaven.modulist.database.entity.ModuleList
 import org.olaven.modulist.dialog.AddItemDialog
-import java.lang.Exception
 
 class ModuleListActivity : BaseActivity() {
 
@@ -59,6 +58,7 @@ class ModuleListActivity : BaseActivity() {
         activity_module_list_recycler_view.layoutManager = LinearLayoutManager(applicationContext, LinearLayout.VERTICAL, false)
         itemModel.getByModuleListId(id).observe(this, Observer { packageTypes ->
 
+            adapter.clear()
             packageTypes?.forEach {item ->
 
                 adapter.add(item)

@@ -62,4 +62,7 @@ class ItemsRecyclerAdapter(val context: Context, var days: Int):  RecyclerView.A
 
         return "$name, x$amount"
     }
+
+    fun clear() =
+            items.clear()
 }
