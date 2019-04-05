@@ -1,6 +1,6 @@
 package org.olaven.modulist.adapters
 
-import android.content.Context
+import android.app.Application
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +9,9 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.list_item.view.*
 import org.olaven.modulist.R
 import org.olaven.modulist.database.entity.Item
+import org.olaven.modulist.tasks.PutItemTask
 
-class ItemsRecyclerAdapter(val context: Context, var days: Int):  RecyclerView.Adapter<ItemsRecyclerAdapter.MyViewHolder>() {
+class ItemsRecyclerAdapter(val application: Application, var days: Int):  RecyclerView.Adapter<ItemsRecyclerAdapter.MyViewHolder>() {
 
     private val items = mutableListOf<Item>()
 
@@ -23,7 +24,7 @@ class ItemsRecyclerAdapter(val context: Context, var days: Int):  RecyclerView.A
         init {
             view.setOnClickListener {
 
-                Toast.makeText(context, "Clicked item", Toast.LENGTH_SHORT).show()
+                Toast.makeText(application.applicationContext, "Clicked item", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -48,6 +49,13 @@ class ItemsRecyclerAdapter(val context: Context, var days: Int):  RecyclerView.A
             list_item_name.text = getItemText(item)
             list_item_info.text = "some attachments or somethign"
             list_item_checkbox.isChecked = item.done
+
+            list_item_checkbox.setOnClickListener {
+
+                item.done = list_item_checkbox.isChecked
+                val dto = PutItemTask.DTO(item)
+                PutItemTask(application).execute(dto)
+            }
         }
     }
 

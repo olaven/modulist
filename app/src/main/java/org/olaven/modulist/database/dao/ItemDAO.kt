@@ -8,11 +8,14 @@ import org.olaven.modulist.database.entity.Item
 @Dao
 interface ItemDAO: CommonDAO<Item> {
 
+    @Query("select * from Item where id = :id")
+    fun getById(id: Long): Item
+
     @Query("select * from Item")
     fun getAllItemsLive(): LiveData<List<Item>>
 
     @Query("select * from Item where id = :id")
-    fun getById(id: Long): LiveData<Item>
+    fun getByIdLive(id: Long): LiveData<Item>
 
     @Query("select * from Item where moduleListId = :id")
     fun getByModuleListIdLive(id: Long): LiveData<List<Item>>

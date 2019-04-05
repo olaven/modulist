@@ -20,7 +20,7 @@ class ModuleListModel(application: Application): CommonModel<ModuleList>(applica
         repository.allModuleListsLive
 
     fun getByIdLive(id: Long) =
-            repository.getByidLive(id)
+            repository.getByIdLive(id)
 
     fun getById(id: Long) =
             repository.getById(id)

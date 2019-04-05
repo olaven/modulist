@@ -24,7 +24,7 @@ class ItemDAOTest: DAOTest() {
         val id = itemDAO.insert(item)
 
         val retrieved = getValue(
-            itemDAO.getById(id)
+            itemDAO.getByIdLive(id)
         )
         assertThat(retrieved)
             .isEqualToIgnoringGivenFields(item, "id")

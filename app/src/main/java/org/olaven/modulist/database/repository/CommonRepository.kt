@@ -10,9 +10,12 @@ abstract class CommonRepository<T>(val dao: CommonDAO<T>) {
         dao.insert(element)
 
     @WorkerThread
-    fun delete(element: T) {
+    fun update(element: T) =
+        dao.update(element)
+
+    @WorkerThread
+    fun delete(element: T) =
         dao.delete(element)
-    }
 
 
 

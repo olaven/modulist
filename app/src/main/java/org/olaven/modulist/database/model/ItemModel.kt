@@ -14,6 +14,8 @@ class ItemModel(application: Application): CommonModel<Item>(application) {
         AppDatabase.getDatabase(application.applicationContext).itemDAO()
     )
 
+    fun getById(id: Long) =
+            repository.getById(id)
 
     fun getByModuleListIdLive(id: Long) =
         repository.getByModuleListIdLive(id)

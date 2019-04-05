@@ -1,9 +1,6 @@
 package org.olaven.modulist.database.dao
 
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Delete
-import android.arch.persistence.room.Insert
-import android.arch.persistence.room.OnConflictStrategy
+import android.arch.persistence.room.*
 
 
 @Dao
@@ -15,6 +12,9 @@ interface  CommonDAO<T> {
 
     @Insert
     fun insert(element: T): Long
+
+    @Update
+    fun update(element: T)
 
     @Delete
     fun delete(element: T)

@@ -2,6 +2,7 @@ package org.olaven.modulist.database.model
 
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
+import android.graphics.DiscretePathEffect
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -13,7 +14,6 @@ abstract class CommonModel<T>(application: Application): AndroidViewModel(applic
 
     abstract val repository: CommonRepository<T>
 
-    //coroutine
     private var parentJob = Job()
     private val coroutineContext get() = parentJob + Dispatchers.Main
     protected val scope = CoroutineScope(coroutineContext)
@@ -21,6 +21,10 @@ abstract class CommonModel<T>(application: Application): AndroidViewModel(applic
 
     fun insert(element: T) = scope.launch(Dispatchers.IO) {
         repository.insert(element)
+    }
+
+    fun update(element: T) = scope.launch(Dispatchers.IO) {
+        repository.update(element)
     }
 
     fun insertForId(element: T) =
