@@ -56,12 +56,15 @@ class ModuleListActivity : BaseActivity() {
 
 
         activity_module_list_recycler_view.layoutManager = LinearLayoutManager(applicationContext, LinearLayout.VERTICAL, false)
-        itemModel.getByModuleListIdLive(id).observe(this, Observer { packageTypes ->
+        itemModel.getByModuleListIdLive(id).observe(this, Observer { items ->
 
             adapter.clear()
-            packageTypes?.forEach {item ->
+            items?.let { items ->
 
-                adapter.add(item)
+                this.items = items.toMutableList()
+                items.forEach {
+                    adapter.add(it)
+                }
             }
             adapter.notifyDataSetChanged()
 
@@ -132,6 +135,10 @@ class ModuleListActivity : BaseActivity() {
                 triggerSharing()
                 return true
             }
+            R.id.menu_modulist_add_to_calendar -> {
+                triggerCalendarEvent()
+                retur true
+            }
             else -> {
                 Toast.makeText(applicationContext, "NOT IMPLEMENTED", Toast.LENGTH_SHORT)
                 return super.onOptionsItemSelected(item)
@@ -145,20 +152,31 @@ class ModuleListActivity : BaseActivity() {
                 "Packing for $dayCount dayCount"
     }
 
+    //TODO: TEST ME (I have to run to the train)
+    private fun triggerCalendarEvent() {
+
+        val intent = Intent(Intent.ACTION_EDIT)
+        intent.setType("vnd.android.cursor.item/event");
+        intent.putExtra("title", "Pack for ${moduleList.name}")
+        startActivity(intent)
+    }
+
     private fun triggerSharing() {
 
         val intent = Intent(Intent.ACTION_SEND)
         intent.type = "text/plain"
-        intent.putExtra(Intent.EXTRA_TEXT, toStringRepresentation())
+
+        val content = toString()
+        intent.putExtra(Intent.EXTRA_TEXT, content)
         // TODO: Implement sharing of images intent.extras[Intent.EXTRA_STREAM] = File() //ATAHCMENTS
         startActivity(Intent.createChooser(intent, "Share list using.."))
     }
 
 
-
-    private fun toStringRepresentation(): String? {
+    override fun toString(): String {
 
         val builder = StringBuilder()
+        builder.append("${moduleList.name}: \n")
         items.forEach {
 
             val done = if (it.done)
@@ -166,12 +184,10 @@ class ModuleListActivity : BaseActivity() {
             else
                 "[ ]"
 
-            builder.append("$done ${it.name} \n")
+            builder.append("\n$done ${it.name} \n")
         }
         return builder.toString()
     }
-
-
 }
 
 

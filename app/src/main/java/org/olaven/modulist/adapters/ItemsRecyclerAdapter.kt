@@ -47,7 +47,6 @@ class ItemsRecyclerAdapter(val application: Application, var days: Int):  Recycl
         holder.itemView.apply {
 
             list_item_name.text = getItemText(item)
-            list_item_info.text = "some attachments or somethign"
             list_item_checkbox.isChecked = item.done
 
             list_item_checkbox.setOnClickListener {
