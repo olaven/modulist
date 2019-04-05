@@ -9,6 +9,7 @@ import org.olaven.modulist.R
 import org.olaven.modulist.database.Models
 import org.olaven.modulist.database.entity.Item
 import org.olaven.modulist.database.entity.ModuleList
+import org.olaven.modulist.tasks.PutItemTask
 import java.lang.Exception
 
 class AddItemDialog(val moduleList: ModuleList, activity: AppCompatActivity): CustomDialog(activity) {
@@ -57,7 +58,10 @@ class AddItemDialog(val moduleList: ModuleList, activity: AppCompatActivity): Cu
                             it.setView(view)
                             setPositiveButton {
 
-                                addItem()
+                                val item = Item(name, false, dayDistribution, moduleList.id!!)
+                                //addItem()
+                                val dto = PutItemTask.DTO(item, activity.application)
+                                PutItemTask().execute(dto)
                             }
                             setNegativeButton {  }
                         }
@@ -67,6 +71,7 @@ class AddItemDialog(val moduleList: ModuleList, activity: AppCompatActivity): Cu
         }
     }
 
+    /*
 
     //TODO: Run this on a separate thread -> also confirm that it works
     private fun addItem() {
@@ -90,5 +95,7 @@ class AddItemDialog(val moduleList: ModuleList, activity: AppCompatActivity): Cu
             itemModel.insert(item)
         }
     }
+
+    */
 }
 

@@ -135,7 +135,7 @@ private class InsertModulelistTask: AsyncTask<InsertModulelistTask.DTO, Any, Uni
                     })
 
                     //2:
-                    val listRelation = ListRelation(moduleList.id, parent.id)
+                    val listRelation = ListRelation(id, parent.id)
                     listRelationModel.insert(listRelation)
                 }
             }
