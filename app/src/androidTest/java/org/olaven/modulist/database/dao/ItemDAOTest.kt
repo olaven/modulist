@@ -42,7 +42,7 @@ class ItemDAOTest: DAOTest() {
         itemDAO.insert(item)
 
         val retrieved = getValue(
-            itemDAO.getByModuleListId(moduleListId)
+            itemDAO.getByModuleListIdLive(moduleListId)
         )[0]
 
         assertThat(retrieved)
@@ -67,7 +67,7 @@ class ItemDAOTest: DAOTest() {
         }
 
         val retrieved = getValue(
-            itemDAO.getByModuleListId(moduleListId)
+            itemDAO.getByModuleListIdLive(moduleListId)
         )
 
         assertThat(retrieved.count())
@@ -98,7 +98,7 @@ class ItemDAOTest: DAOTest() {
         }
 
         val retrieved = getValue(
-            itemDAO.getByModuleListId(correctList)
+            itemDAO.getByModuleListIdLive(correctList)
         )
 
         assertThat(retrieved.count())

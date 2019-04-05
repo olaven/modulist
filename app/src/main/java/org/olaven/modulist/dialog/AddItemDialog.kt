@@ -1,15 +1,12 @@
 package org.olaven.modulist.dialog
 
-import android.os.AsyncTask
-import android.support.annotation.WorkerThread
 import android.support.v7.app.AppCompatActivity
 import android.widget.EditText
 import android.widget.TextView
 import org.olaven.modulist.R
-import org.olaven.modulist.database.Models
 import org.olaven.modulist.database.entity.Item
 import org.olaven.modulist.database.entity.ModuleList
-import org.olaven.modulist.tasks.PutItemTask
+import org.olaven.modulist.tasks.InsertItemTask
 import java.lang.Exception
 
 class AddItemDialog(val moduleList: ModuleList, activity: AppCompatActivity): CustomDialog(activity) {
@@ -60,8 +57,8 @@ class AddItemDialog(val moduleList: ModuleList, activity: AppCompatActivity): Cu
 
                                 val item = Item(name, false, dayDistribution, moduleList.id!!)
                                 //addItem()
-                                val dto = PutItemTask.DTO(item, activity.application)
-                                PutItemTask().execute(dto)
+                                val dto = InsertItemTask.DTO(item)
+                                InsertItemTask(activity.application).execute(dto)
                             }
                             setNegativeButton {  }
                         }

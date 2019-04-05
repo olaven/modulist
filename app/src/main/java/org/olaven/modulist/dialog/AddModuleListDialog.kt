@@ -1,8 +1,6 @@
 package org.olaven.modulist.dialog
 
-import android.arch.lifecycle.Observer
 import android.graphics.Color
-import android.os.AsyncTask
 import android.support.v7.app.AppCompatActivity
 import android.widget.ArrayAdapter
 import android.widget.EditText
@@ -10,10 +8,8 @@ import android.widget.ListView
 import android.widget.Toast
 import com.pes.androidmaterialcolorpickerdialog.ColorPicker
 import org.olaven.modulist.R
-import org.olaven.modulist.database.Models
-import org.olaven.modulist.database.entity.Item
-import org.olaven.modulist.database.entity.ListRelation
 import org.olaven.modulist.database.entity.ModuleList
+import org.olaven.modulist.tasks.InsertModulelistTask
 
 
 class AddModuleListDialog(private val inheritanceOptions: List<ModuleList>, activity: AppCompatActivity): CustomDialog(activity) {
@@ -70,8 +66,10 @@ class AddModuleListDialog(private val inheritanceOptions: List<ModuleList>, acti
 
                                     setPositiveButton {
 
-                                        val dto = InsertModulelistTask.DTO(activity, name, color, inheritanceOptions)
-                                        InsertModulelistTask().execute(dto)
+                                        val moduleList = ModuleList(name, color)
+                                        val dto = InsertModulelistTask.DTO(moduleList, inheritanceOptions)
+                                        //executes the task in background thread, as it reads from db
+                                        InsertModulelistTask(activity.application).execute(dto)
                                     }
 
                                     setNegativeButton {
@@ -91,54 +89,3 @@ class AddModuleListDialog(private val inheritanceOptions: List<ModuleList>, acti
 }
 
 
-private class InsertModulelistTask: AsyncTask<InsertModulelistTask.DTO, Any, Unit>() {
-
-    class DTO(val activity: AppCompatActivity, val name: String, val color: Int, val inheritanceOptions: List<ModuleList>)
-
-    override fun doInBackground(vararg DTOs: DTO?) {
-
-        DTOs.forEach {
-
-            it?.let {dto ->
-
-                val itemModel = Models.getItemModel(it.activity.application)
-                val moduleListModel = Models.getModuleListModel(it.activity.application)
-                val listRelationModel = Models.getListRelationModel(it.activity.application)
-
-                // persist the list
-                val moduleList = ModuleList(dto.name, dto.color)
-                val id = moduleListModel.insertForId(moduleList)
-
-
-                /*
-                 * For each parent
-                 * 1: fetch items and add them to current one
-                 * 2: store relation in database as ListRelation
-                 */
-                val items = mutableListOf<Item>()
-                dto.inheritanceOptions.forEach {parent ->
-
-
-                    //1:
-                    val parentItemsLive = itemModel.getByModuleListId(parent.id!!)
-                    parentItemsLive.observe(dto.activity, Observer {
-
-                        it?.let { items ->
-
-                            parentItemsLive.removeObservers(dto.activity)
-                            items.forEach {
-
-                                val copy = Item(it.name, it.done, it.dayDistribution, id)
-                                itemModel.insert(copy)
-                            }
-                        }
-                    })
-
-                    //2:
-                    val listRelation = ListRelation(id, parent.id)
-                    listRelationModel.insert(listRelation)
-                }
-            }
-        }
-    }
-}

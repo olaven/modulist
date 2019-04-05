@@ -1,12 +1,10 @@
 package org.olaven.modulist.database.model
 
 import android.app.Application
-import android.arch.lifecycle.LiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.olaven.modulist.database.AppDatabase
 import org.olaven.modulist.database.entity.Item
-import org.olaven.modulist.database.entity.ModuleList
 import org.olaven.modulist.database.repository.ItemRepository
 
 class ItemModel(application: Application): CommonModel<Item>(application) {
@@ -17,7 +15,10 @@ class ItemModel(application: Application): CommonModel<Item>(application) {
     )
 
 
-    fun getByModuleListId(id: Long) =
+    fun getByModuleListIdLive(id: Long) =
+        repository.getByModuleListIdLive(id)
+
+    fun getbyModuleListId(id: Long): List<Item> =
         repository.getByModuleListId(id)
 
     fun deleteAll() = scope.launch(Dispatchers.IO) {

@@ -13,7 +13,10 @@ class ItemRepository(private val itemDAO: ItemDAO): CommonRepository<Item>(itemD
     fun getByid(id: Long) =
         itemDAO.getById(id)
 
-    fun getByModuleListId(id: Long) =
+    fun getByModuleListIdLive(id: Long) =
+            itemDAO.getByModuleListIdLive(id)
+
+    fun getByModuleListId(id: Long): List<Item> =
             itemDAO.getByModuleListId(id)
 
     fun deleteAll() =

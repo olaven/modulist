@@ -56,7 +56,7 @@ class ModuleListActivity : BaseActivity() {
 
 
         activity_module_list_recycler_view.layoutManager = LinearLayoutManager(applicationContext, LinearLayout.VERTICAL, false)
-        itemModel.getByModuleListId(id).observe(this, Observer { packageTypes ->
+        itemModel.getByModuleListIdLive(id).observe(this, Observer { packageTypes ->
 
             adapter.clear()
             packageTypes?.forEach {item ->

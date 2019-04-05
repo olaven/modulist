@@ -15,7 +15,10 @@ interface ItemDAO: CommonDAO<Item> {
     fun getById(id: Long): LiveData<Item>
 
     @Query("select * from Item where moduleListId = :id")
-    fun getByModuleListId(id: Long): LiveData<List<Item>>
+    fun getByModuleListIdLive(id: Long): LiveData<List<Item>>
+
+    @Query("select * from Item where moduleListId = :id")
+    fun getByModuleListId(id: Long): List<Item>
 
     @Query("delete from Item")
     fun deleteAll()
