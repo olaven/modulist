@@ -3,6 +3,7 @@ package org.olaven.modulist.activity
 import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
@@ -53,10 +54,13 @@ class ModuleListActivity : BaseActivity() {
 
         moduleListModel.getByIdLive(id).observe(this, Observer {
 
-            it?.let {
+            it?.let {moduleList ->
 
-                moduleList = it
-                supportActionBar!!.title = it.name
+                this.moduleList = moduleList
+                supportActionBar?.apply {
+                    title = moduleList.name
+                    setBackgroundDrawable(ColorDrawable(moduleList.color))
+                }
             }
         })
 
@@ -154,7 +158,7 @@ class ModuleListActivity : BaseActivity() {
                 return true
             }
             R.id.menu_modulist_update_parents -> {
-                UpdateParentsDialog(moduleList, this).show()
+                UpdateParentsDialog(emptyList(), moduleList, this).show()
                 return true
             }
             R.id.menu_modulist_delete -> {

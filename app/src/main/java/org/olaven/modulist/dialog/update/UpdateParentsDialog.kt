@@ -13,7 +13,7 @@ class UpdateParentsDialog(val inheritanceOptions: List<ModuleList>, moduleList: 
 
 
             Toast.makeText(activity, "IMPLEMENT ME", Toast.LENGTH_SHORT).show()
-            
+
             setPositiveButton {
 
             }
