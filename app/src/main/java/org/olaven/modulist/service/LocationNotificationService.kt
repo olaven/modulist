@@ -23,8 +23,6 @@ class LocationNotificationService : Service() {
 
     override fun onCreate() {
 
-        sendNotification("Service has started")
-
         if (checkPermission(applicationContext)) {
             sendNotification("permissions granted for location")
         } else {
