@@ -57,5 +57,7 @@ dependencies {
     implementation 'com.facebook.stetho:stetho-okhttp3:1.5.1'
     // color picker
     implementation 'com.pes.materialcolorpicker:library:1.2.5'
+    // location 
+    implementation 'com.google.android.gms:play-services-location:16.0.0'
 
 }
