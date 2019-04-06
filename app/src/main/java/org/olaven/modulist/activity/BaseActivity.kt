@@ -1,4 +1,4 @@
-package org.olaven.modulist.activities
+package org.olaven.modulist.activity
 
 import android.content.Context
 import android.os.Bundle

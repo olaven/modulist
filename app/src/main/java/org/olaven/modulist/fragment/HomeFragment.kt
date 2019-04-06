@@ -1,4 +1,4 @@
-package org.olaven.modulist.fragments
+package org.olaven.modulist.fragment
 
 import android.arch.lifecycle.Observer
 import android.os.Bundle
@@ -10,7 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import org.olaven.modulist.R
-import org.olaven.modulist.adapters.HomeFragmentRecyclerAdapter
+import org.olaven.modulist.adapter.HomeFragmentRecyclerAdapter
 import org.olaven.modulist.database.Models
 
 class HomeFragment : Fragment() {

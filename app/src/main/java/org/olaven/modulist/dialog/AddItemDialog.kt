@@ -6,7 +6,7 @@ import android.widget.TextView
 import org.olaven.modulist.R
 import org.olaven.modulist.database.entity.Item
 import org.olaven.modulist.database.entity.ModuleList
-import org.olaven.modulist.tasks.PutItemTask
+import org.olaven.modulist.task.PutItemTask
 import java.lang.Exception
 
 class AddItemDialog(val moduleList: ModuleList, activity: AppCompatActivity): CustomDialog(activity) {

@@ -1,4 +1,4 @@
-package org.olaven.modulist.activities
+package org.olaven.modulist.activity
 
 import android.app.Activity
 import android.arch.lifecycle.Observer
@@ -11,12 +11,11 @@ import android.widget.*
 import kotlinx.android.synthetic.main.activity_module_list.*
 import org.olaven.modulist.CameraTools
 import org.olaven.modulist.R
-import org.olaven.modulist.adapters.ItemsRecyclerAdapter
+import org.olaven.modulist.adapter.ItemsRecyclerAdapter
 import org.olaven.modulist.database.Models
 import org.olaven.modulist.database.entity.Item
 import org.olaven.modulist.database.entity.ModuleList
 import org.olaven.modulist.dialog.AddItemDialog
-import android.R
 import android.provider.CalendarContract
 
 
@@ -139,7 +138,7 @@ class ModuleListActivity : BaseActivity() {
                 return true
             }
             R.id.menu_modulist_add_to_calendar -> {
-                triggerCalendarEvent()
+                triggerCalendar()
                 return true
             }
             else -> {
@@ -155,7 +154,7 @@ class ModuleListActivity : BaseActivity() {
                 "Packing for $dayCount dayCount"
     }
 
-    private fun triggerCalendarEvent() {
+    private fun triggerCalendar() {
 
         val intent = Intent(Intent.ACTION_EDIT)
         intent.type = "vnd.android.cursor.item/event"

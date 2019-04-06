@@ -1,9 +1,6 @@
-package org.olaven.modulist.tasks
+package org.olaven.modulist.task
 
 import android.app.Application
-import android.arch.lifecycle.Observer
-import android.os.AsyncTask
-import org.olaven.modulist.database.Models
 import org.olaven.modulist.database.entity.Item
 import org.olaven.modulist.database.entity.ListRelation
 import org.olaven.modulist.database.entity.ModuleList

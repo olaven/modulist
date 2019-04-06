@@ -1,19 +1,18 @@
-package org.olaven.modulist.activities
+package org.olaven.modulist.activity
 
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AppCompatActivity
 import android.view.Gravity
 import android.view.MenuItem
 import android.widget.Toast
 import com.facebook.stetho.Stetho
 import kotlinx.android.synthetic.main.activity_main.*
 import org.olaven.modulist.R
-import org.olaven.modulist.fragments.HomeFragment
-import org.olaven.modulist.fragments.MyListsFragment
-import org.olaven.modulist.fragments.SettingsFragment
+import org.olaven.modulist.fragment.HomeFragment
+import org.olaven.modulist.fragment.MyListsFragment
+import org.olaven.modulist.fragment.SettingsFragment
 
 class MainActivity : BaseActivity() {
 

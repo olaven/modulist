@@ -1,4 +1,4 @@
-package org.olaven.modulist.tasks
+package org.olaven.modulist.task
 
 import android.app.Application
 import org.olaven.modulist.database.entity.Item

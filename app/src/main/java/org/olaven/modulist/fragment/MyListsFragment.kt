@@ -1,4 +1,4 @@
-package org.olaven.modulist.fragments
+package org.olaven.modulist.fragment
 
 import android.arch.lifecycle.Observer
 import android.os.Bundle
@@ -12,7 +12,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import kotlinx.android.synthetic.main.fragment_my_lists.*
 import org.olaven.modulist.R
-import org.olaven.modulist.adapters.ListsFragmentRecyclerAdapter
+import org.olaven.modulist.adapter.ListsFragmentRecyclerAdapter
 import org.olaven.modulist.database.Models
 import org.olaven.modulist.database.entity.ModuleList
 import org.olaven.modulist.dialog.AddModuleListDialog

@@ -1,4 +1,4 @@
-package org.olaven.modulist.adapters
+package org.olaven.modulist.adapter
 
 import android.app.Application
 import android.support.v7.widget.RecyclerView
@@ -9,7 +9,7 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.list_item.view.*
 import org.olaven.modulist.R
 import org.olaven.modulist.database.entity.Item
-import org.olaven.modulist.tasks.PutItemTask
+import org.olaven.modulist.task.PutItemTask
 
 class ItemsRecyclerAdapter(val application: Application, var days: Int):  RecyclerView.Adapter<ItemsRecyclerAdapter.MyViewHolder>() {
 

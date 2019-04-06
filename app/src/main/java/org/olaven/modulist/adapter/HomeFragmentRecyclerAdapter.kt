@@ -1,4 +1,4 @@
-package org.olaven.modulist.adapters
+package org.olaven.modulist.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -8,26 +8,24 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.list_card.view.*
 import org.olaven.modulist.R
-import org.olaven.modulist.activities.ModuleListActivity
+import org.olaven.modulist.activity.ModuleListActivity
 import org.olaven.modulist.database.entity.ModuleList
 
+class HomeFragmentRecyclerAdapter(private val context: Context, private val moduleLists: List<ModuleList>): RecyclerView.Adapter<HomeFragmentRecyclerAdapter.MyViewHolder>() {
 
-class ListsFragmentRecyclerAdapter(val context: Context, private val moduleLists: List<ModuleList>):  RecyclerView.Adapter<ListsFragmentRecyclerAdapter.MyViewHolder>() {
-
-
-    override fun getItemCount() =
+    override fun getItemCount(): Int =
         moduleLists.count()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
 
-        val layoutInflater = LayoutInflater.from(parent?.context)
+        val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(R.layout.list_card, parent, false)
+
 
         return MyViewHolder(view as CardView)
     }
 
-
-    override fun onBindViewHolder(holder: ListsFragmentRecyclerAdapter.MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
         val moduleList = moduleLists[position]
         holder.view.apply {
@@ -52,4 +50,5 @@ class ListsFragmentRecyclerAdapter(val context: Context, private val moduleLists
             }
         }
     }
+
 }
