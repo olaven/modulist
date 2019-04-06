@@ -24,6 +24,11 @@
     <string name="menu_modulist_share">Share list</string>
     <string name="menu_modulist_add_location_reminder">Add location reminder</string>
     <string name="menu_modulist_add_to_calendar">Add to calendar</string>
+    <string name="menu_modulist_edit_list">Edit list</string>
+    <string name="menu_modulist_update_title">Update title</string>
+    <string name="menu_modulist_update_parents">Update parents</string>
+    <string name="menu_modulist_update_color">Update color</string>
+    <string name="menu_modulist_delete">Delete list</string>
 
     <!-- Other -->
     <string name="unloaded">Unloaded</string>
