@@ -16,6 +16,9 @@ import org.olaven.modulist.database.Models
 import org.olaven.modulist.database.entity.Item
 import org.olaven.modulist.database.entity.ModuleList
 import org.olaven.modulist.dialog.AddItemDialog
+import android.R
+import android.provider.CalendarContract
+
 
 class ModuleListActivity : BaseActivity() {
 
@@ -137,7 +140,7 @@ class ModuleListActivity : BaseActivity() {
             }
             R.id.menu_modulist_add_to_calendar -> {
                 triggerCalendarEvent()
-                retur true
+                return true
             }
             else -> {
                 Toast.makeText(applicationContext, "NOT IMPLEMENTED", Toast.LENGTH_SHORT)
@@ -152,12 +155,11 @@ class ModuleListActivity : BaseActivity() {
                 "Packing for $dayCount dayCount"
     }
 
-    //TODO: TEST ME (I have to run to the train)
     private fun triggerCalendarEvent() {
 
         val intent = Intent(Intent.ACTION_EDIT)
-        intent.setType("vnd.android.cursor.item/event");
-        intent.putExtra("title", "Pack for ${moduleList.name}")
+        intent.type = "vnd.android.cursor.item/event"
+        intent.putExtra(CalendarContract.Events.TITLE, "Pack for ${moduleList.name}")
         startActivity(intent)
     }
 
