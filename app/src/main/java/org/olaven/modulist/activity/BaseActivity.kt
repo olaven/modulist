@@ -1,9 +1,13 @@
 package org.olaven.modulist.activity
 
+import android.app.NotificationManager
 import android.content.Context
 import android.os.Bundle
+import android.support.v4.app.NotificationCompat
+import android.support.v4.app.NotificationManagerCompat
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
+import org.olaven.modulist.App
 import org.olaven.modulist.R
 
 open class BaseActivity: AppCompatActivity() {
@@ -13,7 +17,6 @@ open class BaseActivity: AppCompatActivity() {
         applyTheme()
         super.onCreate(savedInstanceState)
     }
-
 
     private fun applyTheme() {
 
