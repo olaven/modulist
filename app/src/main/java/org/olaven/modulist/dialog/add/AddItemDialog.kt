@@ -1,4 +1,4 @@
-package org.olaven.modulist.dialog
+package org.olaven.modulist.dialog.add
 
 import android.support.v7.app.AppCompatActivity
 import android.widget.EditText
@@ -6,6 +6,7 @@ import android.widget.TextView
 import org.olaven.modulist.R
 import org.olaven.modulist.database.entity.Item
 import org.olaven.modulist.database.entity.ModuleList
+import org.olaven.modulist.dialog.CustomDialog
 import org.olaven.modulist.task.PutItemTask
 import java.lang.Exception
 

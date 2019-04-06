@@ -15,7 +15,7 @@ import org.olaven.modulist.R
 import org.olaven.modulist.adapter.ListsFragmentRecyclerAdapter
 import org.olaven.modulist.database.Models
 import org.olaven.modulist.database.entity.ModuleList
-import org.olaven.modulist.dialog.AddModuleListDialog
+import org.olaven.modulist.dialog.add.AddModuleListDialog
 
 class MyListsFragment : Fragment() {
 

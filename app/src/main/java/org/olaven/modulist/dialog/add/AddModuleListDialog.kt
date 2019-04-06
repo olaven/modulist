@@ -1,4 +1,4 @@
-package org.olaven.modulist.dialog
+package org.olaven.modulist.dialog.add
 
 import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
@@ -9,6 +9,7 @@ import android.widget.Toast
 import com.pes.androidmaterialcolorpickerdialog.ColorPicker
 import org.olaven.modulist.R
 import org.olaven.modulist.database.entity.ModuleList
+import org.olaven.modulist.dialog.CustomDialog
 import org.olaven.modulist.task.InsertModulelistTask
 
 

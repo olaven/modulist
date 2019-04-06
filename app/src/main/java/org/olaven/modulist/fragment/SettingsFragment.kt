@@ -13,7 +13,7 @@ import android.view.ViewGroup
 import android.widget.PopupMenu
 import kotlinx.android.synthetic.main.fragment_settings.*
 import org.olaven.modulist.R
-import org.olaven.modulist.dialog.AddDemoDataDialog
+import org.olaven.modulist.dialog.add.AddDemoDataDialog
 import org.olaven.modulist.dialog.ClearDataDialog
 
 

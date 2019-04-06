@@ -5,8 +5,8 @@ import android.arch.persistence.room.PrimaryKey
 
 @Entity
 data class ModuleList(
-    val name: String,
-    val color: Int,
+    var name: String,
+    var color: Int,
     @field:PrimaryKey(autoGenerate = true)
     var id: Long? = null
 )

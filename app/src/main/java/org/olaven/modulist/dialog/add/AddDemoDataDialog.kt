@@ -1,9 +1,10 @@
-package org.olaven.modulist.dialog
+package org.olaven.modulist.dialog.add
 
 import android.app.Application
 import android.support.v7.app.AppCompatActivity
 import org.olaven.modulist.database.Models
 import org.olaven.modulist.database.addDemoData
+import org.olaven.modulist.dialog.CustomDialog
 
 class AddDemoDataDialog(activity: AppCompatActivity): CustomDialog(activity) {
 

@@ -15,8 +15,12 @@ import org.olaven.modulist.adapter.ItemsRecyclerAdapter
 import org.olaven.modulist.database.Models
 import org.olaven.modulist.database.entity.Item
 import org.olaven.modulist.database.entity.ModuleList
-import org.olaven.modulist.dialog.AddItemDialog
+import org.olaven.modulist.dialog.add.AddItemDialog
 import android.provider.CalendarContract
+import org.olaven.modulist.dialog.update.DeleteModuleListDialog
+import org.olaven.modulist.dialog.update.UpdateColorDialog
+import org.olaven.modulist.dialog.update.UpdateNameDialog
+import org.olaven.modulist.dialog.update.UpdateParentsDialog
 
 
 class ModuleListActivity : BaseActivity() {
@@ -139,6 +143,22 @@ class ModuleListActivity : BaseActivity() {
             }
             R.id.menu_modulist_add_to_calendar -> {
                 triggerCalendar()
+                return true
+            }
+            R.id.menu_modulist_update_color -> {
+                UpdateColorDialog(moduleList, this).show()
+                return true
+            }
+            R.id.menu_modulist_update_name-> {
+                UpdateNameDialog(moduleList, this).show()
+                return true
+            }
+            R.id.menu_modulist_update_parents -> {
+                UpdateParentsDialog(moduleList, this).show()
+                return true
+            }
+            R.id.menu_modulist_delete -> {
+                DeleteModuleListDialog(moduleList, this).show()
                 return true
             }
             else -> {

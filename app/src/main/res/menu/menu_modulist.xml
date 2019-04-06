@@ -13,8 +13,8 @@
     <item android:title="@string/menu_modulist_edit_list">
         <menu>
             <item
-                    android:id="@+id/menu_modulist_update_title"
-                    android:title="@string/menu_modulist_update_title" />
+                    android:id="@+id/menu_modulist_update_name"
+                    android:title="@string/menu_modulist_update_name" />
             <item
                     android:id="@+id/menu_modulist_update_parents"
                     android:title="@string/menu_modulist_update_parents" />
