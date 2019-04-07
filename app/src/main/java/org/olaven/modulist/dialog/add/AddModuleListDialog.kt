@@ -68,7 +68,7 @@ class AddModuleListDialog(private val inheritanceOptions: List<ModuleList>, acti
                                     setPositiveButton {
 
                                         val moduleList = ModuleList(name, color)
-                                        val dto = InsertModulelistTask.DTO(moduleList, inheritanceOptions)
+                                        val dto = InsertModulelistTask.DTO(moduleList, selected)
                                         //executes the task in background thread, as it reads from db
                                         InsertModulelistTask(activity.application).execute(dto)
                                     }

@@ -9,7 +9,8 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.list_item.view.*
 import org.olaven.modulist.R
 import org.olaven.modulist.database.entity.Item
-import org.olaven.modulist.task.PutItemTask
+import org.olaven.modulist.task.InsertItemTask
+import org.olaven.modulist.task.UpdateItemTask
 
 class ItemsRecyclerAdapter(val application: Application, var days: Int):  RecyclerView.Adapter<ItemsRecyclerAdapter.MyViewHolder>() {
 
@@ -52,8 +53,8 @@ class ItemsRecyclerAdapter(val application: Application, var days: Int):  Recycl
             list_item_checkbox.setOnClickListener {
 
                 item.done = list_item_checkbox.isChecked
-                val dto = PutItemTask.DTO(item)
-                PutItemTask(application).execute(dto)
+                val dto = UpdateItemTask.DTO(item)
+                UpdateItemTask(application).execute(dto)
             }
         }
     }

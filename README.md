@@ -17,8 +17,8 @@ This project is in an early state of development.
 - [X] Lagre data i database
 - [x] Fullfør databasearkitektur (entiteter)
 - [X] knapp som legger til testdata -> se om recyclerviews faktisk fungerer når data er der
-- [ ] lister arver av hverandre
-- [ ] items kan være X*antall dager (antall dager fylles ut hver gang man ser på listen)
+- [X] lister arver av hverandre
+- [X] items kan være X*antall dager (antall dager fylles ut hver gang man ser på listen)
 - [ ] Se vær for et sted, en dag
 - [ ] Audio attachment
 - [ ] Ha både uses-feature og users-permission for kamera/kalender/mikrofon
@@ -28,11 +28,11 @@ This project is in an early state of development.
 - [ ] legge til event til liste i kalender
 - [ ] Opprette liste
 - [X] bytte mellom themes
-- [ ] lagre theme-preferanse i userpreferences
+- [X] lagre theme-preferanse i userpreferences
 - [ ] Skikkelig håndtering av databasemigrering
 ## GUI
 - [ ] Bytte til standard card view i Home
-- [ ] Tema
+- [X] Tema
 - [ ] lag settings-fragment
 ## Testing
 - [ ] Sett opp automatisk testing på travis

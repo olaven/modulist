@@ -8,7 +8,7 @@ import org.olaven.modulist.database.entity.ModuleList
 
 class InsertModulelistTask(application: Application): CustomTask<InsertModulelistTask.DTO, Any, Unit>(application) {
 
-    class DTO(val moduleList: ModuleList, val inheritanceOptions: List<ModuleList>)
+    class DTO(val moduleList: ModuleList, val selectedParents: List<ModuleList>)
 
     override fun doInBackground(vararg DTOs: DTO?) {
 
@@ -23,18 +23,21 @@ class InsertModulelistTask(application: Application): CustomTask<InsertModulelis
 
                 /*
                  * For each parent
-                 * 1: fetch items and add them to current one
+                 * 1: fetch items and add them to current one (filter out duplicates)
                  * 2: store relation in database as ListRelation
                  */
-                dto.inheritanceOptions.forEach {parent ->
 
-                    //1:
-                    val parentItems = itemModel.getbyModuleListId(parent.id!!)
-                    parentItems.forEach {
+                //1:
+                dto.selectedParents
+                    .flatMap { itemModel.getbyModuleListId(it.id!!) }
+                    .distinctBy { it.name }
+                    .forEach {
                         val copy = Item(it.name, it.done, it.dayDistribution, id)
+                        itemModel.insert(copy)
                     }
 
-                    //2:
+                //2:
+                dto.selectedParents.forEach {parent ->
                     val listRelation = ListRelation(id, parent.id)
                     listRelationModel.insert(listRelation)
                 }

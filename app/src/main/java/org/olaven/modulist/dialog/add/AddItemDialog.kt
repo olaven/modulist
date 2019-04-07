@@ -7,7 +7,7 @@ import org.olaven.modulist.R
 import org.olaven.modulist.database.entity.Item
 import org.olaven.modulist.database.entity.ModuleList
 import org.olaven.modulist.dialog.CustomDialog
-import org.olaven.modulist.task.PutItemTask
+import org.olaven.modulist.task.InsertItemTask
 import java.lang.Exception
 
 class AddItemDialog(val moduleList: ModuleList, activity: AppCompatActivity): CustomDialog(activity) {
@@ -58,8 +58,8 @@ class AddItemDialog(val moduleList: ModuleList, activity: AppCompatActivity): Cu
 
                                 val item = Item(name, false, dayDistribution, moduleList.id!!)
                                 //addItem()
-                                val dto = PutItemTask.DTO(item)
-                                PutItemTask(activity.application).execute(dto)
+                                val dto = InsertItemTask.DTO(item)
+                                InsertItemTask(activity.application).execute(dto)
                             }
                             setNegativeButton {  }
                         }
@@ -68,32 +68,5 @@ class AddItemDialog(val moduleList: ModuleList, activity: AppCompatActivity): Cu
             }
         }
     }
-
-    /*
-
-    //TODO: Run this on a separate thread -> also confirm that it works
-    private fun addItem() {
-
-        val itemModel = Models.getItemModel(activity.application)
-        val listRelationModel = Models.getListRelationModel(activity.application)
-        val moduleListModel = Models.getModuleListModel(activity.application)
-
-        val item = Item(name, false, dayDistribution, moduleList.id!!)
-        itemModel.insert(item)
-
-        // add to children
-        val children =
-            listRelationModel.getByParentId(moduleList.id!!).map {
-                moduleListModel.getByIdLive(it.child!!)
-            }
-
-        children.forEach { child ->
-
-            item.moduleListId = child.id!!
-            itemModel.insert(item)
-        }
-    }
-
-    */
 }
 
