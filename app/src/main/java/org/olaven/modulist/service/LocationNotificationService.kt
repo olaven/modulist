@@ -17,7 +17,7 @@ import kotlin.random.Random
 
 class LocationNotificationService : Service() {
 
-    private val locationProviderClient = LocationServices.getFusedLocationProviderClient(applicationContext)
+
     private val locationCallback = object: LocationCallback() {
 
         override fun onLocationResult(locationResult: LocationResult) {
@@ -26,6 +26,8 @@ class LocationNotificationService : Service() {
             sendNotification("location: ${location.altitude} ${location.latitude}")
         }
     }
+
+    private lateinit var geofenceClient: GeofencingClient
 
     private val locationRequest = LocationRequest().apply {
         priority = LocationRequest.PRIORITY_HIGH_ACCURACY
@@ -40,9 +42,11 @@ class LocationNotificationService : Service() {
 
     override fun onCreate() {
 
-        if (checkPermission())
-            locationProviderClient
-                .requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper())
+        if (checkPermission()) {
+
+            val locationProviderClient = LocationServices.getFusedLocationProviderClient(applicationContext)
+            locationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper())
+        }
         else
             // no permission, wont't run
             stopSelf()
@@ -61,8 +65,8 @@ class LocationNotificationService : Service() {
         notificationManager.notify(Random.nextInt(), notification)
     }
 
-    //NOTE: notifications are not classified as dangerous. Therefore, it is not requried to check for it.
-    // However, location is PROTECTION_NORMAL
+    //NOTE: location are not classified as dangerous. Therefore, it is not requried to check for it.
+    // However, notificaions is PROTECTION_NORMAL
     private fun checkPermission(): Boolean = ActivityCompat.checkSelfPermission(
             this,
             Manifest.permission.ACCESS_FINE_LOCATION
