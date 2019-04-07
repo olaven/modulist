@@ -3,6 +3,7 @@ package org.olaven.modulist.activity
 import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -45,18 +46,21 @@ class ModuleListActivity : BaseActivity() {
 
     private fun setupModuleList() {
 
+        adapter = ItemsRecyclerAdapter(application, this, ModuleList(getString(R.string.unloaded), Color.GRAY), activity_module_list_seekbar_days.progress)
+
         val key = getString(R.string.extra_modulelist_key)
         val id = intent.extras[key] as Long
 
         val moduleListModel = Models.getModuleListModel(application)
         val itemModel = Models.getItemModel(application)
-        adapter = ItemsRecyclerAdapter(application, activity_module_list_seekbar_days.progress)
 
         moduleListModel.getByIdLive(id).observe(this, Observer {
 
             it?.let {moduleList ->
 
+                adapter.moduleList = moduleList
                 this.moduleList = moduleList
+
                 supportActionBar?.apply {
                     title = moduleList.name
                     setBackgroundDrawable(ColorDrawable(moduleList.color))
@@ -69,6 +73,7 @@ class ModuleListActivity : BaseActivity() {
         itemModel.getByModuleListIdLive(id).observe(this, Observer { items ->
 
             adapter.clear()
+            activity_module_list_recycler_view.adapter = adapter
             items?.let { items ->
 
                 this.items = items.toMutableList()
@@ -78,9 +83,8 @@ class ModuleListActivity : BaseActivity() {
             }
             adapter.notifyDataSetChanged()
 
+
         })
-        adapter.notifyDataSetChanged()
-        activity_module_list_recycler_view.adapter = adapter
     }
 
     private fun setupSeekbar() {

@@ -1,6 +1,7 @@
 package org.olaven.modulist.adapter
 
 import android.app.Application
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -9,10 +10,12 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.list_item.view.*
 import org.olaven.modulist.R
 import org.olaven.modulist.database.entity.Item
-import org.olaven.modulist.task.InsertItemTask
+import org.olaven.modulist.database.entity.ModuleList
+import org.olaven.modulist.dialog.DeleteItemDialog
+import org.olaven.modulist.task.DeleteItemTask
 import org.olaven.modulist.task.UpdateItemTask
 
-class ItemsRecyclerAdapter(val application: Application, var days: Int):  RecyclerView.Adapter<ItemsRecyclerAdapter.MyViewHolder>() {
+class ItemsRecyclerAdapter(val application: Application, val activity: AppCompatActivity, var moduleList: ModuleList, var days: Int):  RecyclerView.Adapter<ItemsRecyclerAdapter.MyViewHolder>() {
 
     private val items = mutableListOf<Item>()
 
@@ -48,13 +51,19 @@ class ItemsRecyclerAdapter(val application: Application, var days: Int):  Recycl
         holder.itemView.apply {
 
             list_item_name.text = getItemText(item)
-            list_item_checkbox.isChecked = item.done
 
+            list_item_checkbox.isChecked = item.done
             list_item_checkbox.setOnClickListener {
 
                 item.done = list_item_checkbox.isChecked
                 val dto = UpdateItemTask.DTO(item)
                 UpdateItemTask(application).execute(dto)
+            }
+
+            list_item_delete.setOnClickListener {
+
+                DeleteItemDialog(item, moduleList, activity)
+                    .show()
             }
         }
     }
