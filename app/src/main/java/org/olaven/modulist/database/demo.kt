@@ -25,13 +25,13 @@ fun addDemoData(application: Application) {
         summerHoliday
     )
 
-    /*
+
     listRelationModuleList.insert(
         ListRelation(winterHoliday.id, holiday.id)
     )
     listRelationModuleList.insert(
         ListRelation(summerHoliday.id, holiday.id)
-    )*/
+    )
 
     moduleLists.forEach {
 

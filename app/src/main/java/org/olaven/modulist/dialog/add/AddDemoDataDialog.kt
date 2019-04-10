@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import org.olaven.modulist.database.Models
 import org.olaven.modulist.database.addDemoData
 import org.olaven.modulist.dialog.CustomDialog
+import org.olaven.modulist.task.AddDemoDataTask
 
 class AddDemoDataDialog(activity: AppCompatActivity): CustomDialog(activity) {
 
@@ -26,7 +27,8 @@ class AddDemoDataDialog(activity: AppCompatActivity): CustomDialog(activity) {
     private fun insertDemoData(application: Application) {
 
         clearDatabase(application)
-        addDemoData(application)
+
+        AddDemoDataTask(application).execute()
     }
 
     private fun clearDatabase(application: Application) {

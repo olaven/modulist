@@ -27,6 +27,10 @@ abstract class CommonModel<T>(application: Application): AndroidViewModel(applic
         repository.update(element)
     }
 
+    /**
+     * Inserts and returns ID.
+     * Has to be called async, as it does not spawn its own job
+     */
     fun insertForId(element: T) =
             repository.insert(element)
 
