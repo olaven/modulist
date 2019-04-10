@@ -26,63 +26,77 @@ class AddModuleListDialog(private val inheritanceOptions: List<ModuleList>, acti
 
 
 
+
         showCustomDialog("Add a list called..") {
 
             val textView = EditText(activity)
             it.setView(textView)
+
             setPositiveButton {
 
                 val input = textView.text.toString()
 
-                //otherwise, it stays as R.string.unloaded
                 if (input.count() > 0) {
                     name = input
                 }
 
-                showCustomDialog("What lists do you want to extend?") {
+                ColorPicker(activity).apply {
 
-                    it.setMultiChoiceItems(names, checked) {_, index, checked ->
+                    setCallback { color ->
 
-                        val element = inheritanceOptions.get(index)
-                        if (checked)
-                            selected.add(element)
-                        else
-                            selected.remove(element)
-                    }
+                        this.color = color
 
-                    setPositiveButton {
+                        // there are lists to extend
+                        if (names.isNotEmpty()) {
+                            showCustomDialog("What lists do you want to extend?") {
 
-                        ColorPicker(activity).apply {
-                            setCallback {color ->
+                                it.setMultiChoiceItems(names, checked) {_, index, checked ->
 
-                                this.color = color
+                                    val element = inheritanceOptions.get(index)
+                                    if (checked)
+                                        selected.add(element)
+                                    else
+                                        selected.remove(element)
+                                }
 
-                                showCustomDialog("Overview") {
-
-                                    val listView = ListView(activity)
-                                    listView.adapter = ArrayAdapter(activity.applicationContext, android.R.layout.simple_list_item_1, selected.map { it.name })
-
-                                    it.setMessage("Name: $name \nSelected parents:")
-                                    it.setView(listView)
-
-                                    setPositiveButton {
-
-                                        val moduleList = ModuleList(name, color)
-                                        val dto = InsertModulelistTask.DTO(moduleList, selected)
-                                        //executes the task in background thread, as it reads from db
-                                        InsertModulelistTask(activity.application).execute(dto)
-                                    }
-
-                                    setNegativeButton {
-                                        Toast.makeText(activity, "I am not happy", Toast.LENGTH_SHORT).show()
-                                    }
+                                setPositiveButton {
+                                    showOverview()
                                 }
                             }
-                            show()
-                            enableAutoClose()
+                        } else {
+                            showOverview()
                         }
                     }
+
+                    enableAutoClose()
+                    show()
                 }
+            }
+        }
+    }
+
+    private fun showOverview() {
+
+        showCustomDialog("Overview") {
+
+            val listView = ListView(activity)
+            listView.adapter = ArrayAdapter(activity.applicationContext, android.R.layout.simple_list_item_1, selected.map { it.name })
+
+            it.setMessage("Name: $name \nParents: ${if (selected.isEmpty()) "NONE" else ""}")
+            if (selected.isNotEmpty()) {
+                it.setView(listView)
+            }
+
+            setPositiveButton {
+
+                val moduleList = ModuleList(name, color)
+                val dto = InsertModulelistTask.DTO(moduleList, selected)
+                //executes the task in background thread, as it reads from db
+                InsertModulelistTask(activity.application).execute(dto)
+            }
+
+            setNegativeButton {
+                Toast.makeText(activity, "I am not happy", Toast.LENGTH_SHORT).show()
             }
         }
     }
