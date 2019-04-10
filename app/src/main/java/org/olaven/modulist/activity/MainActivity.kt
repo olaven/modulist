@@ -1,5 +1,7 @@
 package org.olaven.modulist.activity
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.support.v4.app.Fragment
@@ -10,6 +12,7 @@ import android.widget.Toast
 import com.facebook.stetho.Stetho
 import kotlinx.android.synthetic.main.activity_main.*
 import org.olaven.modulist.R
+import org.olaven.modulist.database.entity.ModuleList
 import org.olaven.modulist.fragment.HomeFragment
 import org.olaven.modulist.fragment.MyListsFragment
 import org.olaven.modulist.fragment.SettingsFragment
@@ -17,6 +20,12 @@ import org.olaven.modulist.fragment.SettingsFragment
 class MainActivity : BaseActivity() {
 
     private var drawerToggle: ActionBarDrawerToggle? = null
+
+    companion object {
+        // TODO: parameter for which list to show
+        fun catchNotification(context: Context): Intent =
+                Intent(context, ModuleList::class.java)
+    }
 
     //TODO: hvis savedInstance IKKE er null, hent ut forrige fragment
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,7 +78,6 @@ class MainActivity : BaseActivity() {
 
         return super.onOptionsItemSelected(item)
     }
-
 
 
     private fun setUpActionBarWithDrawer() {

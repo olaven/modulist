@@ -2,7 +2,6 @@ package org.olaven.modulist.task
 
 import android.app.Application
 import org.olaven.modulist.database.entity.Item
-import org.olaven.modulist.database.entity.ModuleList
 
 class AddItemTask(application: Application): CustomTask<AddItemTask.DTO, Unit, Unit>(application) {
 
