@@ -53,7 +53,7 @@ class LocationNotificationService: IntentService("Location-notification") {
     override fun onHandleIntent(intent: Intent?) {
 
         val geofencingEvent = GeofencingEvent.fromIntent(intent)
-        
+
         if (checkPermission()) {
 
             geofencingClient.addGeofences(getGeofencingRequest(), geofencePendingIntent)?.run {

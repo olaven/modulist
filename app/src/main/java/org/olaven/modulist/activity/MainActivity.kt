@@ -13,7 +13,6 @@ import com.facebook.stetho.Stetho
 import kotlinx.android.synthetic.main.activity_main.*
 import org.olaven.modulist.R
 import org.olaven.modulist.database.entity.ModuleList
-import org.olaven.modulist.fragment.HomeFragment
 import org.olaven.modulist.fragment.MyListsFragment
 import org.olaven.modulist.fragment.SettingsFragment
 
@@ -34,7 +33,7 @@ class MainActivity : BaseActivity() {
         Stetho.initializeWithDefaults(this)
         setContentView(R.layout.activity_main)
 
-        replaceMainFragment(HomeFragment())
+        replaceMainFragment(MyListsFragment())
 
         setUpActionBarWithDrawer()
         setupDrawerItemListeners()
@@ -46,12 +45,8 @@ class MainActivity : BaseActivity() {
         activity_main_navigation_view.bringToFront()
         activity_main_navigation_view.setNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.nav_home     -> replaceMainFragment(HomeFragment())
                 R.id.nav_my_lists -> replaceMainFragment(MyListsFragment())
-                R.id.nav_settings -> {
-                    Toast.makeText(applicationContext, "SETTINGS", Toast.LENGTH_SHORT).show()
-                    replaceMainFragment(SettingsFragment())
-                }
+                R.id.nav_settings -> replaceMainFragment(SettingsFragment())
             }
             activity_main_drawer.closeDrawer(Gravity.START)
             true
