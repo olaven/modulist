@@ -32,7 +32,6 @@ class HomeFragmentRecyclerAdapter(private val context: Context, private val modu
 
             setCardBackgroundColor(moduleList.color)
             list_card_name.text = moduleList.name
-            list_card_favourite.text = "not favourite"
         }
     }
 

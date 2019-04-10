@@ -10,11 +10,6 @@
         android:layout_gravity="center"
         xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-            android:id="@+id/list_card_favourite"
-            android:text="@string/unloaded"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"/>
 
     <TextView
             android:id="@+id/list_card_name"

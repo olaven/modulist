@@ -34,7 +34,6 @@ class ListsFragmentRecyclerAdapter(val context: Context, private val moduleLists
 
             setCardBackgroundColor(moduleList.color)
             list_card_name.text = moduleList.name
-            list_card_favourite.text = "not favourite"
         }
     }
 
