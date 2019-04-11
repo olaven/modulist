@@ -19,10 +19,12 @@ import org.olaven.modulist.database.entity.Item
 import org.olaven.modulist.database.entity.ModuleList
 import org.olaven.modulist.dialog.add.AddItemDialog
 import android.provider.CalendarContract
+import com.google.android.gms.location.GeofencingEvent
 import org.olaven.modulist.dialog.update.DeleteModuleListDialog
 import org.olaven.modulist.dialog.update.UpdateColorDialog
 import org.olaven.modulist.dialog.update.UpdateNameDialog
 import org.olaven.modulist.dialog.update.UpdateParentsDialog
+import org.olaven.modulist.service.GeofenceService
 
 
 class ModuleListActivity : BaseActivity() {
@@ -103,6 +105,8 @@ class ModuleListActivity : BaseActivity() {
         })
     }
 
+
+
     private fun setupAddItemFab() {
 
         activity_module_list_fab_add_item.setOnClickListener {
@@ -145,16 +149,16 @@ class ModuleListActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
         return when(item?.itemId) {
+            R.id.menu_modulist_add_location_reminder -> {
+                triggerLocationReminder()
+                return true
+            }
             R.id.menu_modulist_share -> {
                 triggerSharing()
                 return true
             }
             R.id.menu_modulist_add_to_calendar -> {
                 triggerCalendar()
-                return true
-            }
-            R.id.menu_modulist_update_color -> {
-                UpdateColorDialog(moduleList, this).show()
                 return true
             }
             R.id.menu_modulist_update_name-> {
@@ -165,21 +169,30 @@ class ModuleListActivity : BaseActivity() {
                 UpdateParentsDialog(emptyList(), moduleList, this).show()
                 return true
             }
+            R.id.menu_modulist_update_color -> {
+                UpdateColorDialog(moduleList, this).show()
+                return true
+            }
             R.id.menu_modulist_delete -> {
                 DeleteModuleListDialog(moduleList, this).show()
                 return true
             }
             else -> {
-                Toast.makeText(applicationContext, "NOT IMPLEMENTED", Toast.LENGTH_SHORT)
                 return super.onOptionsItemSelected(item)
             }
         }
     }
 
-    private fun changeProgressText(dayCount: Int) {
+    fun triggerLocationReminder() {
 
-        activity_module_list_text_days.text =
-                "Packing for $dayCount dayCount"
+        //NOTE: 59.916044, 10.760100 -> SKOLE
+        val intent = Intent(this, GeofenceService::class.java)
+        //TODO: Alert with input
+        intent.putExtra(getString(R.string.add_fence_lat_key), 59.916044)
+        intent.putExtra(getString(R.string.add_fence_long_key), 10.760100)
+        intent.putExtra(getString(R.string.add_fence_is_geofence_key), true)
+
+        startService(intent)
     }
 
     private fun triggerCalendar() {
@@ -195,10 +208,16 @@ class ModuleListActivity : BaseActivity() {
         val intent = Intent(Intent.ACTION_SEND)
         intent.type = "text/plain"
 
-        val content = toString()
-        intent.putExtra(Intent.EXTRA_TEXT, content)
+        val listAsString = toString()
+        intent.putExtra(Intent.EXTRA_TEXT, listAsString)
         // TODO: Implement sharing of images intent.extras[Intent.EXTRA_STREAM] = File() //ATAHCMENTS
         startActivity(Intent.createChooser(intent, "Share list using.."))
+    }
+
+    private fun changeProgressText(dayCount: Int) {
+
+        activity_module_list_text_days.text =
+            "Packing for $dayCount dayCount"
     }
 
 

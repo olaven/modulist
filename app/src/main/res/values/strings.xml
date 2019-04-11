@@ -38,9 +38,14 @@
     <string name="change_theme">Change Theme</string>
 
     <!-- Preferences -->
-    <string name="preferences_modulist">preferences_modulist</string>
+    <string name="preferences_modulist_key">preferences_modulist</string>
     <string name="theme_key">theme_key</string>
     <string name="extra_modulelist_key">extra_modulelist_key</string>
+
+    <!-- Intent bundle-keys -->
+    <string name="add_fence_lat_key">add_fence_lat_key</string>
+    <string name="add_fence_long_key">add_fence_long_key</string>
+    <string name="add_fence_is_geofence_key">add_fence_is_geofence_key</string>
 
     <!-- Dialogs -->
     <string name="dialog_positive">(ᵔᴥᵔ)</string>

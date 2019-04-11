@@ -18,31 +18,44 @@ class NotificationService: IntentService("notificaion_service") {
 
     override fun onHandleIntent(intent: Intent?) {
 
+        // hent ut geofence-info fra et intent
+        val fenceEvent = GeofencingEvent.fromIntent(intent)
 
-        val geofencingEvent = GeofencingEvent.fromIntent(intent)
+        println("Fence: ${fenceEvent.geofenceTransition}")
 
-        if (geofencingEvent.hasError()) {
-            val errorMessage = geofencingEvent.errorCode.toString()
-            println(errorMessage)
+        if (fenceEvent.hasError()) {
+            println(fenceEvent.errorCode.toString())
             return
         }
 
-        // Get the transition type.
-        val geofenceTransition = geofencingEvent.geofenceTransition
+        // Check if I am interested in event
+        if (fenceEvent.geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER ) {
 
-        // Test that the reported transition was of interest.
-        if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER ) {
-
-            // Get the geofences that were triggered. A single event can trigger
-            // multiple geofences.
-            val triggeringGeofences = geofencingEvent.triggeringGeofences
-
+            // The triggered fences (NOTE: These should have an ID that matches the map)
+            val triggeringGeofences = fenceEvent.triggeringGeofences
 
             // Send notification and log the transition details.
-            sendNotification("Some geofence triggered - $geofenceTransition, $triggeringGeofences")
-        } else {
-            // Log the error.
-            println("invalid transition type")
+            sendNotification("Some geofence triggered - ${fenceEvent.geofenceTransition}, $triggeringGeofences")
+
+            fenceEvent.triggeringGeofences.forEach {
+                print(it.requestId)
+            }
+        }
+
+
+        //TODO: REMOVE
+        //NOTE: JUST TESTING
+        if (fenceEvent.geofenceTransition == Geofence.GEOFENCE_TRANSITION_DWELL) {
+
+            // The triggered fences (NOTE: These should have an ID that matches the map)
+            val triggeringGeofences = fenceEvent.triggeringGeofences
+
+            // Send notification and log the transition details.
+            sendNotification("Some geofence triggered - ${fenceEvent.geofenceTransition}, $triggeringGeofences")
+
+            fenceEvent.triggeringGeofences.forEach {
+                print(it.requestId)
+            }
         }
     }
 

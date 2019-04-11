@@ -8,29 +8,19 @@ import android.content.pm.PackageManager
 import android.support.v4.app.ActivityCompat
 import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingClient
+import com.google.android.gms.location.GeofencingEvent
 import com.google.android.gms.location.GeofencingRequest
+import org.olaven.modulist.R
+import org.olaven.modulist.randomString
 import java.util.*
 
 
 //"An IntentService can post a notification, do long-running background work, send intents to other services, or send a broadcast intent"
 class GeofenceService: IntentService("Location-notification") {
 
-    private val fences = HashMap<String, Geofence>().also {
-        it["test_fence"] = Geofence.Builder()
-            .setRequestId("test_fence")
-            .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER)
-            .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_DWELL) // ONLY FOR TESTING 
-            .setLoiteringDelay(10) // ONLY FOR TESTING
-            .setCircularRegion(59.916044, 10.760100, 200f)
-            .setExpirationDuration(29999)
-            .build()
-
-        //NOTE: 59.916044, 10.760100 -> SKOLE
-    }
-
     private lateinit var geofencingClient: GeofencingClient
     private val geofencePendingIntent: PendingIntent by lazy {
-        val intent = Intent(this, GeofenceService::class.java)
+        val intent = Intent(this, NotificationService::class.java)
         PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
     }
 
@@ -38,32 +28,50 @@ class GeofenceService: IntentService("Location-notification") {
     override fun onCreate() {
         super.onCreate()
 
-        //TODO: service starts all the time
         geofencingClient = GeofencingClient(this)
-        updateFences()
     }
+
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        return super.onStartCommand(intent, flags, startId)
+    }
+
 
 
 
     // TODO: sende intent fra "client"/GUI -> haandteres her?
     override fun onHandleIntent(intent: Intent?) {
 
-        println("Intent: ${intent?.action}")
-        //TODO: Check if intent was about adding fence!
-        if (true) {
+        val lat = intent?.extras?.getDouble(getString(R.string.add_fence_lat_key))
+        val long = intent?.extras?.getDouble(getString(R.string.add_fence_long_key))
 
-            updateFences()
+        println("Received intent: $lat, $long")
+
+        if (lat != null && long != null) {
+            //TODO:
+            addFenceAt(lat, long)
         }
     }
 
-    private fun updateFences() {
+    private fun addFenceAt(lat: Double, long: Double) {
+
+        // NOTE: although just getting a random chance of duplciates,
+        // it is extremely unlikey at this scale
+        val id = randomString(20)
+        val geofence = Geofence.Builder()
+            .setRequestId(id)
+            .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER)
+            .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_DWELL) // ONLY FOR TESTING //TODO: REMOVE THIS LINE
+            .setLoiteringDelay(0) // ONLY FOR TESTING //TODO: REMOVE THIS LINE
+            .setCircularRegion(lat, long, 200f)
+            .setExpirationDuration(300000)
+            .build()
 
         if (checkPermission()) {
 
-            geofencingClient.addGeofences(getGeofencingRequest(), geofencePendingIntent)?.run {
+            geofencingClient.addGeofences(getGeofencingRequest(geofence), geofencePendingIntent)?.run {
                 addOnSuccessListener {
 
-                    println("added geofence")
+                    println("updated geofences")
                 }
                 addOnFailureListener {
                     // Failed to add geofences
@@ -72,16 +80,15 @@ class GeofenceService: IntentService("Location-notification") {
                 }
             }
         }
+
     }
 
-
-
-    private fun getGeofencingRequest() =
+    private fun getGeofencingRequest(geofence: Geofence) =
         GeofencingRequest.Builder().apply {
-            setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER)
-            addGeofences(fences.values.toList())
+            //setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER)
+            setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_DWELL) // JUST FOR TESTING
+            addGeofence(geofence)
         }.build()
-
 
 
     private fun checkPermission() = ActivityCompat.checkSelfPermission(

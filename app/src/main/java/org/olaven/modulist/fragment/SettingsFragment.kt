@@ -82,7 +82,7 @@ class SettingsFragment: Fragment() {
     private fun setThemePreference(name: String) {
 
         activity?.let {
-            val preferences = it.getSharedPreferences(getString(R.string.preferences_modulist), Context.MODE_PRIVATE)
+            val preferences = it.getSharedPreferences(getString(R.string.preferences_modulist_key), Context.MODE_PRIVATE)
             val editor = preferences.edit()
             editor.putString(getString(R.string.theme_key), name)
             editor.apply()

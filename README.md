@@ -47,6 +47,7 @@ This project is in an early state of development.
 - [ ] Når Activity/Fragment -> activity når jeg vil ha eget livsløp -> state-håndtering. Ingen tydelige skiller
 - [ ] Hvorfor GUI er bygget opp som det er
 - [ ] Skriv om API-version. Hvorfor er valgt slik det er?
+- [ ] Explicit vs implicit intents (bruk eksplisitt mot services og implicit mot share o.l. som eksempel)
 - [ ] Bruk statistikk fra statistia for å forsvare versjonvalg
 - [ ] Skriv om fragment-arkitektur
 - [ ] Lag modell av database-løsningen (klasser)

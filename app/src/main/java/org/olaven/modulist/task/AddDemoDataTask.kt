@@ -38,7 +38,7 @@ class AddDemoDataTask(application: Application): CustomTask<AddDemoDataTask.DTO,
 
         //3:
         listOf(
-            Item("Toothbrush", false, 30, holiday),
+            Item("Toothbrush", false, 14, holiday),
             Item("Socks", false, 1, holiday),
             Item("Book", false, 12, holiday),
             Item("Winter jacket", false, Integer.MAX_VALUE, winter),

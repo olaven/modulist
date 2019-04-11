@@ -76,7 +76,7 @@ open class BaseActivity: AppCompatActivity() {
     }
 
     private fun getThemeName(): String? {
-        val preferenceKey = getString(R.string.preferences_modulist)
+        val preferenceKey = getString(R.string.preferences_modulist_key)
         val themeKey = getString(R.string.theme_key)
 
         val preferences = getSharedPreferences(preferenceKey, Context.MODE_PRIVATE)
