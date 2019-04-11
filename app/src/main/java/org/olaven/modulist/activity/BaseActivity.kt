@@ -4,7 +4,6 @@ import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.location.Location
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
@@ -34,7 +33,7 @@ open class BaseActivity: AppCompatActivity() {
                                             permissions: Array<String>, grantResults: IntArray) {
         when (requestCode) {
 
-            App.MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION -> {
+            App.REQUEST_ACCESS_FINE_LOCATION -> {
 
                 val granted = (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
 
@@ -57,7 +56,7 @@ open class BaseActivity: AppCompatActivity() {
         } else {
             // Innhent tilgang
             ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
-                App.MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
+                App.REQUEST_ACCESS_FINE_LOCATION)
             false
         }
 

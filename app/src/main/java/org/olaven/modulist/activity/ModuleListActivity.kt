@@ -176,15 +176,12 @@ class ModuleListActivity : BaseActivity() {
     }
 
     fun triggerLocationReminder() {
-        //TODO: Behave differently if the user hasn't granted location access
-
 
         //TODO: SET RESTRICTIONS ON KEY
-
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) ==
             PackageManager.PERMISSION_GRANTED) {
 
-            Places.initialize(getApplicationContext(), "AIzaSyCCASGI3A36kyHcqE225EeF3RmUcHPd1bg")
+            Places.initialize(applicationContext, App.API_PLACES_KEY)
 
             val location = SimpleLocation(this)
             val fields = listOf(Place.Field.NAME, Place.Field.LAT_LNG)

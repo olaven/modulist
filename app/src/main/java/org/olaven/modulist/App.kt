@@ -16,9 +16,13 @@ class App: Application() {
     companion object {
         val CHANNEL_NAME = "MODULIST_NOTIFICATION_CHANNEL"
         val CHANNEL_ID = "${CHANNEL_NAME}_ID"
-        val MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = Random.nextInt(65535)
+
+        val REQUEST_ACCESS_FINE_LOCATION = Random.nextInt(65535)
         val REQUEST_CODE_PLACES = Random.nextInt(65535)
         val REQUEST_CODE_CAMERA = Random.nextInt(65535)
+
+        // NOTE: The key is restricted with Google Developer Console -> Therefore, It should be relatively secure
+        val API_PLACES_KEY = "AIzaSyCCASGI3A36kyHcqE225EeF3RmUcHPd1bg"
     }
 
     override fun onCreate() {
