@@ -4,12 +4,15 @@ import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.Service
+import android.location.Location
+import android.location.LocationListener
 import android.os.Build
 import kotlin.random.Random
 
 // paa startup
 class App: Application() {
 
+    // App constants:
     companion object {
         val CHANNEL_NAME = "MODULIST_NOTIFICATION_CHANNEL"
         val CHANNEL_ID = "${CHANNEL_NAME}_ID"

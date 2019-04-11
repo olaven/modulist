@@ -60,4 +60,5 @@ dependencies {
     // location 
     implementation 'com.google.android.gms:play-services-location:16.0.0'
     implementation 'com.google.android.libraries.places:places:1.1.0'
+    implementation 'com.github.delight-im:Android-SimpleLocation:v1.0.1'
 }

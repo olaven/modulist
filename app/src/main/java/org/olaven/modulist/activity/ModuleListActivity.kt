@@ -19,10 +19,16 @@ import org.olaven.modulist.database.entity.ModuleList
 import org.olaven.modulist.dialog.add.AddItemDialog
 import android.provider.CalendarContract
 import android.support.design.widget.Snackbar
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.LocationBias
 import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.api.model.RectangularBounds
+import com.google.android.libraries.places.api.model.TypeFilter
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
+import im.delight.android.location.SimpleLocation
 import org.olaven.modulist.App
 import org.olaven.modulist.dialog.update.DeleteModuleListDialog
 import org.olaven.modulist.dialog.update.UpdateColorDialog
@@ -165,11 +171,20 @@ class ModuleListActivity : BaseActivity() {
     }
 
     fun triggerLocationReminder() {
+        //TODO: Behave differently if the user hasn't granted location access
+
 
         //TODO: SET RESTRICTIONS ON KEY
         Places.initialize(getApplicationContext(), "AIzaSyCCASGI3A36kyHcqE225EeF3RmUcHPd1bg")
+
+        val location = SimpleLocation(this)
         val fields = listOf(Place.Field.NAME, Place.Field.LAT_LNG)
         val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fields)
+            .setLocationBias(RectangularBounds.newInstance(
+                LatLng(location.latitude, location.longitude),
+                LatLng(location.latitude + 0.1, location.longitude + 0.1)
+            ))
+            .setTypeFilter(TypeFilter.ADDRESS)
             .build(this)
         startActivityForResult(intent, App.REQUEST_CODE_PLACES)
     }
