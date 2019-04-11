@@ -49,11 +49,12 @@
     <string-array name="day_options">
         <item>1</item>
         <item>2</item>
-        <item>4</item>
-        <item>6</item>
-        <item>12</item>
-        <item>16</item>
-        <item>30</item>
+        <item>3</item>
+        <item>5</item>
+        <item>8</item>
+        <item>13</item>
+        <item>21</item>
+        <item>34</item>
         <item>Always pack one.</item>
     </string-array>
 
