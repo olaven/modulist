@@ -23,15 +23,7 @@ class ItemsRecyclerAdapter(val application: Application, val activity: AppCompat
         items.add(item)
     }
 
-    inner class MyViewHolder(view: View): RecyclerView.ViewHolder(view) {
-
-        init {
-            view.setOnClickListener {
-
-                Toast.makeText(application.applicationContext, "Clicked item", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
+    inner class MyViewHolder(view: View): RecyclerView.ViewHolder(view)
 
     override fun getItemCount() =
         items.count()
