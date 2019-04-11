@@ -48,6 +48,7 @@ This project is in an early state of development.
 - [ ] Hvorfor GUI er bygget opp som det er
 - [ ] Skriv om API-version. Hvorfor er valgt slik det er?
 - [ ] Explicit vs implicit intents (bruk eksplisitt mot services og implicit mot share o.l. som eksempel)
+- [ ] Begrunn bruk av SimpleLocation og vis til https://developer.android.com/training/location/retrieve-current som alternativ
 - [ ] Bruk statistikk fra statistia for å forsvare versjonvalg
 - [ ] Skriv om fragment-arkitektur
 - [ ] Lag modell av database-løsningen (klasser)

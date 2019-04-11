@@ -1,9 +1,12 @@
 package org.olaven.modulist.activity
 
+import android.Manifest
 import android.arch.lifecycle.Observer
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
@@ -18,6 +21,7 @@ import org.olaven.modulist.database.entity.Item
 import org.olaven.modulist.database.entity.ModuleList
 import org.olaven.modulist.dialog.add.AddItemDialog
 import android.provider.CalendarContract
+import android.provider.Settings
 import android.support.design.widget.Snackbar
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.maps.model.LatLng
@@ -35,6 +39,7 @@ import org.olaven.modulist.dialog.update.UpdateColorDialog
 import org.olaven.modulist.dialog.update.UpdateNameDialog
 import org.olaven.modulist.dialog.update.UpdateParentsDialog
 import org.olaven.modulist.service.GeofenceService
+import java.security.Permission
 
 
 class ModuleListActivity : BaseActivity() {
@@ -175,18 +180,39 @@ class ModuleListActivity : BaseActivity() {
 
 
         //TODO: SET RESTRICTIONS ON KEY
-        Places.initialize(getApplicationContext(), "AIzaSyCCASGI3A36kyHcqE225EeF3RmUcHPd1bg")
 
-        val location = SimpleLocation(this)
-        val fields = listOf(Place.Field.NAME, Place.Field.LAT_LNG)
-        val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fields)
-            .setLocationBias(RectangularBounds.newInstance(
-                LatLng(location.latitude, location.longitude),
-                LatLng(location.latitude + 0.1, location.longitude + 0.1)
-            ))
-            .setTypeFilter(TypeFilter.ADDRESS)
-            .build(this)
-        startActivityForResult(intent, App.REQUEST_CODE_PLACES)
+        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) ==
+            PackageManager.PERMISSION_GRANTED) {
+
+            Places.initialize(getApplicationContext(), "AIzaSyCCASGI3A36kyHcqE225EeF3RmUcHPd1bg")
+
+            val location = SimpleLocation(this)
+            val fields = listOf(Place.Field.NAME, Place.Field.LAT_LNG)
+            val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fields)
+                .setLocationBias(RectangularBounds.newInstance(
+                    LatLng(location.latitude, location.longitude),
+                    LatLng(location.latitude + 0.1, location.longitude + 0.1)
+                ))
+                .setTypeFilter(TypeFilter.ADDRESS)
+                .build(this)
+            startActivityForResult(intent, App.REQUEST_CODE_PLACES)
+        } else {
+
+            Snackbar.make(activity_module_list, "Permit location access to use this feature.", Snackbar.LENGTH_INDEFINITE).apply {
+
+                setAction("Ok") {
+
+                    Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:$packageName"))
+                        .apply {
+                            addCategory(Intent.CATEGORY_DEFAULT)
+                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        }.also {
+                            startActivity(it)
+                        }
+                }
+            }.show()
+        }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
