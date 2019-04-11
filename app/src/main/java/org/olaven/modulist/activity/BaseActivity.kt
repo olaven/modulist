@@ -1,25 +1,28 @@
 package org.olaven.modulist.activity
 
 import android.Manifest
-import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
-import android.support.v4.app.NotificationCompat
-import android.support.v4.app.NotificationManagerCompat
-import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import org.olaven.modulist.App
 import org.olaven.modulist.R
-import org.olaven.modulist.service.LocationNotificationService
+import org.olaven.modulist.service.GeofenceService
+import org.olaven.modulist.service.NotificationService
 
 open class BaseActivity: AppCompatActivity() {
 
+    private lateinit var serviceIntents: List<Intent>
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        serviceIntents = listOf(
+            Intent(this, GeofenceService::class.java),
+            Intent(this, NotificationService::class.java)
+        )
 
         applyTheme()
         checkPermissionForLocation(applicationContext)
@@ -33,12 +36,11 @@ open class BaseActivity: AppCompatActivity() {
             App.MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION -> {
 
                 val granted = (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                val intent = Intent(this, LocationNotificationService::class.java)
 
                 if (granted)
-                    startLocationService()
+                    serviceIntents.forEach { startService(it) }
                 else
-                    stopService(intent)
+                    serviceIntents.forEach { stopService(it) }
             }
         }
     }
@@ -49,7 +51,7 @@ open class BaseActivity: AppCompatActivity() {
         // NOTE: do not have to check for version >= 25, as it always will be
         if (context.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) ==
             PackageManager.PERMISSION_GRANTED) {
-            startLocationService()
+            serviceIntents.forEach { startService(it) }
             true
         } else {
             // Innhent tilgang
@@ -57,12 +59,6 @@ open class BaseActivity: AppCompatActivity() {
                 App.MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
             false
         }
-
-    private fun startLocationService() {
-
-        val intent = Intent(this, LocationNotificationService::class.java)
-        startService(intent)
-    }
 
 
     private fun applyTheme() {

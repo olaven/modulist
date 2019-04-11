@@ -1,15 +1,10 @@
 package org.olaven.modulist
 
-import android.Manifest
 import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.Service
-import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Build
-import android.support.v4.content.ContextCompat
-import org.olaven.modulist.service.LocationNotificationService
 import kotlin.random.Random
 
 // paa startup
