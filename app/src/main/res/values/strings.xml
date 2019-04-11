@@ -45,7 +45,7 @@
     <!-- Intent bundle-keys -->
     <string name="add_fence_lat_key">add_fence_lat_key</string>
     <string name="add_fence_long_key">add_fence_long_key</string>
-    <string name="add_fence_is_geofence_key">add_fence_is_geofence_key</string>
+
 
     <!-- Dialogs -->
     <string name="dialog_positive">(ᵔᴥᵔ)</string>

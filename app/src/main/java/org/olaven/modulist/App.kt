@@ -14,6 +14,8 @@ class App: Application() {
         val CHANNEL_NAME = "MODULIST_NOTIFICATION_CHANNEL"
         val CHANNEL_ID = "${CHANNEL_NAME}_ID"
         val MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = Random.nextInt(65535)
+        val REQUEST_CODE_PLACES = Random.nextInt(65535)
+        val REQUEST_CODE_CAMERA = Random.nextInt(65535)
     }
 
     override fun onCreate() {

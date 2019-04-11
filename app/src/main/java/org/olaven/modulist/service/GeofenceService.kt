@@ -8,11 +8,9 @@ import android.content.pm.PackageManager
 import android.support.v4.app.ActivityCompat
 import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingClient
-import com.google.android.gms.location.GeofencingEvent
 import com.google.android.gms.location.GeofencingRequest
 import org.olaven.modulist.R
 import org.olaven.modulist.randomString
-import java.util.*
 
 
 //"An IntentService can post a notification, do long-running background work, send intents to other services, or send a broadcast intent"
@@ -31,10 +29,6 @@ class GeofenceService: IntentService("Location-notification") {
         geofencingClient = GeofencingClient(this)
     }
 
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        return super.onStartCommand(intent, flags, startId)
-    }
-
 
 
 
@@ -44,15 +38,14 @@ class GeofenceService: IntentService("Location-notification") {
         val lat = intent?.extras?.getDouble(getString(R.string.add_fence_lat_key))
         val long = intent?.extras?.getDouble(getString(R.string.add_fence_long_key))
 
-        println("Received intent: $lat, $long")
 
         if (lat != null && long != null) {
-            //TODO:
-            addFenceAt(lat, long)
+
+            addFence(lat, long)
         }
     }
 
-    private fun addFenceAt(lat: Double, long: Double) {
+    private fun addFence(lat: Double, long: Double) {
 
         // NOTE: although just getting a random chance of duplciates,
         // it is extremely unlikey at this scale

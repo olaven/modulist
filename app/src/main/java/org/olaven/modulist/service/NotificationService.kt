@@ -21,8 +21,6 @@ class NotificationService: IntentService("notificaion_service") {
         // hent ut geofence-info fra et intent
         val fenceEvent = GeofencingEvent.fromIntent(intent)
 
-        println("Fence: ${fenceEvent.geofenceTransition}")
-
         if (fenceEvent.hasError()) {
             println(fenceEvent.errorCode.toString())
             return

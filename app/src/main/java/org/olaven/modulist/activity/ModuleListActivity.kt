@@ -1,6 +1,5 @@
 package org.olaven.modulist.activity
 
-import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.graphics.Color
@@ -19,7 +18,12 @@ import org.olaven.modulist.database.entity.Item
 import org.olaven.modulist.database.entity.ModuleList
 import org.olaven.modulist.dialog.add.AddItemDialog
 import android.provider.CalendarContract
-import com.google.android.gms.location.GeofencingEvent
+import android.support.design.widget.Snackbar
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.widget.Autocomplete
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
+import org.olaven.modulist.App
 import org.olaven.modulist.dialog.update.DeleteModuleListDialog
 import org.olaven.modulist.dialog.update.UpdateColorDialog
 import org.olaven.modulist.dialog.update.UpdateNameDialog
@@ -117,29 +121,6 @@ class ModuleListActivity : BaseActivity() {
     }
 
 
-    /**
-     * FOR DOING IMAGE STUFF -> not done
-     */
-    fun TESTtakePicture() {
-        if (cameraTools.isPresent()) {
-            cameraTools.takePicture()
-        }
-    }
-    /**
-     * FOR DOING IMAGE STUFF -> not done
-     */
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-
-        if (requestCode == cameraTools.CAMERA_REQUEST_CODE and Activity.RESULT_OK) {
-
-            data?.let {
-                val bitmap = cameraTools.getBitMap(it)
-                print(bitmap)
-                //TODO: Do something with bitmap, like storing in db
-            }
-        }
-    }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 
         menuInflater.inflate(R.menu.menu_modulist, menu)
@@ -185,15 +166,51 @@ class ModuleListActivity : BaseActivity() {
 
     fun triggerLocationReminder() {
 
-        //NOTE: 59.916044, 10.760100 -> SKOLE
-        val intent = Intent(this, GeofenceService::class.java)
-        //TODO: Alert with input
-        intent.putExtra(getString(R.string.add_fence_lat_key), 59.916044)
-        intent.putExtra(getString(R.string.add_fence_long_key), 10.760100)
-        intent.putExtra(getString(R.string.add_fence_is_geofence_key), true)
-
-        startService(intent)
+        //TODO: SET RESTRICTIONS ON KEY
+        Places.initialize(getApplicationContext(), "AIzaSyCCASGI3A36kyHcqE225EeF3RmUcHPd1bg")
+        val fields = listOf(Place.Field.NAME, Place.Field.LAT_LNG)
+        val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fields)
+            .build(this)
+        startActivityForResult(intent, App.REQUEST_CODE_PLACES)
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+        when (requestCode) {
+            App.REQUEST_CODE_PLACES -> {
+
+                if (resultCode == RESULT_OK) {
+
+                    val place = Autocomplete.getPlaceFromIntent(data!!)
+                    val intent = Intent(this, GeofenceService::class.java)
+
+                    intent.putExtra(getString(R.string.add_fence_lat_key), place.latLng?.latitude)
+                    intent.putExtra(getString(R.string.add_fence_long_key), place.latLng?.longitude)
+
+                    Snackbar
+                        .make(activity_module_list, "Added reminder at: ${place.name}", Snackbar.LENGTH_LONG)
+                        .show()
+
+                    startService(intent)
+                } else {
+
+                    Snackbar
+                        .make(activity_module_list, "Some error occured", Snackbar.LENGTH_LONG)
+                        .show()
+                }
+            }
+            App.REQUEST_CODE_CAMERA -> {
+
+                Toast.makeText(this, "NOT IMPLEMENTED", Toast.LENGTH_LONG).show()
+                data?.let {
+                    val bitmap = cameraTools.getBitMap(it)
+                    print(bitmap)
+                    //TODO: Do something with bitmap, like storing in db
+                }
+            }
+        }
+    }
+
 
     private fun triggerCalendar() {
 

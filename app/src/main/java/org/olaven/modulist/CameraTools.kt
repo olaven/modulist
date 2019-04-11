@@ -18,7 +18,6 @@ import kotlin.random.Random
 class CameraTools(val activity: Activity) {
 
     val context: Context = activity.applicationContext
-    val CAMERA_REQUEST_CODE = 3333
 
     fun isPresent(): Boolean {
 
@@ -30,7 +29,7 @@ class CameraTools(val activity: Activity) {
     fun takePicture() {
 
         val intent = Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE)
-        activity.startActivityForResult(intent, CAMERA_REQUEST_CODE)
+        activity.startActivityForResult(intent, App.REQUEST_CODE_CAMERA)
     }
 
     fun getBitMap(data: Intent): Bitmap {
