@@ -23,6 +23,7 @@ class AddDemoDataDialog(activity: AppCompatActivity): CustomDialog(activity) {
             setNegativeButton("Take me back to safety") {}
         }
     }
+}
 
     private fun insertDemoData(application: Application) {
 

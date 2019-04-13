@@ -25,8 +25,6 @@ class ModuleListModel(application: Application): CommonModel<ModuleList>(applica
     fun getById(id: Long) =
             repository.getById(id)
 
-
-
     fun deleteAll() = scope.launch(Dispatchers.IO) {
         repository.deleteAll()
     }

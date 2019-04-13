@@ -20,7 +20,12 @@ class ListRelationRepository(private val listRelationDAO: ListRelationDAO): Comm
     fun getByChildIdLive(id: Long): LiveData<List<ListRelation>> =
         listRelationDAO.getByChildIdLive(id)
 
+    fun getByChildId(id: Long) =
+        listRelationDAO.getByChild(id)
+
     @WorkerThread
     fun deleteAll() =
             listRelationDAO.deleteAll()
+
+
 }

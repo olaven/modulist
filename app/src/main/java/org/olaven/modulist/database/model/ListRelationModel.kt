@@ -22,6 +22,9 @@ class ListRelationModel(application: Application): CommonModel<ListRelation>(app
     fun getByChildIdLive(id: Long) =
             repository.getByChildIdLive(id)
 
+    fun getByChildId(id: Long) =
+            repository.getByChildId(id)
+
     fun deleteAll() = scope.launch(Dispatchers.IO) {
         repository.deleteAll()
     }
