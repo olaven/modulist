@@ -10,7 +10,7 @@ import com.pes.androidmaterialcolorpickerdialog.ColorPicker
 import org.olaven.modulist.R
 import org.olaven.modulist.database.entity.ModuleList
 import org.olaven.modulist.dialog.CustomDialog
-import org.olaven.modulist.task.InsertModulelistTask
+import org.olaven.modulist.task.AddModuleListTask
 
 
 class AddModuleListDialog(private val inheritanceOptions: List<ModuleList>, activity: AppCompatActivity): CustomDialog(activity) {
@@ -19,7 +19,7 @@ class AddModuleListDialog(private val inheritanceOptions: List<ModuleList>, acti
     private val checked = inheritanceOptions.map { false }.toBooleanArray()
 
     var name: String = activity.getString(R.string.unloaded)
-    private var color: Int = Color.GRAY//just default
+    private var listColor: Int = Color.GRAY
     private val selected = mutableListOf<ModuleList>()
 
     override fun show() {
@@ -42,9 +42,9 @@ class AddModuleListDialog(private val inheritanceOptions: List<ModuleList>, acti
 
                 ColorPicker(activity).apply {
 
-                    setCallback { color ->
+                    setCallback { colorFromPicker ->
 
-                        this.color = color
+                        listColor = colorFromPicker
 
                         // there are lists to extend
                         if (names.isNotEmpty()) {
@@ -89,14 +89,15 @@ class AddModuleListDialog(private val inheritanceOptions: List<ModuleList>, acti
 
             setPositiveButton {
 
-                val moduleList = ModuleList(name, color)
-                val dto = InsertModulelistTask.DTO(moduleList, selected)
-                //executes the task in background thread, as it reads from db
-                InsertModulelistTask(activity.application).execute(dto)
+                val moduleList = ModuleList(name, listColor)
+                val dto = AddModuleListTask.DTO(moduleList, selected)
+                //executes the task in background thread, as it writse to db
+                AddModuleListTask(activity.application).execute(dto)
             }
 
             setNegativeButton {
-                Toast.makeText(activity, "I am not happy", Toast.LENGTH_SHORT).show()
+
+                Toast.makeText(activity, "Canceled", Toast.LENGTH_SHORT).show()
             }
         }
     }

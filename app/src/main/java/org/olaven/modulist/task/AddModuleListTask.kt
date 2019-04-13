@@ -6,7 +6,7 @@ import org.olaven.modulist.database.entity.ListRelation
 import org.olaven.modulist.database.entity.ModuleList
 
 
-class InsertModulelistTask(application: Application): CustomTask<InsertModulelistTask.DTO, Any, Unit>(application) {
+class AddModuleListTask(application: Application): CustomTask<AddModuleListTask.DTO, Any, Unit>(application) {
 
     class DTO(val moduleList: ModuleList, val selectedParents: List<ModuleList>)
 
@@ -17,9 +17,7 @@ class InsertModulelistTask(application: Application): CustomTask<InsertModulelis
             it?.let {dto ->
 
                 // persist the list
-                val moduleList = ModuleList(dto.moduleList.name, dto.moduleList.color)
-                val id = moduleListModel.insertForId(moduleList)
-
+                val id = moduleListModel.insertForId(dto.moduleList)
 
                 /*
                  * For each parent

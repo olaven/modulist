@@ -177,7 +177,6 @@ class ModuleListActivity : BaseActivity() {
 
     fun triggerLocationReminder() {
 
-        //TODO: SET RESTRICTIONS ON KEY
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) ==
             PackageManager.PERMISSION_GRANTED) {
 

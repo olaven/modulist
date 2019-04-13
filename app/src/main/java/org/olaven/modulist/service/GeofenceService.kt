@@ -67,8 +67,7 @@ class GeofenceService: IntentService("Location-notification") {
                     println("updated geofences")
                 }
                 addOnFailureListener {
-                    // Failed to add geofences
-                    // ...
+
                     println("failed to set geofence")
                 }
             }
