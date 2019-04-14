@@ -7,8 +7,16 @@ import org.olaven.modulist.database.entity.ModuleList
 
 class ModuleListRepository(private val moduleListDAO: ModuleListDAO) : CommonRepository<ModuleList>(moduleListDAO) {
 
-    val allModuleListsLive = moduleListDAO.getAllModuleListsLive()
-    val allModuleLists = moduleListDAO.getAllModuleLists()
+
+    @WorkerThread
+    fun getAllModuleListsLive() =
+        moduleListDAO.getAllModuleListsLive()
+
+
+    @WorkerThread
+    fun getAllModuleLists() =
+        moduleListDAO.getAllModuleLists()
+
 
     @WorkerThread
     fun getByIdLive(id: Long) =

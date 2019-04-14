@@ -16,7 +16,7 @@ class UpdateParentsTask(application: Application): CustomTask<UpdateParentsTask.
             it?.let {dto ->
 
                 // delete all existing
-                itemModel.getbyModuleListId(dto.moduleList.id!!).forEach {
+                itemModel.getByModuduleListId(dto.moduleList.id!!).forEach {
                     itemModel.delete(it)
                 }
 
@@ -24,7 +24,7 @@ class UpdateParentsTask(application: Application): CustomTask<UpdateParentsTask.
                 val items = mutableListOf<Item>()
                 dto.parents.forEach {
 
-                    val fromParent = itemModel.getbyModuleListId(it.id!!)
+                    val fromParent = itemModel.getByModuduleListId(it.id!!)
                     items.addAll(fromParent)
                 }
 

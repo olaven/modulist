@@ -16,11 +16,12 @@ class ModuleListModel(application: Application): CommonModel<ModuleList>(applica
         AppDatabase.getDatabase(application.applicationContext).moduleListDAO()
     )
 
-    val allModuleListsLive: LiveData<List<ModuleList>> =
-        repository.allModuleListsLive
+    fun getAllModuleListsLive() =
+            repository.getAllModuleListsLive()
 
-    val allModuleLists: List<ModuleList> =
-            repository.allModuleLists
+    fun getAllModuleLists() =
+            repository.getAllModuleLists()
+
 
     fun getByIdLive(id: Long) =
             repository.getByIdLive(id)

@@ -20,7 +20,7 @@ class ItemModel(application: Application): CommonModel<Item>(application) {
     fun getByModuleListIdLive(id: Long) =
         repository.getByModuleListIdLive(id)
 
-    fun getbyModuleListId(id: Long): List<Item> =
+    fun getByModuduleListId(id: Long): List<Item> =
         repository.getByModuleListId(id)
 
     fun deleteAll() = scope.launch(Dispatchers.IO) {

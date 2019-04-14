@@ -27,7 +27,7 @@ class AddModuleListTask(application: Application): CustomTask<AddModuleListTask.
 
                 //1:
                 dto.selectedParents
-                    .flatMap { itemModel.getbyModuleListId(it.id!!) }
+                    .flatMap { itemModel.getByModuduleListId(it.id!!) }
                     .distinctBy { it.name }
                     .forEach {
                         val copy = Item(it.name, it.done, it.dayDistribution, id)

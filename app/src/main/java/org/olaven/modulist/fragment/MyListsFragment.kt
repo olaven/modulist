@@ -65,7 +65,7 @@ class MyListsFragment : Fragment() {
 
         val liveModuleLists = Models
             .getModuleListModel(activity!!.application)
-            .allModuleListsLive
+            .getAllModuleListsLive()
 
         liveModuleLists.observe(this, Observer {
             it?.let { moduleLists ->

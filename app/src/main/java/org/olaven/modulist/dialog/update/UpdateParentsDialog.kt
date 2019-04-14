@@ -12,7 +12,7 @@ class UpdateParentsDialog(moduleList: ModuleList, activity: AppCompatActivity): 
 
     override fun show() {
 
-        val inheritanceOptions = Models.getModuleListModel(activity.application).allModuleListsLive.observe(activity, Observer {
+        val inheritanceOptions = Models.getModuleListModel(activity.application).getAllModuleListsLive().observe(activity, Observer {
 
             it?.let { moduleLists ->
 

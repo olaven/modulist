@@ -29,7 +29,7 @@ class DeleteItemTask(application: Application): CustomTask<DeleteItemTask.DTO, U
         val relations = listRelationModel.getByParentId(parentId)
         relations.forEach { relation ->
 
-            val items = itemModel.getbyModuleListId(relation.child!!)
+            val items = itemModel.getByModuduleListId(relation.child!!)
             items
                 .firstOrNull { it.name == item.name }
                 ?.let {

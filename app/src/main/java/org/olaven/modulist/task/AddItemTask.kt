@@ -25,7 +25,7 @@ class AddItemTask(application: Application): CustomTask<AddItemTask.DTO, Unit, U
         relations.forEach { relation ->
 
             // do not add item twice in the case of inheriting from multiple parents:
-            val alreadyAdded = itemModel.getbyModuleListId(relation.child!!)
+            val alreadyAdded = itemModel.getByModuduleListId(relation.child!!)
                 .filter { it.name == item.name }
                 .isNotEmpty()
 

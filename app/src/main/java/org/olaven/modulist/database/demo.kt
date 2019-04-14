@@ -40,7 +40,7 @@ fun addDemoData(application: Application) {
     }
 
     // NOTE: have to read them back because their ID must be generated
-    val moduleListsFromDB = moduleListModel.allModuleListsLive
+    val moduleListsFromDB = moduleListModel.getAllModuleListsLive()
     moduleListsFromDB.value?.forEach {
         val items = createItemsFor(it)
         items.forEach {item ->

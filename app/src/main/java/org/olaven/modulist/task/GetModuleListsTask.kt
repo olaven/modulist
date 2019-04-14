@@ -8,5 +8,5 @@ class GetModuleListsTask(application: Application): CustomTask<GetModuleListsTas
     class DTO
 
     override fun doInBackground(vararg DTOs: DTO?): List<ModuleList> =
-            moduleListModel.allModuleLists
+            moduleListModel.getAllModuleLists()
 }
