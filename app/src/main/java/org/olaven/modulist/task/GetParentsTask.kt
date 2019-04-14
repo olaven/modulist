@@ -14,8 +14,11 @@ class GetParentsTask(application: Application): CustomTask<GetParentsTask.DTO, U
             it?.let {dto ->
 
                 val moduleList = dto.moduleList
+                val relations = listRelationModel.getByChildId(moduleList.id!!)
 
-                return listRelationModel.getByChildId(moduleList.id!!)
+                return relations.map {
+                    moduleListModel.getById(it.parent!!)
+                }
             }
         }
 

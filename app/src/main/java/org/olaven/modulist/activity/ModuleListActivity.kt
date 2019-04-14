@@ -158,7 +158,8 @@ class ModuleListActivity : BaseActivity() {
                 return true
             }
             R.id.menu_modulist_update_parents -> {
-                UpdateParentsDialog(emptyList(), moduleList, this).show()
+
+                UpdateParentsDialog(moduleList, this).show()
                 return true
             }
             R.id.menu_modulist_update_color -> {
