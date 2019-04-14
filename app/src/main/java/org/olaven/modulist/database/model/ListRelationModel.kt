@@ -28,4 +28,5 @@ class ListRelationModel(application: Application): CommonModel<ListRelation>(app
     fun deleteAll() = scope.launch(Dispatchers.IO) {
         repository.deleteAll()
     }
+
 }
