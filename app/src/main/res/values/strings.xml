@@ -21,6 +21,7 @@
     <string name="menu_theme_cabin">Cabin</string>
 
     <!-- Menu, modulist -->
+    <string name="go_to_attic_mode">Toggle attic-mode</string>
     <string name="menu_modulist_share">Share list</string>
     <string name="menu_modulist_add_location_reminder">Add location reminder</string>
     <string name="menu_modulist_add_to_calendar">Add to calendar</string>
@@ -48,8 +49,10 @@
 
 
     <!-- Dialogs -->
-    <string name="dialog_positive">(ᵔᴥᵔ)</string>
-    <string name="dialog_negative">ε(´סּ︵סּ`)з</string>
+   <!-- <string name="dialog_positive">(ᵔᴥᵔ)</string>
+    <string name="dialog_negative">ε(´סּ︵סּ`)з</string>-->
+    <string name="dialog_positive">OK</string>
+   <string name="dialog_negative">NO</string>
 
     <string-array name="day_options">
         <item>1</item>

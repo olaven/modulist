@@ -8,52 +8,51 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.view.Menu
-import android.view.MenuItem
-import android.widget.*
-import kotlinx.android.synthetic.main.activity_module_list.*
-import org.olaven.modulist.CameraTools
-import org.olaven.modulist.R
-import org.olaven.modulist.adapter.ItemsRecyclerAdapter
-import org.olaven.modulist.database.Models
-import org.olaven.modulist.database.entity.Item
-import org.olaven.modulist.database.entity.ModuleList
-import org.olaven.modulist.dialog.add.AddItemDialog
 import android.provider.CalendarContract
 import android.provider.Settings
 import android.support.design.widget.Snackbar
-import com.google.android.gms.location.FusedLocationProviderClient
+import android.support.v7.widget.LinearLayoutManager
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.LinearLayout
+import android.widget.SeekBar
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.Places
-import com.google.android.libraries.places.api.model.LocationBias
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.model.RectangularBounds
 import com.google.android.libraries.places.api.model.TypeFilter
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import im.delight.android.location.SimpleLocation
+import kotlinx.android.synthetic.main.activity_module_list.*
 import org.olaven.modulist.App
+import org.olaven.modulist.R
+import org.olaven.modulist.adapter.ItemsRecyclerAdapter
+import org.olaven.modulist.database.Models
+import org.olaven.modulist.database.entity.Item
+import org.olaven.modulist.database.entity.ModuleList
+import org.olaven.modulist.dialog.add.AddItemDialog
 import org.olaven.modulist.dialog.update.DeleteModuleListDialog
 import org.olaven.modulist.dialog.update.UpdateColorDialog
 import org.olaven.modulist.dialog.update.UpdateNameDialog
 import org.olaven.modulist.dialog.update.UpdateParentsDialog
+import org.olaven.modulist.sensor.SensorConfig
 import org.olaven.modulist.service.GeofenceService
-import java.security.Permission
 
 
 class ModuleListActivity : BaseActivity() {
 
-    private lateinit var cameraTools: CameraTools
     private var items = mutableListOf<Item>()
     private lateinit var moduleList: ModuleList
     private lateinit var adapter: ItemsRecyclerAdapter
+    private lateinit var sensorConfig: SensorConfig
+    private var atticMode = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_module_list)
 
-        cameraTools = CameraTools(this)
+        sensorConfig = SensorConfig(this, activity_module_list)
         changeProgressText(1)
         setupModuleList()
         setupSeekbar()
@@ -141,6 +140,10 @@ class ModuleListActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
         return when(item?.itemId) {
+            R.id.menu_modulist_toggle_attic_mode -> {
+                toggleAtticMode()
+                return true
+            }
             R.id.menu_modulist_add_location_reminder -> {
                 triggerLocationReminder()
                 return true
@@ -195,7 +198,7 @@ class ModuleListActivity : BaseActivity() {
             startActivityForResult(intent, App.REQUEST_CODE_PLACES)
         } else {
 
-            Snackbar.make(activity_module_list, "Permit location access to use this feature.", Snackbar.LENGTH_INDEFINITE).apply {
+            Snackbar.make(activity_module_list, "Allow camera permissions.", Snackbar.LENGTH_INDEFINITE).apply {
 
                 setAction("Ok") {
 
@@ -237,16 +240,17 @@ class ModuleListActivity : BaseActivity() {
                         .show()
                 }
             }
-            App.REQUEST_CODE_CAMERA -> {
-
-                Toast.makeText(this, "NOT IMPLEMENTED", Toast.LENGTH_LONG).show()
-                data?.let {
-                    val bitmap = cameraTools.getBitMap(it)
-                    print(bitmap)
-                    //TODO: Do something with bitmap, like storing in db
-                }
-            }
         }
+    }
+
+    private fun toggleAtticMode() {
+
+        atticMode = !atticMode
+
+        if (atticMode)
+            sensorConfig.startAll()
+        else
+            sensorConfig.stopAll()
     }
 
 
@@ -272,7 +276,7 @@ class ModuleListActivity : BaseActivity() {
     private fun changeProgressText(dayCount: Int) {
 
         activity_module_list_text_days.text =
-            "Packing for $dayCount dayCount"
+            "Packing for $dayCount days"
     }
 
 

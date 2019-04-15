@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import org.olaven.modulist.App
 import org.olaven.modulist.R
+import org.olaven.modulist.dialog.CameraRationaleDialog
+import org.olaven.modulist.dialog.CustomDialog
 import org.olaven.modulist.service.GeofenceService
 import org.olaven.modulist.service.NotificationService
 
@@ -25,7 +27,8 @@ open class BaseActivity: AppCompatActivity() {
         )
 
         applyTheme()
-        checkPermissionForLocation(applicationContext)
+        checkPermissionForLocation()
+        checkPermissionForCamera()
         super.onCreate(savedInstanceState)
     }
 
@@ -46,10 +49,10 @@ open class BaseActivity: AppCompatActivity() {
     }
 
 
-    private fun checkPermissionForLocation(context: Context): Boolean =
+    private fun checkPermissionForLocation(): Boolean =
 
         // NOTE: do not have to check for version >= 25, as it always will be
-        if (context.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) ==
+        if (applicationContext.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) ==
             PackageManager.PERMISSION_GRANTED) {
             serviceIntents.forEach { startService(it) }
             true
@@ -59,6 +62,22 @@ open class BaseActivity: AppCompatActivity() {
                 App.REQUEST_ACCESS_FINE_LOCATION)
             false
         }
+
+    private fun checkPermissionForCamera() {
+
+        if (applicationContext.checkSelfPermission(Manifest.permission.CAMERA) ==
+            PackageManager.PERMISSION_GRANTED) {
+        } else if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.CAMERA)) {
+
+            CameraRationaleDialog(this).show()
+        }
+        else {
+            // Innhent tilgang
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CAMERA),
+                App.REQUEST_ACCESS_CAMERA)
+        }
+
+    }
 
 
     private fun applyTheme() {

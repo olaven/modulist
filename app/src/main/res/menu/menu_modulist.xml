@@ -2,6 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/menu_modulist_toggle_attic_mode"
+        android:title="@string/go_to_attic_mode"/>
+    <item
             android:id="@+id/menu_modulist_add_location_reminder"
             android:title="@string/menu_modulist_add_location_reminder"/>
     <item

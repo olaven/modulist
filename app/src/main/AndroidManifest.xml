@@ -3,6 +3,7 @@
           package="org.olaven.modulist">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" package="com.google.android.gms.location.sample.locationupdates"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <!-- allowBackup: old db not kept on migration. -->
     <application
