@@ -15,6 +15,11 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
         <TextView
+                android:id="@+id/activity_module_list_text_attic_mode"
+                android:text="@string/unloaded"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        <TextView
                 android:id="@+id/activity_module_list_text_days"
                 android:text="@string/unloaded"
                 android:layout_width="match_parent"

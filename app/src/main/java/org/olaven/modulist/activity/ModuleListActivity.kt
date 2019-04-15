@@ -53,10 +53,20 @@ class ModuleListActivity : BaseActivity() {
         setContentView(R.layout.activity_module_list)
 
         sensorConfig = SensorConfig(this, activity_module_list)
+        updateAtticModeText()
         changeProgressText(1)
         setupModuleList()
         setupSeekbar()
         setupAddItemFab()
+    }
+
+    private fun updateAtticModeText() {
+
+        activity_module_list_text_attic_mode.text =
+                if (atticMode)
+                    "Atticmode is enabled"
+                else
+                    ""
     }
 
 
@@ -246,6 +256,7 @@ class ModuleListActivity : BaseActivity() {
     private fun toggleAtticMode() {
 
         atticMode = !atticMode
+        updateAtticModeText()
 
         if (atticMode)
             sensorConfig.startAll()
