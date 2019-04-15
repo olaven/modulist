@@ -19,7 +19,8 @@ class App: Application() {
 
         val REQUEST_ACCESS_FINE_LOCATION = Random.nextInt(65535)
         val REQUEST_ACCESS_CAMERA = Random.nextInt(65535)
-        val REQUEST_CODE_PLACES = Random.nextInt(65535)
+        val REQUEST_CODE_PLACES_ADRESS = Random.nextInt(65535)
+        val REQUEST_CODE_PLACES_CITIES = Random.nextInt(65535)
 
         // NOTE: The key is restricted with Google Developer Console -> Therefore, It should be relatively secure
         val API_PLACES_KEY = "AIzaSyCCASGI3A36kyHcqE225EeF3RmUcHPd1bg"

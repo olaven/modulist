@@ -205,10 +205,10 @@ class ModuleListActivity : BaseActivity() {
                 ))
                 .setTypeFilter(TypeFilter.ADDRESS)
                 .build(this)
-            startActivityForResult(intent, App.REQUEST_CODE_PLACES)
+            startActivityForResult(intent, App.REQUEST_CODE_PLACES_ADRESS)
         } else {
 
-            Snackbar.make(activity_module_list, "Allow camera permissions.", Snackbar.LENGTH_INDEFINITE).apply {
+            Snackbar.make(activity_module_list, "Allow location permissions.", Snackbar.LENGTH_INDEFINITE).apply {
 
                 setAction("Ok") {
 
@@ -228,7 +228,7 @@ class ModuleListActivity : BaseActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
         when (requestCode) {
-            App.REQUEST_CODE_PLACES -> {
+            App.REQUEST_CODE_PLACES_ADRESS -> {
 
                 if (resultCode == RESULT_OK) {
 
