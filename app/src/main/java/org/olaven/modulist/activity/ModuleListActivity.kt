@@ -26,6 +26,7 @@ import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import im.delight.android.location.SimpleLocation
 import kotlinx.android.synthetic.main.activity_module_list.*
 import org.olaven.modulist.App
+import org.olaven.modulist.PlacesInput
 import org.olaven.modulist.R
 import org.olaven.modulist.adapter.ItemsRecyclerAdapter
 import org.olaven.modulist.database.Models
@@ -45,6 +46,7 @@ class ModuleListActivity : BaseActivity() {
     private var items = mutableListOf<Item>()
     private lateinit var moduleList: ModuleList
     private lateinit var adapter: ItemsRecyclerAdapter
+    private lateinit var placesInput: PlacesInput
     private lateinit var sensorConfig: SensorConfig
     private var atticMode = false
 
@@ -52,6 +54,12 @@ class ModuleListActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_module_list)
 
+        placesInput = PlacesInput(
+            this,
+            listOf(Place.Field.NAME, Place.Field.LAT_LNG),
+            TypeFilter.ADDRESS,
+            App.REQUEST_CODE_PLACES_ADRESS
+        )
         sensorConfig = SensorConfig(this, activity_module_list)
         updateAtticModeText()
         changeProgressText(1)
@@ -194,17 +202,7 @@ class ModuleListActivity : BaseActivity() {
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) ==
             PackageManager.PERMISSION_GRANTED) {
 
-            Places.initialize(applicationContext, App.API_PLACES_KEY)
-
-            val location = SimpleLocation(this)
-            val fields = listOf(Place.Field.NAME, Place.Field.LAT_LNG)
-            val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fields)
-                .setLocationBias(RectangularBounds.newInstance(
-                    LatLng(location.latitude, location.longitude),
-                    LatLng(location.latitude + 0.1, location.longitude + 0.1)
-                ))
-                .setTypeFilter(TypeFilter.ADDRESS)
-                .build(this)
+            val intent = placesInput.getLaunchIntent()
             startActivityForResult(intent, App.REQUEST_CODE_PLACES_ADRESS)
         } else {
 
@@ -227,29 +225,18 @@ class ModuleListActivity : BaseActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
-        when (requestCode) {
-            App.REQUEST_CODE_PLACES_ADRESS -> {
+        placesInput.getPlace(requestCode, resultCode, data, activity_module_list)?.let { place ->
 
-                if (resultCode == RESULT_OK) {
+            val intent = Intent(this, GeofenceService::class.java)
 
-                    val place = Autocomplete.getPlaceFromIntent(data!!)
-                    val intent = Intent(this, GeofenceService::class.java)
+            intent.putExtra(getString(R.string.add_fence_lat_key), place.latLng?.latitude)
+            intent.putExtra(getString(R.string.add_fence_long_key), place.latLng?.longitude)
 
-                    intent.putExtra(getString(R.string.add_fence_lat_key), place.latLng?.latitude)
-                    intent.putExtra(getString(R.string.add_fence_long_key), place.latLng?.longitude)
+            Snackbar
+                .make(activity_module_list, "Added reminder at: ${place.name}", Snackbar.LENGTH_LONG)
+                .show()
 
-                    Snackbar
-                        .make(activity_module_list, "Added reminder at: ${place.name}", Snackbar.LENGTH_LONG)
-                        .show()
-
-                    startService(intent)
-                } else {
-
-                    Snackbar
-                        .make(activity_module_list, "Some error occured", Snackbar.LENGTH_LONG)
-                        .show()
-                }
-            }
+            startService(intent)
         }
     }
 
