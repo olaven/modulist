@@ -6,14 +6,12 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import kotlinx.android.synthetic.main.list_item.view.*
 import org.olaven.modulist.R
 import org.olaven.modulist.database.entity.Item
 import org.olaven.modulist.database.entity.ModuleList
 import org.olaven.modulist.dialog.DeleteItemDialog
-import org.olaven.modulist.task.DeleteItemTask
-import org.olaven.modulist.task.UpdateItemTask
+import org.olaven.modulist.task.update.UpdateItemTask
 
 class ItemsRecyclerAdapter(val application: Application, val activity: AppCompatActivity, var moduleList: ModuleList, var days: Int):  RecyclerView.Adapter<ItemsRecyclerAdapter.MyViewHolder>() {
 

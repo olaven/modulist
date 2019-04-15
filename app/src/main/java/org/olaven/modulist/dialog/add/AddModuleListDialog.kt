@@ -10,7 +10,7 @@ import com.pes.androidmaterialcolorpickerdialog.ColorPicker
 import org.olaven.modulist.R
 import org.olaven.modulist.database.entity.ModuleList
 import org.olaven.modulist.dialog.CustomDialog
-import org.olaven.modulist.task.AddModuleListTask
+import org.olaven.modulist.task.add.AddModuleListTask
 
 
 class AddModuleListDialog(private val inheritanceOptions: List<ModuleList>, activity: AppCompatActivity): CustomDialog(activity) {

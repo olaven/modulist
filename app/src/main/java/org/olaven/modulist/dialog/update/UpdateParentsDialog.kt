@@ -1,12 +1,11 @@
 package org.olaven.modulist.dialog.update
 
 import android.arch.lifecycle.Observer
-import android.content.DialogInterface
 import android.support.v7.app.AppCompatActivity
 import org.olaven.modulist.database.Models
 import org.olaven.modulist.database.entity.ModuleList
 import org.olaven.modulist.task.GetParentsTask
-import org.olaven.modulist.task.UpdateParentsTask
+import org.olaven.modulist.task.update.UpdateParentsTask
 
 class UpdateParentsDialog(moduleList: ModuleList, activity: AppCompatActivity): UpdateModuleListDialog(moduleList, activity) {
 
