@@ -24,6 +24,9 @@ class App: Application() {
 
         // NOTE: The key is restricted with Google Developer Console -> Therefore, It should be relatively secure
         val API_PLACES_KEY = "AIzaSyCCASGI3A36kyHcqE225EeF3RmUcHPd1bg"
+        // Ideally, this should not be shared. However, no billing information is attached to this account and it is a school project.
+        // It may pass for those reasons. I almost all circumstances, this should not be the case.
+        val API_WEATHERBIT_KEY = "549fbc9a62a8424baab29a6fce91eb57"
     }
 
     override fun onCreate() {

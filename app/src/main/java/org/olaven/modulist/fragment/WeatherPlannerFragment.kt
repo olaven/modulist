@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.fragment_weather_planner.*
 import org.olaven.modulist.App
 import org.olaven.modulist.PlacesInput
 import org.olaven.modulist.R
+import org.olaven.modulist.task.FetchWeatherTask
 
 
 class WeatherPlannerFragment : Fragment() {
@@ -55,8 +56,11 @@ class WeatherPlannerFragment : Fragment() {
             requestCode, resultCode,
             data, fragment_weather_planner)?.let {place ->
 
-            val name = place.name
-        }
+            val city = place.name
+            val dto = FetchWeatherTask.DTO(city!!)
 
+            FetchWeatherTask(activity!!.application)
+                .execute(dto)
+        }
     }
 }
