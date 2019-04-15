@@ -61,6 +61,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:16.0.0'
     implementation 'com.google.android.libraries.places:places:1.1.0'
     implementation 'com.github.delight-im:Android-SimpleLocation:v1.0.1'
-    // calling external API 
+    // calling external API
     implementation 'com.squareup.okhttp3:okhttp:3.14.1'
+    // graphs
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }

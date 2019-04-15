@@ -8,13 +8,13 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.Gravity
 import android.view.MenuItem
-import android.widget.Toast
 import com.facebook.stetho.Stetho
 import kotlinx.android.synthetic.main.activity_main.*
 import org.olaven.modulist.R
 import org.olaven.modulist.database.entity.ModuleList
 import org.olaven.modulist.fragment.MyListsFragment
 import org.olaven.modulist.fragment.SettingsFragment
+import org.olaven.modulist.fragment.WeatherPlannerFragment
 
 class MainActivity : BaseActivity() {
 
@@ -46,6 +46,7 @@ class MainActivity : BaseActivity() {
         activity_main_navigation_view.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_my_lists -> replaceMainFragment(MyListsFragment())
+                R.id.nav_weather_planner -> replaceMainFragment(WeatherPlannerFragment())
                 R.id.nav_settings -> replaceMainFragment(SettingsFragment())
             }
             activity_main_drawer.closeDrawer(Gravity.START)

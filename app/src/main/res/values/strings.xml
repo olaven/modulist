@@ -12,7 +12,7 @@
     <!-- Menu, drawer -->
     <string name="menu_drawer_settings">Settings</string>
     <string name="menu_drawer_my_lists">My lists</string>
-    <string name="menu_drawer_home">Home</string>
+    <string name="menu_drawer_weather_planner">Weather Planner</string>
 
     <!-- Menu, theme-->
     <string name="menu_theme_default">Default</string>
@@ -49,10 +49,10 @@
 
 
     <!-- Dialogs -->
-   <!-- <string name="dialog_positive">(ᵔᴥᵔ)</string>
+    <!-- <string name="dialog_positive">(ᵔᴥᵔ)</string>
     <string name="dialog_negative">ε(´סּ︵סּ`)з</string>-->
     <string name="dialog_positive">OK</string>
-   <string name="dialog_negative">NO</string>
+    <string name="dialog_negative">NO</string>
 
     <string-array name="day_options">
         <item>1</item>
@@ -65,6 +65,9 @@
         <item>34</item>
         <item>Always pack one.</item>
     </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
