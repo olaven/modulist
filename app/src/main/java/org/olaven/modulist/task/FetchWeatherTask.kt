@@ -10,6 +10,7 @@ import okhttp3.Request
 import okhttp3.Response
 import org.json.JSONObject
 import org.olaven.modulist.App
+import java.lang.Exception
 
 
 class FetchWeatherTask(application: Application): CustomTask<FetchWeatherTask.DTO, Unit, List<FetchWeatherTask.Forecast>?>(application) {
@@ -80,13 +81,14 @@ class FetchWeatherTask(application: Application): CustomTask<FetchWeatherTask.DT
 
     private fun parseResponse(response: Response): List<Forecast>? {
 
-        if (response.body() == null)
-            return null
+        return try {
+            val json = response.body()!!.string()
+            val data = JSONObject(json).get("data").toString()
 
-        val json = response.body()!!.string()
-        val data = JSONObject(json).get("data").toString()
-
-        return Klaxon()
-            .parseArray(data)
+            Klaxon()
+                .parseArray(data)
+        } catch (e: Exception) {
+            null
+        }
     }
 }

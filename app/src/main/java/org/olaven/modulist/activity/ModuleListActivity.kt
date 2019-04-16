@@ -123,18 +123,22 @@ class ModuleListActivity : BaseActivity() {
 
     private fun setupSeekbar() {
 
-        activity_module_list_seekbar_days.max = 35
-        activity_module_list_seekbar_days.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener{
+        activity_module_list_seekbar_days.apply {
 
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+            setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener{
 
-                changeProgressText(progress)
-                adapter.days = progress
-                adapter.notifyDataSetChanged()
-            }
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
-        })
+                override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+
+                    changeProgressText(progress)
+                    adapter.days = progress
+                    adapter.notifyDataSetChanged()
+                }
+                override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+                override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+            })
+            max = 55
+            progress = 7
+        }
     }
 
 

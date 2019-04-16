@@ -65,7 +65,7 @@ class WeatherPlannerFragment : Fragment() {
             requestCode, resultCode, data, fragment_weather_planner)?.let {place ->
 
             city = place.name!!
-            val dto = FetchWeatherTask.DTO(city!!, object: FetchWeatherTask.AsyncForecastResponse {
+            val dto = FetchWeatherTask.DTO(city, object: FetchWeatherTask.AsyncForecastResponse {
                 override fun catchResponse(forecasts: List<FetchWeatherTask.Forecast>?) {
 
                     if (forecasts == null)
