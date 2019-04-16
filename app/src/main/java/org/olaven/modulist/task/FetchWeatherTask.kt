@@ -1,53 +1,59 @@
 package org.olaven.modulist.task
 
 import android.app.Application
-import com.beust.klaxon.JsonArray
+import android.widget.Toast
+import com.beust.klaxon.Json
 import com.beust.klaxon.Klaxon
-import com.beust.klaxon.PathMatcher
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
+import org.json.JSONObject
 import org.olaven.modulist.App
-import java.util.regex.Pattern
 
-class FetchWeatherTask(application: Application): CustomTask<FetchWeatherTask.DTO, Unit, Unit>(application) {
 
-    class DTO(val city: String)
-    class Forecast(val temp: Float, clouds: Int, wind_spd: Double)
+class FetchWeatherTask(application: Application): CustomTask<FetchWeatherTask.DTO, Unit, List<FetchWeatherTask.Forecast>?>(application) {
 
-    override fun doInBackground(vararg DTOs: DTO?) {
+    private var responseCatcher: AsyncForecastResponse? = null
+
+    class DTO(
+        val city: String,
+        val responseCatcher: AsyncForecastResponse
+    )
+    interface AsyncForecastResponse {
+        fun catchResponse(forecasts: List<FetchWeatherTask.Forecast>?)
+    }
+    data class Forecast(
+        @Json(name = "temp")
+        val temperature: Double,
+        val clouds: Int,
+        @Json(name = "wind_spd")
+        val windSpeed: Double
+    )
+
+    override fun doInBackground(vararg DTOs: DTO?): List<Forecast>? {
 
         DTOs.forEach {
 
             it?.let { dto ->
 
+                responseCatcher = dto.responseCatcher
+
                 val url = getUrl(dto)
                 val request = getRequest(url)
                 val response = getResponse(request)
 
-               val forecasts = parseResponse(response)
+                return parseResponse(response)
             }
         }
+
+        return null
     }
 
-    private fun parseResponse(response: Response): List<Forecast>? {
+    override fun onPostExecute(result: List<Forecast>?) {
 
-        if (response.body() == null)
-            return null
-
-        val pathMatcher = object : PathMatcher {
-            override fun pathMatches(path: String) = Pattern.matches(".*data.", path)
-
-            override fun onMatch(path: String, value: Any) {
-                println("Adding $path = $value")
-            }
-        }
-
-        return Klaxon()
-            .parse<Forecast>(
-                response.body()!!.string()
-            ) as JsonArray<Forecast>
+        super.onPostExecute(result)
+        responseCatcher?.catchResponse(result)
     }
 
     private fun getUrl(dto: DTO) =
@@ -71,5 +77,17 @@ class FetchWeatherTask(application: Application): CustomTask<FetchWeatherTask.DT
         return client
             .newCall(request)
             .execute()
+    }
+
+    private fun parseResponse(response: Response): List<Forecast>? {
+
+        if (response.body() == null)
+            return null
+
+        val json = response.body()!!.string()
+        val data = JSONObject(json).get("data").toString()
+
+        return Klaxon()
+            .parseArray(data)
     }
 }

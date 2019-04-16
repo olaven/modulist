@@ -65,5 +65,5 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.14.1'
     implementation 'com.beust:klaxon:5.0.1' // (parsing the results)
     // graphs
-    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    implementation 'com.jjoe64:graphview:4.2.2'
 }

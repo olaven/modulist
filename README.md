@@ -59,6 +59,7 @@ This project is in an early state of development.
 - [ ] Gå gjennom alle dependencies i gradle
 - [ ] mappestrutkur -> preferences i /xml fordi preferences-biblioteket forventer det
 - [ ] V-model for testing
+- [ ] Valg av graf-bibliotek (andriodamp eller graphview)
 - [ ] Lite delt kode fordi jeg har tolket oppgaven slik at prosjektene skal være uavhengige av hverandre
 - [ ] Black-box vs White-box testing (doc, men også før, vite hva som er viktig hvor) -> vis til eksempler
 - [ ] litt om assertJ kontra ren Junit
