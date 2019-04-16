@@ -11,21 +11,23 @@ import org.olaven.modulist.R
 import org.olaven.modulist.activity.ModuleListActivity
 import org.olaven.modulist.database.entity.ModuleList
 
-class HomeFragmentRecyclerAdapter(private val context: Context, private val moduleLists: List<ModuleList>): RecyclerView.Adapter<HomeFragmentRecyclerAdapter.MyViewHolder>() {
 
-    override fun getItemCount(): Int =
+class ModulelistsRecyclerAdapter(val context: Context, private val moduleLists: List<ModuleList>):  RecyclerView.Adapter<ModulelistsRecyclerAdapter.MyViewHolder>() {
+
+
+    override fun getItemCount() =
         moduleLists.count()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
 
-        val layoutInflater = LayoutInflater.from(parent.context)
+        val layoutInflater = LayoutInflater.from(parent?.context)
         val view = layoutInflater.inflate(R.layout.list_card, parent, false)
-
 
         return MyViewHolder(view as CardView)
     }
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+
+    override fun onBindViewHolder(holder: ModulelistsRecyclerAdapter.MyViewHolder, position: Int) {
 
         val moduleList = moduleLists[position]
         holder.view.apply {
@@ -49,5 +51,4 @@ class HomeFragmentRecyclerAdapter(private val context: Context, private val modu
             }
         }
     }
-
 }

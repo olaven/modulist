@@ -12,7 +12,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import kotlinx.android.synthetic.main.fragment_my_lists.*
 import org.olaven.modulist.R
-import org.olaven.modulist.adapter.ListsFragmentRecyclerAdapter
+import org.olaven.modulist.adapter.ModulelistsRecyclerAdapter
 import org.olaven.modulist.database.Models
 import org.olaven.modulist.database.entity.ModuleList
 import org.olaven.modulist.dialog.add.AddModuleListDialog
@@ -45,7 +45,7 @@ class MyListsFragment : Fragment() {
 
         context?.let {
 
-            recyclerView.adapter = ListsFragmentRecyclerAdapter(it, moduleLists!!)
+            recyclerView.adapter = ModulelistsRecyclerAdapter(it, moduleLists!!)
         }
     }
 
