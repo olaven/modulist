@@ -26,7 +26,6 @@ class FetchWeatherTask(application: Application): CustomTask<FetchWeatherTask.DT
     data class Forecast(
         @Json(name = "temp")
         val temperature: Double,
-        val clouds: Int,
         @Json(name = "wind_spd")
         val windSpeed: Double
     )

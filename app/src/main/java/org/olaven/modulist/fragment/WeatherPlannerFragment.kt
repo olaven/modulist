@@ -1,6 +1,7 @@
 package org.olaven.modulist.fragment
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
@@ -25,6 +26,7 @@ class WeatherPlannerFragment : Fragment() {
 
     private lateinit var placesInput: PlacesInput
     private lateinit var city: String
+    private enum class GraphData { TEMPERATURE, WIND_SPEED}
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +40,7 @@ class WeatherPlannerFragment : Fragment() {
 
         super.onViewCreated(view, savedInstanceState)
 
+        fragment_weather_planner_text_city.text = "Unlocated"
         placesInput = PlacesInput(
             activity as AppCompatActivity,
             listOf(Place.Field.NAME),
@@ -49,7 +52,7 @@ class WeatherPlannerFragment : Fragment() {
 
     private fun setupButton() {
 
-        fragment_weather_planner_button.setOnClickListener {
+        fragment_weather_planner_button_locate.setOnClickListener {
 
             val intent = placesInput.getLaunchIntent()
             startActivityForResult(intent, App.REQUEST_CODE_PLACES_CITIES)
@@ -82,21 +85,43 @@ class WeatherPlannerFragment : Fragment() {
 
 
 
-        val series = LineGraphSeries<DataPoint>(
-            forecasts.mapIndexed{index, forecast ->
-
-                DataPoint(index.toDouble(), forecast.temperature)
-            }.toTypedArray()
-        )
+        val temperatureSeries = getSeries(forecasts, GraphData.TEMPERATURE)
+        val windSeries = getSeries(forecasts, GraphData.WIND_SPEED)
 
         fragment_weather_planner_graph.apply {
 
             removeAllSeries()
+            legendRenderer.isVisible = true
+            viewport.isScrollable = true
             viewport.isScalable = true
-            title = "Weather: at $city"
-            addSeries(series)
+            fragment_weather_planner_text_city.text = "$city"
+
+            temperatureSeries.color = Color.MAGENTA
+            windSeries.color = Color.BLUE
+
+            temperatureSeries.title = "Temperature"
+            windSeries.title = "Wind speed"
+
+            addSeries(temperatureSeries)
+            addSeries(windSeries)
+
         }
     }
+
+    private fun getSeries(forecasts: List<FetchWeatherTask.Forecast>, type: GraphData): LineGraphSeries<DataPoint> =
+            LineGraphSeries(
+                forecasts.mapIndexed {index, forecast ->
+
+                    val x = index.toDouble()
+                    val y = when(type) {
+                        GraphData.TEMPERATURE -> forecast.temperature
+                        GraphData.WIND_SPEED -> forecast.windSpeed
+                    }
+
+                    DataPoint(x, y)
+                }.toTypedArray()
+            )
+
 
 
 }
