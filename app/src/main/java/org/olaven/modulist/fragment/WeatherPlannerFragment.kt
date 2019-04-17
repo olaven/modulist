@@ -78,6 +78,7 @@ class WeatherPlannerFragment : Fragment() {
 
             FetchWeatherTask(activity!!.application)
                 .execute(dto)
+            fragment_weather_planner_text_city.text = "loading data..."
         }
     }
 

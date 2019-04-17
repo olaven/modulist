@@ -16,6 +16,7 @@ import org.olaven.modulist.adapter.ModulelistsRecyclerAdapter
 import org.olaven.modulist.database.Models
 import org.olaven.modulist.database.entity.ModuleList
 import org.olaven.modulist.dialog.add.AddModuleListDialog
+import org.olaven.modulist.setVisibilityOf
 
 class MyListsFragment : Fragment() {
 
@@ -70,8 +71,15 @@ class MyListsFragment : Fragment() {
         liveModuleLists.observe(this, Observer {
             it?.let { moduleLists ->
 
-                this.moduleLists = moduleLists
-                updateRecyclerView(view!!, layoutInflater, container)
+                if (moduleLists.isEmpty()) {
+
+                    setVisibilityOf(fragment_my_lists_text_add_lists, true)
+                } else {
+
+                    setVisibilityOf(fragment_my_lists_text_add_lists, false)
+                    this.moduleLists = moduleLists
+                    updateRecyclerView(view!!, layoutInflater, container)
+                }
             }
         })
     }

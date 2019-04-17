@@ -16,14 +16,8 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.LinearLayout
 import android.widget.SeekBar
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
-import com.google.android.libraries.places.api.model.RectangularBounds
 import com.google.android.libraries.places.api.model.TypeFilter
-import com.google.android.libraries.places.widget.Autocomplete
-import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
-import im.delight.android.location.SimpleLocation
 import kotlinx.android.synthetic.main.activity_module_list.*
 import org.olaven.modulist.App
 import org.olaven.modulist.PlacesInput
@@ -39,6 +33,7 @@ import org.olaven.modulist.dialog.update.UpdateNameDialog
 import org.olaven.modulist.dialog.update.UpdateParentsDialog
 import org.olaven.modulist.sensor.SensorConfig
 import org.olaven.modulist.service.GeofenceService
+import org.olaven.modulist.setVisibilityOf
 
 
 class ModuleListActivity : BaseActivity() {
@@ -104,15 +99,20 @@ class ModuleListActivity : BaseActivity() {
 
 
         activity_module_list_recycler_view.layoutManager = LinearLayoutManager(applicationContext, LinearLayout.VERTICAL, false)
-        itemModel.getByModuleListIdLive(id).observe(this, Observer { items ->
+        itemModel.getByModuleListIdLive(id).observe(this, Observer {
 
             adapter.clear()
             activity_module_list_recycler_view.adapter = adapter
-            items?.let { items ->
+            it?.let { items ->
 
-                this.items = items.toMutableList()
-                items.forEach {
-                    adapter.add(it)
+                if (items.isEmpty()) {
+                    setVisibilityOf(activity_module_list_text_add_items, true)
+                } else {
+                    setVisibilityOf(activity_module_list_text_add_items, false)
+                    this.items = items.toMutableList()
+                    items.forEach {
+                        adapter.add(it)
+                    }
                 }
             }
             adapter.notifyDataSetChanged()

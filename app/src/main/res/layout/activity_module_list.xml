@@ -45,6 +45,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/activity_module_list_text_days" android:layout_marginBottom="24dp"
                 app:layout_constraintBottom_toTopOf="@+id/activity_module_list_recycler_view"/>
 
+        <TextView
+                android:id="@+id/activity_module_list_text_add_items"
+                android:visibility="invisible"
+                android:text="Add some items to get started!"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
         <android.support.v7.widget.RecyclerView
                 android:id="@+id/activity_module_list_recycler_view"
                 android:layout_width="match_parent"
