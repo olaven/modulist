@@ -66,4 +66,6 @@ dependencies {
     implementation 'com.beust:klaxon:5.0.1' // (parsing the results)
     // graphs
     implementation 'com.jjoe64:graphview:4.2.2'
+    // playing youtube videos 
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.3'
 }

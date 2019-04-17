@@ -74,6 +74,7 @@ class MyListsFragment : Fragment() {
                 if (moduleLists.isEmpty()) {
 
                     setVisibilityOf(fragment_my_lists_text_add_lists, true)
+                    this.moduleLists = emptyList()
                 } else {
 
                     setVisibilityOf(fragment_my_lists_text_add_lists, false)

@@ -17,5 +17,9 @@
             android:id="@+id/nav_settings"
             android:icon="@android:drawable/ic_menu_preferences"
             android:title="@string/menu_drawer_settings"/>
+        <item
+            android:id="@+id/nav_tutorial_videos"
+            android:icon="@android:drawable/presence_video_online"
+            android:title="@string/menu_drawer_video_tutorials"/>
     </group>
 </menu>

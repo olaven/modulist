@@ -14,6 +14,7 @@ import org.olaven.modulist.R
 import org.olaven.modulist.database.entity.ModuleList
 import org.olaven.modulist.fragment.MyListsFragment
 import org.olaven.modulist.fragment.SettingsFragment
+import org.olaven.modulist.fragment.TutorialVideoFragment
 import org.olaven.modulist.fragment.WeatherPlannerFragment
 
 class MainActivity : BaseActivity() {
@@ -48,6 +49,7 @@ class MainActivity : BaseActivity() {
                 R.id.nav_my_lists -> replaceMainFragment(MyListsFragment())
                 R.id.nav_weather_planner -> replaceMainFragment(WeatherPlannerFragment())
                 R.id.nav_settings -> replaceMainFragment(SettingsFragment())
+                R.id.nav_tutorial_videos -> replaceMainFragment(TutorialVideoFragment())
             }
             activity_main_drawer.closeDrawer(Gravity.START)
             true
