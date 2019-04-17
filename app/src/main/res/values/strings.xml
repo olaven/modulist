@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
     <string name="app_name">Modulist</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -54,6 +54,33 @@
     <string name="dialog_negative">ε(´סּ︵סּ`)з</string>-->
     <string name="dialog_positive">OK</string>
     <string name="dialog_negative">NO</string>
+
+
+    <string-array name="theme_options">
+
+        <item
+                android:id="@+id/menu_theme_default">
+            @string/menu_theme_default
+        </item>
+        <item
+                android:id="@+id/menu_theme_fruit">
+            @string/menu_theme_dark
+        </item>
+        <item
+                android:id="@+id/menu_theme_fruit">
+            @string/menu_theme_dark
+        </item>
+        <item
+                android:id="@+id/menu_theme_cabin">
+            @string/menu_theme_cabin
+        </item>
+
+        <item
+                android:id="@+id/menu_theme_fruit">
+            @string/menu_theme_dark
+        </item>
+
+    </string-array>
 
     <string-array name="day_options">
         <item>1</item>
