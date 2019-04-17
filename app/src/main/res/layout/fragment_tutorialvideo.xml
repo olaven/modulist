@@ -1,22 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="wrap_content"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:tools="http://schemas.android.com/tools" android:layout_width="wrap_content"
               android:layout_height="wrap_content" xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="horizontal">
 
     <TextView
             android:id="@+id/fragment_tutorial_video_title"
+            android:text="@string/unloaded"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
-            android:textAppearance="?attr/textAppearanceListItem"/>
+            app:layout_constraintBottom_toTopOf="@+id/fragment_tutorial_video_player"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
 
     <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
             android:id="@+id/fragment_tutorial_video_player"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            app:videoId="S0Q4gqBUs7c"
             app:autoPlay="false"
-            app:showFullScreenButton="false" />
-</LinearLayout>
+            app:showFullScreenButton="true"
+            app:showYouTubeButton="false"
+            android:layout_marginBottom="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_editor_absoluteX="0dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
