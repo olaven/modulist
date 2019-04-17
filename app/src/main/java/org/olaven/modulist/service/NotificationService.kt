@@ -68,6 +68,5 @@ class NotificationService: IntentService("notificaion_service") {
             .build()
 
         notificationManager.notify(Random.nextInt(), notification)
-        notificationManager.notify(Random.nextInt(), notification)
     }
 }

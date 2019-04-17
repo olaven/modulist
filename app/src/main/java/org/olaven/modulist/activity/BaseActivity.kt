@@ -11,20 +11,22 @@ import android.widget.Toast
 import org.olaven.modulist.App
 import org.olaven.modulist.R
 import org.olaven.modulist.dialog.CameraRationaleDialog
-import org.olaven.modulist.dialog.CustomDialog
-import org.olaven.modulist.service.GeofenceService
-import org.olaven.modulist.service.NotificationService
+import org.olaven.modulist.geofence.TransitionService
+
 
 open class BaseActivity: AppCompatActivity() {
 
-    private lateinit var serviceIntents: List<Intent>
+    //private lateinit var serviceIntents: List<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        serviceIntents = listOf(
+      /*  serviceIntents = listOf(
             Intent(this, GeofenceService::class.java),
             Intent(this, NotificationService::class.java)
-        )
+        )*/
+
+        val intent = Intent(this, TransitionService::class.java)
+        startForegroundService(intent)
 
         applyTheme()
         checkPermissionForLocation()
@@ -32,7 +34,7 @@ open class BaseActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int,
+/*    override fun onRequestPermissionsResult(requestCode: Int,
                                             permissions: Array<String>, grantResults: IntArray) {
         when (requestCode) {
 
@@ -40,13 +42,13 @@ open class BaseActivity: AppCompatActivity() {
 
                 val granted = (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
 
-                if (granted)
+                *//*if (granted)
                     serviceIntents.forEach { startService(it) }
                 else
-                    serviceIntents.forEach { stopService(it) }
+                    serviceIntents.forEach { stopService(it) }*//*
             }
         }
-    }
+    }*/
 
 
     private fun checkPermissionForLocation(): Boolean =
@@ -54,7 +56,7 @@ open class BaseActivity: AppCompatActivity() {
         // NOTE: do not have to check for version >= 25, as it always will be
         if (applicationContext.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) ==
             PackageManager.PERMISSION_GRANTED) {
-            serviceIntents.forEach { startService(it) }
+            //serviceIntents.forEach { startService(it) }
             true
         } else {
             // Innhent tilgang

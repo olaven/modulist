@@ -1,6 +1,7 @@
 package org.olaven.modulist.activity
 
 import android.Manifest
+import android.content.Context
 import androidx.lifecycle.Observer
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -16,6 +17,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.LinearLayout
 import android.widget.SeekBar
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.model.TypeFilter
 import kotlinx.android.synthetic.main.activity_module_list.*
@@ -31,6 +33,7 @@ import org.olaven.modulist.dialog.update.DeleteModuleListDialog
 import org.olaven.modulist.dialog.update.UpdateColorDialog
 import org.olaven.modulist.dialog.update.UpdateNameDialog
 import org.olaven.modulist.dialog.update.UpdateParentsDialog
+import org.olaven.modulist.geofence.CustomGeofence
 import org.olaven.modulist.sensor.SensorConfig
 import org.olaven.modulist.service.GeofenceService
 import org.olaven.modulist.setVisibilityOf
@@ -44,6 +47,13 @@ class ModuleListActivity : BaseActivity() {
     private lateinit var placesInput: PlacesInput
     private lateinit var sensorConfig: SensorConfig
     private var atticMode = false
+
+
+    companion object {
+
+        fun makeNotificationIntent(geofenceService: Context) =
+            Intent(geofenceService, MainActivity::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -99,7 +109,7 @@ class ModuleListActivity : BaseActivity() {
 
 
         activity_module_list_recycler_view.layoutManager =
-            androidx.recyclerview.widget.LinearLayoutManager(applicationContext, LinearLayout.VERTICAL, false)
+            LinearLayoutManager(applicationContext, RecyclerView.VERTICAL, false)
         itemModel.getByModuleListIdLive(id).observe(this, Observer {
 
             adapter.clear()
@@ -202,7 +212,7 @@ class ModuleListActivity : BaseActivity() {
         }
     }
 
-    fun triggerLocationReminder() {
+    private fun triggerLocationReminder() {
 
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) ==
             PackageManager.PERMISSION_GRANTED) {
@@ -232,16 +242,20 @@ class ModuleListActivity : BaseActivity() {
 
         placesInput.getPlace(requestCode, resultCode, data, activity_module_list)?.let { place ->
 
-            val intent = Intent(this, GeofenceService::class.java)
+            //TODO: COMMENTED OUT WHILE REWRITING FENCE STUFF
+            //val intent = Intent(this, GeofenceService::class.java)
 
-            intent.putExtra(getString(R.string.add_fence_lat_key), place.latLng?.latitude)
-            intent.putExtra(getString(R.string.add_fence_long_key), place.latLng?.longitude)
 
+//            intent.putExtra(getString(R.string.add_fence_lat_key), place.latLng?.latitude)
+//            intent.putExtra(getString(R.string.add_fence_long_key), place.latLng?.longitude)
+
+//            startService(intent)
+            val customGeofence = CustomGeofence(context = application.applicationContext)
+            customGeofence.addFence(place.name!!, place.latLng!!.latitude, place.latLng!!.longitude)
             Snackbar
                 .make(activity_module_list, "Added reminder at: ${place.name}", Snackbar.LENGTH_LONG)
                 .show()
 
-            startService(intent)
         }
     }
 

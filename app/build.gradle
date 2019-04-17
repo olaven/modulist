@@ -8,7 +8,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "org.olaven.modulist"
-        minSdkVersion 25//15
+        minSdkVersion 26//15
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -42,9 +42,12 @@ dependencies {
     androidTestImplementation "org.assertj:assertj-core:3.11.1"
     androidTestImplementation 'androidx.arch.core:core-testing:2.0.0-beta01'
     // room stuff
-    implementation "androidx.room:room-runtime:$rootProject.room_version"
-    kapt "androidx.room:room-compiler:$rootProject.room_version"
-    androidTestImplementation "androidx.room:room-testing:$rootProject.room_version"
+//    implementation "androidx.room:room-runtime:$rootProject.room_version"
+//    kapt "androidx.room:room-compiler:$rootProject.room_version"
+//    androidTestImplementation "androidx.room:room-testing:$rootProject.room_version"
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-rxjava2:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
     // live data
     implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.arch_lifecycle_version"
     kapt "androidx.lifecycle:lifecycle-compiler:$rootProject.arch_lifecycle_version"

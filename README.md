@@ -46,6 +46,7 @@ This project is in an early state of development.
 - [ ] Bruk statistikk forå vise at telefonen er et vitkig verktøy hvor denne appen passer
 - [ ] Hva androidX er og hvorfor jeg valgte aa gaa over.
 - [ ] Når Activity/Fragment -> activity når jeg vil ha eget livsløp -> state-håndtering. Ingen tydelige skiller
+- [ ] Geofence -> laert fra artikkel: https://3en.cloud/insight/2018/4/24/setting-up-geofencing-with-notifications-on-android CHICAGO STYLE KILDER
 - [ ] Hvorfor GUI er bygget opp som det er
 - [ ] Skriv om API-version. Hvorfor er valgt slik det er?
 - [ ] Explicit vs implicit intents (bruk eksplisitt mot services og implicit mot share o.l. som eksempel)
