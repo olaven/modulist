@@ -1,4 +1,4 @@
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
     <string name="app_name">Modulist</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -17,7 +17,6 @@
 
     <!-- Menu, theme-->
     <string name="menu_theme_default">Default</string>
-    <string name="menu_theme_dark">Dark</string>
     <string name="menu_theme_fruit">Fruit</string>
     <string name="menu_theme_cabin">Cabin</string>
 
@@ -58,27 +57,16 @@
 
     <string-array name="theme_options">
 
-        <item
-                android:id="@+id/menu_theme_default">
+        <item>
             @string/menu_theme_default
         </item>
-        <item
-                android:id="@+id/menu_theme_fruit">
-            @string/menu_theme_dark
+        <item>
+            @string/menu_theme_fruit
         </item>
-        <item
-                android:id="@+id/menu_theme_fruit">
-            @string/menu_theme_dark
-        </item>
-        <item
-                android:id="@+id/menu_theme_cabin">
+        <item>
             @string/menu_theme_cabin
         </item>
 
-        <item
-                android:id="@+id/menu_theme_fruit">
-            @string/menu_theme_dark
-        </item>
 
     </string-array>
 

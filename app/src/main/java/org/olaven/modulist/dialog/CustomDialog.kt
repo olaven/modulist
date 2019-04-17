@@ -1,10 +1,8 @@
 package org.olaven.modulist.dialog
 
-import android.app.Activity
 import android.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import org.olaven.modulist.R
-import java.util.*
 
 abstract class CustomDialog(protected val activity: AppCompatActivity) {
 
@@ -42,6 +40,8 @@ abstract class CustomDialog(protected val activity: AppCompatActivity) {
 
     protected fun showCustomDialog(title: String, applied: (dialogBuilder: AlertDialog.Builder) -> Unit) {
 
+
+
         AlertDialog.Builder(activity).apply {
             setTitle(title)
 
@@ -51,4 +51,5 @@ abstract class CustomDialog(protected val activity: AppCompatActivity) {
             show()
         }
     }
+
 }

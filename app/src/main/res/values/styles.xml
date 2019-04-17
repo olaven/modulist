@@ -7,12 +7,6 @@
         <item name="colorAccent">@color/defaultAccent</item>
     </style>
 
-    <style name="DarkTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-        <item name="colorPrimary">@color/darkPrimary</item>
-        <item name="colorPrimaryDark">@color/darkPrimaryDark</item>
-        <item name="colorAccent">@color/darkAccent</item>
-    </style>
-
     <style name="FruitTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/fruitPrimary</item>
         <item name="colorPrimaryDark">@color/fruitPrimaryDark</item>

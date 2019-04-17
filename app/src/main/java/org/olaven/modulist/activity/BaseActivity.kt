@@ -88,7 +88,6 @@ open class BaseActivity: AppCompatActivity() {
 
         when(themeName) {
             getString(R.string.menu_theme_default) -> setTheme(R.style.DefaultTheme)
-            getString(R.string.menu_theme_dark)    -> setTheme(R.style.DarkTheme)
             getString(R.string.menu_theme_fruit)   -> setTheme(R.style.FruitTheme)
             getString(R.string.menu_theme_cabin)   -> setTheme(R.style.CabinTheme)
         }
