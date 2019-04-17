@@ -4,8 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
-import android.support.v4.app.Fragment
-import android.support.v7.app.ActionBarDrawerToggle
+import androidx.fragment.app.Fragment
+import androidx.appcompat.app.ActionBarDrawerToggle
 import android.view.Gravity
 import android.view.MenuItem
 import com.facebook.stetho.Stetho
@@ -86,7 +86,7 @@ class MainActivity : BaseActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    private fun replaceMainFragment(fragment: Fragment) {
+    private fun replaceMainFragment(fragment: androidx.fragment.app.Fragment) {
 
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.activity_main_frameLayout, fragment)

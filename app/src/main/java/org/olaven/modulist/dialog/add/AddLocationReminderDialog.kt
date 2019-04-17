@@ -1,6 +1,6 @@
 package org.olaven.modulist.dialog.add
 
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import org.olaven.modulist.dialog.CustomDialog
 
 class AddLocationReminderDialog(activity: AppCompatActivity): CustomDialog(activity) {

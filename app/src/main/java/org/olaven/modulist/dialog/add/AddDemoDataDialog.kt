@@ -1,7 +1,7 @@
 package org.olaven.modulist.dialog.add
 
 import android.app.Application
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import org.olaven.modulist.database.Models
 import org.olaven.modulist.dialog.CustomDialog
 import org.olaven.modulist.task.add.AddDemoDataTask

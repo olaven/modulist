@@ -1,8 +1,8 @@
 package org.olaven.modulist.adapter
 
 import android.app.Application
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.RecyclerView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +13,7 @@ import org.olaven.modulist.database.entity.ModuleList
 import org.olaven.modulist.dialog.DeleteItemDialog
 import org.olaven.modulist.task.update.UpdateItemTask
 
-class ItemsRecyclerAdapter(val application: Application, val activity: AppCompatActivity, var moduleList: ModuleList, var days: Int):  RecyclerView.Adapter<ItemsRecyclerAdapter.MyViewHolder>() {
+class ItemsRecyclerAdapter(val application: Application, val activity: AppCompatActivity, var moduleList: ModuleList, var days: Int):  androidx.recyclerview.widget.RecyclerView.Adapter<ItemsRecyclerAdapter.MyViewHolder>() {
 
     private val items = mutableListOf<Item>()
 
@@ -21,7 +21,7 @@ class ItemsRecyclerAdapter(val application: Application, val activity: AppCompat
         items.add(item)
     }
 
-    inner class MyViewHolder(view: View): RecyclerView.ViewHolder(view)
+    inner class MyViewHolder(view: View): androidx.recyclerview.widget.RecyclerView.ViewHolder(view)
 
     override fun getItemCount() =
         items.count()

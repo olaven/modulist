@@ -1,7 +1,7 @@
 package org.olaven.modulist.activity
 
 import android.Manifest
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
@@ -10,8 +10,8 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.CalendarContract
 import android.provider.Settings
-import android.support.design.widget.Snackbar
-import android.support.v7.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.LinearLayout
@@ -98,7 +98,8 @@ class ModuleListActivity : BaseActivity() {
         })
 
 
-        activity_module_list_recycler_view.layoutManager = LinearLayoutManager(applicationContext, LinearLayout.VERTICAL, false)
+        activity_module_list_recycler_view.layoutManager =
+            androidx.recyclerview.widget.LinearLayoutManager(applicationContext, LinearLayout.VERTICAL, false)
         itemModel.getByModuleListIdLive(id).observe(this, Observer {
 
             adapter.clear()

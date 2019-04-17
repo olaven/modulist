@@ -3,9 +3,9 @@ package org.olaven.modulist.fragment
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
+import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +22,7 @@ import com.jjoe64.graphview.series.LineGraphSeries
 
 
 
-class WeatherPlannerFragment : Fragment() {
+class WeatherPlannerFragment : androidx.fragment.app.Fragment() {
 
     private lateinit var placesInput: PlacesInput
     private lateinit var city: String

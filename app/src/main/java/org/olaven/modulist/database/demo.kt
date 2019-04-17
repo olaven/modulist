@@ -2,7 +2,7 @@ package org.olaven.modulist.database
 
 import android.app.Application
 import android.graphics.Color
-import android.support.annotation.WorkerThread
+import androidx.annotation.WorkerThread
 import org.olaven.modulist.database.entity.Item
 import org.olaven.modulist.database.entity.ListRelation
 import org.olaven.modulist.database.entity.ModuleList

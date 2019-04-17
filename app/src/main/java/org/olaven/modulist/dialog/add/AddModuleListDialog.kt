@@ -1,7 +1,7 @@
 package org.olaven.modulist.dialog.add
 
 import android.graphics.Color
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.ListView

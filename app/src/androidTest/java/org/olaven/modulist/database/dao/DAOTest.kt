@@ -1,10 +1,10 @@
 package org.olaven.modulist.database.dao
 
-import android.arch.core.executor.testing.CountingTaskExecutorRule
-import android.arch.core.executor.testing.InstantTaskExecutorRule
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.Observer
-import android.arch.persistence.room.Room
+import androidx.arch.core.executor.testing.CountingTaskExecutorRule
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+import androidx.room.Room
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import org.junit.After

@@ -1,7 +1,7 @@
 package org.olaven.modulist.database.repository
 
-import android.arch.lifecycle.LiveData
-import android.support.annotation.WorkerThread
+import androidx.lifecycle.LiveData
+import androidx.annotation.WorkerThread
 import org.olaven.modulist.database.dao.ItemDAO
 import org.olaven.modulist.database.entity.Item
 

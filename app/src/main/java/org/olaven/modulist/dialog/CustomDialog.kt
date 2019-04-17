@@ -2,7 +2,7 @@ package org.olaven.modulist.dialog
 
 import android.app.Activity
 import android.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import org.olaven.modulist.R
 import java.util.*
 

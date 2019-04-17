@@ -1,6 +1,6 @@
 package org.olaven.modulist.dialog.update
 
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import org.olaven.modulist.database.Models
 import org.olaven.modulist.database.entity.ModuleList
 import org.olaven.modulist.dialog.CustomDialog

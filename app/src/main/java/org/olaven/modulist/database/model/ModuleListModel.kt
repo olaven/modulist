@@ -1,7 +1,7 @@
 package org.olaven.modulist.database.model
 
 import android.app.Application
-import android.arch.lifecycle.LiveData
+import androidx.lifecycle.LiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.olaven.modulist.database.AppDatabase

@@ -1,6 +1,6 @@
 package org.olaven.modulist.database.repository
 
-import android.support.annotation.WorkerThread
+import androidx.annotation.WorkerThread
 import org.olaven.modulist.database.dao.CommonDAO
 
 abstract class CommonRepository<T>(val dao: CommonDAO<T>) {

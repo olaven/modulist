@@ -1,6 +1,6 @@
 package org.olaven.modulist.adapter
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +14,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
 import org.olaven.modulist.tutorial.TutorialVideo
 
 
-class TutorialVideosRecyclerViewAdapter(private val tutorialVideos: List<TutorialVideo>) : RecyclerView.Adapter<TutorialVideosRecyclerViewAdapter.ViewHolder>() {
+class TutorialVideosRecyclerViewAdapter(private val tutorialVideos: List<TutorialVideo>) : androidx.recyclerview.widget.RecyclerView.Adapter<TutorialVideosRecyclerViewAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -39,7 +39,7 @@ class TutorialVideosRecyclerViewAdapter(private val tutorialVideos: List<Tutoria
 
     override fun getItemCount(): Int = tutorialVideos.size
 
-    inner class ViewHolder(holder: View) : RecyclerView.ViewHolder(holder) {
+    inner class ViewHolder(holder: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(holder) {
         val title: TextView = holder.fragment_tutorial_video_title
         val player: YouTubePlayerView = holder.fragment_tutorial_video_player
     }

@@ -1,7 +1,7 @@
 package org.olaven.modulist.dialog
 
 import android.app.Application
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import org.olaven.modulist.database.Models
 
 class ClearDataDialog(activity: AppCompatActivity): CustomDialog(activity) {

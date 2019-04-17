@@ -1,6 +1,6 @@
 package org.olaven.modulist.dialog.add
 
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.widget.EditText
 import android.widget.TextView
 import org.olaven.modulist.R

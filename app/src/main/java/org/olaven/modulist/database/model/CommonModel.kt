@@ -1,7 +1,7 @@
 package org.olaven.modulist.database.model
 
 import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
+import androidx.lifecycle.AndroidViewModel
 import android.graphics.DiscretePathEffect
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

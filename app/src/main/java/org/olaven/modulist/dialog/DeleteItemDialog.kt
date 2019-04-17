@@ -1,6 +1,6 @@
 package org.olaven.modulist.dialog
 
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import org.olaven.modulist.database.entity.Item
 import org.olaven.modulist.database.entity.ModuleList
 import org.olaven.modulist.task.DeleteItemTask

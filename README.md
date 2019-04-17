@@ -44,6 +44,7 @@ This project is in an early state of development.
 ## Dokumentasjon
 - [X] Skriv om appens ide og formål
 - [ ] Bruk statistikk forå vise at telefonen er et vitkig verktøy hvor denne appen passer
+- [ ] Hva androidX er og hvorfor jeg valgte aa gaa over.
 - [ ] Når Activity/Fragment -> activity når jeg vil ha eget livsløp -> state-håndtering. Ingen tydelige skiller
 - [ ] Hvorfor GUI er bygget opp som det er
 - [ ] Skriv om API-version. Hvorfor er valgt slik det er?

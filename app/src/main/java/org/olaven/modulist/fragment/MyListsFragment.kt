@@ -1,11 +1,11 @@
 package org.olaven.modulist.fragment
 
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +18,7 @@ import org.olaven.modulist.database.entity.ModuleList
 import org.olaven.modulist.dialog.add.AddModuleListDialog
 import org.olaven.modulist.setVisibilityOf
 
-class MyListsFragment : Fragment() {
+class MyListsFragment : androidx.fragment.app.Fragment() {
 
     var moduleLists: List<ModuleList>? = null
     private lateinit var container: ViewGroup
@@ -41,8 +41,9 @@ class MyListsFragment : Fragment() {
 
     private fun updateRecyclerView(view: View, inflater: LayoutInflater, container: ViewGroup?) {
 
-        val recyclerView = view.findViewById<RecyclerView>(R.id.fragment_my_lists_recycler_view)
-        recyclerView.layoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
+        val recyclerView = view.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.fragment_my_lists_recycler_view)
+        recyclerView.layoutManager =
+            androidx.recyclerview.widget.LinearLayoutManager(context, LinearLayout.VERTICAL, false)
 
         context?.let {
 

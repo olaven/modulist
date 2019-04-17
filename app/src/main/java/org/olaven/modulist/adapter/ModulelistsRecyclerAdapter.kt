@@ -2,8 +2,8 @@ package org.olaven.modulist.adapter
 
 import android.content.Context
 import android.content.Intent
-import android.support.v7.widget.CardView
-import android.support.v7.widget.RecyclerView
+import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.list_card.view.*
@@ -12,7 +12,7 @@ import org.olaven.modulist.activity.ModuleListActivity
 import org.olaven.modulist.database.entity.ModuleList
 
 
-class ModulelistsRecyclerAdapter(val context: Context, private val moduleLists: List<ModuleList>):  RecyclerView.Adapter<ModulelistsRecyclerAdapter.MyViewHolder>() {
+class ModulelistsRecyclerAdapter(val context: Context, private val moduleLists: List<ModuleList>):  androidx.recyclerview.widget.RecyclerView.Adapter<ModulelistsRecyclerAdapter.MyViewHolder>() {
 
 
     override fun getItemCount() =
@@ -23,7 +23,7 @@ class ModulelistsRecyclerAdapter(val context: Context, private val moduleLists: 
         val layoutInflater = LayoutInflater.from(parent?.context)
         val view = layoutInflater.inflate(R.layout.list_card, parent, false)
 
-        return MyViewHolder(view as CardView)
+        return MyViewHolder(view as androidx.cardview.widget.CardView)
     }
 
 
@@ -37,7 +37,7 @@ class ModulelistsRecyclerAdapter(val context: Context, private val moduleLists: 
         }
     }
 
-    inner class MyViewHolder(val view: CardView): RecyclerView.ViewHolder(view) {
+    inner class MyViewHolder(val view: androidx.cardview.widget.CardView): androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
 
         init {
             view.setOnClickListener {

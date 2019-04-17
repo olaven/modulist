@@ -1,6 +1,6 @@
 package org.olaven.modulist.database.dao
 
-import android.arch.persistence.room.*
+import androidx.room.*
 
 
 @Dao

@@ -2,8 +2,8 @@ package org.olaven.modulist.service
 
 import android.app.IntentService
 import android.content.Intent
-import android.support.v4.app.NotificationCompat
-import android.support.v4.app.NotificationManagerCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingEvent
 import org.olaven.modulist.App
