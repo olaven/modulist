@@ -27,18 +27,6 @@
         </activity>
 
         <service
-                android:name=".service.GeofenceService"
-                android:enabled="true"
-                android:exported="true">
-        </service>
-
-        <service
-                android:name=".service.NotificationService"
-                android:enabled="true"
-                android:exported="true">
-        </service>
-
-        <service
                 android:name=".geofence.TransitionService"
                 android:enabled="true"
                 android:exported="true">

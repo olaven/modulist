@@ -35,7 +35,6 @@ import org.olaven.modulist.dialog.update.UpdateNameDialog
 import org.olaven.modulist.dialog.update.UpdateParentsDialog
 import org.olaven.modulist.geofence.CustomGeofence
 import org.olaven.modulist.sensor.SensorConfig
-import org.olaven.modulist.service.GeofenceService
 import org.olaven.modulist.setVisibilityOf
 
 
@@ -242,16 +241,8 @@ class ModuleListActivity : BaseActivity() {
 
         placesInput.getPlace(requestCode, resultCode, data, activity_module_list)?.let { place ->
 
-            //TODO: COMMENTED OUT WHILE REWRITING FENCE STUFF
-            //val intent = Intent(this, GeofenceService::class.java)
-
-
-//            intent.putExtra(getString(R.string.add_fence_lat_key), place.latLng?.latitude)
-//            intent.putExtra(getString(R.string.add_fence_long_key), place.latLng?.longitude)
-
-//            startService(intent)
-            val customGeofence = CustomGeofence(context = application.applicationContext)
-            customGeofence.addFence(place.name!!, place.latLng!!.latitude, place.latLng!!.longitude)
+            val customGeofence = CustomGeofence(this)
+            customGeofence.addFence(moduleList.name, place.name!!, place.latLng!!.latitude, place.latLng!!.longitude)
             Snackbar
                 .make(activity_module_list, "Added reminder at: ${place.name}", Snackbar.LENGTH_LONG)
                 .show()

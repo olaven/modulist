@@ -12,6 +12,7 @@ import org.olaven.modulist.App
 import org.olaven.modulist.R
 import org.olaven.modulist.dialog.CameraRationaleDialog
 import org.olaven.modulist.geofence.TransitionService
+// import org.olaven.modulist.service.NotificationService
 
 
 open class BaseActivity: AppCompatActivity() {
@@ -25,8 +26,8 @@ open class BaseActivity: AppCompatActivity() {
             Intent(this, NotificationService::class.java)
         )*/
 
-        val intent = Intent(this, TransitionService::class.java)
-        startForegroundService(intent)
+        // val intent = Intent(this, TransitionService::class.java)
+        //startForegroundService(intent)
 
         applyTheme()
         checkPermissionForLocation()
@@ -34,18 +35,18 @@ open class BaseActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
     }
 
-/*    override fun onRequestPermissionsResult(requestCode: Int,
+    /*override fun onRequestPermissionsResult(requestCode: Int,
                                             permissions: Array<String>, grantResults: IntArray) {
         when (requestCode) {
 
             App.REQUEST_ACCESS_FINE_LOCATION -> {
 
                 val granted = (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-
-                *//*if (granted)
-                    serviceIntents.forEach { startService(it) }
+                val intent = Intent(this, TransitionService::class.java)
+                if (granted)
+                    startService(intent)
                 else
-                    serviceIntents.forEach { stopService(it) }*//*
+                    stopService(intent)
             }
         }
     }*/

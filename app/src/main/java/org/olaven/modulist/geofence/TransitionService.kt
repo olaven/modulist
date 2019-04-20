@@ -8,28 +8,32 @@ import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingEvent
 import org.olaven.modulist.App
 import org.olaven.modulist.R
+import java.lang.Exception
 import kotlin.random.Random
 
-class TransitionService: IntentService("TransitionsService") {
+class TransitionService: IntentService("Intent service for transitions") {
 
 
+    override fun onCreate() {
+        super.onCreate()
+    }
 
     override fun onHandleIntent(intent: Intent?) {
 
-        val geofenceTransition = GeofencingEvent.fromIntent(intent).geofenceTransition
+        val event = GeofencingEvent.fromIntent(intent)
+        if (event.hasError()) {
+            println("som error " + event.errorCode)
+            return
+        }
 
-        when (geofenceTransition) {
-            Geofence.GEOFENCE_TRANSITION_ENTER -> {
-                // do something
-                sendNotification("You entered the area")
-            }
-            Geofence.GEOFENCE_TRANSITION_EXIT -> {
-                // do something else
-                sendNotification("you exited the area")
-            }
-            Geofence.GEOFENCE_TRANSITION_DWELL -> {
-                // do something else again
-                sendNotification("You dwelled in the area")
+        val triggeringGeofences = event.triggeringGeofences
+
+        triggeringGeofences.forEach {
+            print(it.toString() + " - " + it.requestId)
+
+            if (event.geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER || event.geofenceTransition == Geofence.GEOFENCE_TRANSITION_DWELL) {
+
+                sendNotification(it.requestId)
             }
         }
     }
