@@ -47,13 +47,6 @@ class ModuleListActivity : BaseActivity() {
     private lateinit var sensorConfig: SensorConfig
     private var atticMode = false
 
-
-    companion object {
-
-        fun makeNotificationIntent(geofenceService: Context) =
-            Intent(geofenceService, MainActivity::class.java)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_module_list)
@@ -242,7 +235,7 @@ class ModuleListActivity : BaseActivity() {
         placesInput.getPlace(requestCode, resultCode, data, activity_module_list)?.let { place ->
 
             val customGeofence = CustomGeofence(this)
-            customGeofence.addFence(moduleList.name, place.name!!, place.latLng!!.latitude, place.latLng!!.longitude)
+            customGeofence.addFence(moduleList, place.name!!, place.latLng!!.latitude, place.latLng!!.longitude)
             Snackbar
                 .make(activity_module_list, "Added reminder at: ${place.name}", Snackbar.LENGTH_LONG)
                 .show()

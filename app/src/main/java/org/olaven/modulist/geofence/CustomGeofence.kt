@@ -9,6 +9,8 @@ import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingClient
 import com.google.android.gms.location.GeofencingRequest
+import org.olaven.modulist.R
+import org.olaven.modulist.database.entity.ModuleList
 
 
 class CustomGeofence(val context: Context) {
@@ -18,9 +20,9 @@ class CustomGeofence(val context: Context) {
     var geofencingClient = GeofencingClient(context)
 
 
-    fun addFence(listName: String, placeName: String, latitude: Double, longitude: Double) {
+    fun addFence(moduleList: ModuleList, placeName: String, latitude: Double, longitude: Double) {
 
-        val id = "You are at $placeName. Do you want to pack $listName?"
+        val id = "You are at $placeName. Do you want to pack ${moduleList.name}?"
         val radius = 300
 
         var geofence = Geofence.Builder()

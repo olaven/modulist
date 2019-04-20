@@ -10,13 +10,14 @@ import org.olaven.modulist.App
 import org.olaven.modulist.R
 import java.lang.Exception
 import kotlin.random.Random
+import android.app.PendingIntent
+import org.olaven.modulist.activity.MainActivity
+import org.olaven.modulist.activity.ModuleListActivity
+import org.olaven.modulist.database.entity.ModuleList
+
 
 class TransitionService: IntentService("Intent service for transitions") {
 
-
-    override fun onCreate() {
-        super.onCreate()
-    }
 
     override fun onHandleIntent(intent: Intent?) {
 
@@ -43,9 +44,14 @@ class TransitionService: IntentService("Intent service for transitions") {
 
         val notificationManager = NotificationManagerCompat.from(this)
 
+        val intent = Intent(this, MainActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
+
         val notification = NotificationCompat.Builder(this, App.CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setContentTitle("Notification content title")
+            .setAutoCancel(true)
+            .setFullScreenIntent(pendingIntent, false)
             .setContentText(message)
             .build()
 
