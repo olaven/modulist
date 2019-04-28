@@ -1,7 +1,7 @@
 package org.olaven.modulist.database.repository
 
-import androidx.lifecycle.LiveData
 import androidx.annotation.WorkerThread
+import androidx.lifecycle.LiveData
 import org.olaven.modulist.database.dao.ListRelationDAO
 import org.olaven.modulist.database.entity.ListRelation
 

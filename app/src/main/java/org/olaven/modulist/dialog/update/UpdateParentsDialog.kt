@@ -1,7 +1,7 @@
 package org.olaven.modulist.dialog.update
 
-import androidx.lifecycle.Observer
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import org.olaven.modulist.database.Models
 import org.olaven.modulist.database.entity.ModuleList
 import org.olaven.modulist.task.GetParentsTask

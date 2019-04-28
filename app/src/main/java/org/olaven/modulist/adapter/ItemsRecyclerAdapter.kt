@@ -1,11 +1,10 @@
 package org.olaven.modulist.adapter
 
 import android.app.Application
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.list_item.view.*
 import org.olaven.modulist.R
 import org.olaven.modulist.database.entity.Item

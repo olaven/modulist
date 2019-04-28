@@ -1,9 +1,9 @@
 package org.olaven.modulist.database
 
+import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import android.content.Context
 import org.olaven.modulist.database.dao.ItemDAO
 import org.olaven.modulist.database.dao.ListRelationDAO
 import org.olaven.modulist.database.dao.ModuleListDAO

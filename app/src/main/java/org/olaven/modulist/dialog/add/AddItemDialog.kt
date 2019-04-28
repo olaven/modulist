@@ -1,14 +1,13 @@
 package org.olaven.modulist.dialog.add
 
-import androidx.appcompat.app.AppCompatActivity
 import android.widget.EditText
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import org.olaven.modulist.R
 import org.olaven.modulist.database.entity.Item
 import org.olaven.modulist.database.entity.ModuleList
 import org.olaven.modulist.dialog.CustomDialog
 import org.olaven.modulist.task.add.AddItemTask
-import java.lang.Exception
 
 class AddItemDialog(val moduleList: ModuleList, activity: AppCompatActivity): CustomDialog(activity) {
 

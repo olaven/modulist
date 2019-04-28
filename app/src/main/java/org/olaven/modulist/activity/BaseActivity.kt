@@ -2,16 +2,15 @@ package org.olaven.modulist.activity
 
 import android.Manifest
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import androidx.core.app.ActivityCompat
-import androidx.appcompat.app.AppCompatActivity
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import org.olaven.modulist.App
 import org.olaven.modulist.R
 import org.olaven.modulist.dialog.CameraRationaleDialog
-import org.olaven.modulist.geofence.TransitionService
+
 // import org.olaven.modulist.service.NotificationService
 
 

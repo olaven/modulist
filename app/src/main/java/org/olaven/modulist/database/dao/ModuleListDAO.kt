@@ -2,7 +2,6 @@ package org.olaven.modulist.database.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
-import androidx.room.Insert
 import androidx.room.Query
 import org.olaven.modulist.database.entity.ModuleList
 

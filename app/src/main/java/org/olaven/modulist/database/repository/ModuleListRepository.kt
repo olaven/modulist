@@ -1,6 +1,5 @@
 package org.olaven.modulist.database.repository
 
-import androidx.lifecycle.LiveData
 import androidx.annotation.WorkerThread
 import org.olaven.modulist.database.dao.ModuleListDAO
 import org.olaven.modulist.database.entity.ModuleList

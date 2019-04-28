@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.olaven.modulist.R
-import org.olaven.modulist.adapter.TutorialVideosRecyclerViewAdapter
 import org.olaven.modulist.TutorialVideo
+import org.olaven.modulist.adapter.TutorialVideosRecyclerViewAdapter
 
 
 class TutorialVideoFragment : androidx.fragment.app.Fragment() {

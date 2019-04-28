@@ -5,10 +5,9 @@ import android.content.Intent
 import android.hardware.SensorManager
 import android.net.Uri
 import android.provider.Settings
-import com.google.android.material.snackbar.Snackbar
-import androidx.core.content.ContextCompat.startActivity
-import androidx.appcompat.app.AppCompatActivity
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
 import org.olaven.modulist.Flashlight
 
 /**

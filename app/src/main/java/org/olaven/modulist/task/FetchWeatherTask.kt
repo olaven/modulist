@@ -1,7 +1,6 @@
 package org.olaven.modulist.task
 
 import android.app.Application
-import android.widget.Toast
 import com.beust.klaxon.Json
 import com.beust.klaxon.Klaxon
 import okhttp3.HttpUrl
@@ -10,7 +9,6 @@ import okhttp3.Request
 import okhttp3.Response
 import org.json.JSONObject
 import org.olaven.modulist.App
-import java.lang.Exception
 
 
 class FetchWeatherTask(application: Application): CustomTask<FetchWeatherTask.DTO, Unit, List<FetchWeatherTask.Forecast>?>(application) {

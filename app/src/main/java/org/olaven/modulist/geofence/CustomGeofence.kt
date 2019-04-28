@@ -9,7 +9,6 @@ import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingClient
 import com.google.android.gms.location.GeofencingRequest
-import org.olaven.modulist.R
 import org.olaven.modulist.database.entity.ModuleList
 
 

@@ -1,8 +1,6 @@
 package org.olaven.modulist.activity
 
 import android.Manifest
-import android.content.Context
-import androidx.lifecycle.Observer
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
@@ -11,15 +9,15 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.CalendarContract
 import android.provider.Settings
-import com.google.android.material.snackbar.Snackbar
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.LinearLayout
 import android.widget.SeekBar
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.model.TypeFilter
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_module_list.*
 import org.olaven.modulist.App
 import org.olaven.modulist.PlacesInput

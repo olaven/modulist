@@ -3,23 +3,20 @@ package org.olaven.modulist.fragment
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
-import androidx.fragment.app.Fragment
-import androidx.appcompat.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.model.TypeFilter
+import com.google.android.material.snackbar.Snackbar
 import com.jjoe64.graphview.series.DataPoint
+import com.jjoe64.graphview.series.LineGraphSeries
 import kotlinx.android.synthetic.main.fragment_weather_planner.*
 import org.olaven.modulist.App
 import org.olaven.modulist.PlacesInput
 import org.olaven.modulist.R
 import org.olaven.modulist.task.FetchWeatherTask
-import com.jjoe64.graphview.series.LineGraphSeries
-
-
 
 
 class WeatherPlannerFragment : androidx.fragment.app.Fragment() {

@@ -55,8 +55,6 @@ dependencies {
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutines_version"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutines_version"
     implementation 'androidx.recyclerview:recyclerview:1.0.0-beta01'
-    // for database debugging
-    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.1'
     // color picker
     implementation 'com.pes.materialcolorpicker:library:1.2.5'
     // location 

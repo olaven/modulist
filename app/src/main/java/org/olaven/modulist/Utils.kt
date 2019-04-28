@@ -1,7 +1,6 @@
 package org.olaven.modulist
 
 import android.view.View
-import java.lang.StringBuilder
 import kotlin.random.Random
 
 fun randomString(length: Int): String {

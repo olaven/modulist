@@ -1,7 +1,6 @@
 package org.olaven.modulist.database
 
 import android.app.Application
-import org.olaven.modulist.database.entity.ModuleList
 import org.olaven.modulist.database.model.ItemModel
 import org.olaven.modulist.database.model.ListRelationModel
 import org.olaven.modulist.database.model.ModuleListModel

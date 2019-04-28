@@ -4,8 +4,6 @@ import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.Service
-import android.location.Location
-import android.location.LocationListener
 import android.os.Build
 import kotlin.random.Random
 

@@ -1,7 +1,7 @@
 package org.olaven.modulist.dialog
 
-import androidx.core.app.ActivityCompat
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import org.olaven.modulist.App
 
 class CameraRationaleDialog(activity: AppCompatActivity): CustomDialog(activity) {

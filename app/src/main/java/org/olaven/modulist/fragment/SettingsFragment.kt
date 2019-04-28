@@ -1,21 +1,15 @@
 package org.olaven.modulist.fragment
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import com.google.android.material.snackbar.Snackbar
-import androidx.fragment.app.Fragment
-import androidx.appcompat.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupMenu
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.fragment_settings.*
 import org.olaven.modulist.R
 import org.olaven.modulist.dialog.ChangeThemeDialog
-import org.olaven.modulist.dialog.add.AddDemoDataDialog
 import org.olaven.modulist.dialog.ClearDataDialog
+import org.olaven.modulist.dialog.add.AddDemoDataDialog
 
 
 class SettingsFragment: androidx.fragment.app.Fragment() {

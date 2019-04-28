@@ -1,6 +1,7 @@
 package org.olaven.modulist.geofence
 
 import android.app.IntentService
+import android.app.PendingIntent
 import android.content.Intent
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -8,12 +9,8 @@ import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingEvent
 import org.olaven.modulist.App
 import org.olaven.modulist.R
-import java.lang.Exception
-import kotlin.random.Random
-import android.app.PendingIntent
 import org.olaven.modulist.activity.MainActivity
-import org.olaven.modulist.activity.ModuleListActivity
-import org.olaven.modulist.database.entity.ModuleList
+import kotlin.random.Random
 
 
 class TransitionService: IntentService("Intent service for transitions") {

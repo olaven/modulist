@@ -1,7 +1,7 @@
 package org.olaven.modulist.dialog.update
 
-import androidx.appcompat.app.AppCompatActivity
 import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
 import org.olaven.modulist.database.entity.ModuleList
 
 class UpdateNameDialog(moduleList: ModuleList, activity: AppCompatActivity): UpdateModuleListDialog(moduleList, activity) {

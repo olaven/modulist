@@ -1,11 +1,11 @@
 package org.olaven.modulist.dialog.add
 
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.ListView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.pes.androidmaterialcolorpickerdialog.ColorPicker
 import org.olaven.modulist.R
 import org.olaven.modulist.database.entity.ModuleList

@@ -2,7 +2,6 @@ package org.olaven.modulist.sensor
 
 import android.hardware.Sensor
 import android.hardware.SensorEvent
-import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 
 class LightSensor(manager: SensorManager): CustomSensor(manager) {
