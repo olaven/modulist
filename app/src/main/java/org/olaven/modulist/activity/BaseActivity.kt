@@ -11,22 +11,11 @@ import org.olaven.modulist.App
 import org.olaven.modulist.R
 import org.olaven.modulist.dialog.CameraRationaleDialog
 
-// import org.olaven.modulist.service.NotificationService
-
 
 open class BaseActivity: AppCompatActivity() {
 
-    //private lateinit var serviceIntents: List<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
-      /*  serviceIntents = listOf(
-            Intent(this, GeofenceService::class.java),
-            Intent(this, NotificationService::class.java)
-        )*/
-
-        // val intent = Intent(this, TransitionService::class.java)
-        //startForegroundService(intent)
 
         applyTheme()
         checkPermissionForLocation()
@@ -34,36 +23,17 @@ open class BaseActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
     }
 
-    /*override fun onRequestPermissionsResult(requestCode: Int,
-                                            permissions: Array<String>, grantResults: IntArray) {
-        when (requestCode) {
-
-            App.REQUEST_ACCESS_FINE_LOCATION -> {
-
-                val granted = (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                val intent = Intent(this, TransitionService::class.java)
-                if (granted)
-                    startService(intent)
-                else
-                    stopService(intent)
-            }
-        }
-    }*/
-
-
-    private fun checkPermissionForLocation(): Boolean =
-
+    private fun checkPermissionForLocation() {
         // NOTE: do not have to check for version >= 25, as it always will be
         if (applicationContext.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) ==
             PackageManager.PERMISSION_GRANTED) {
-            //serviceIntents.forEach { startService(it) }
-            true
         } else {
             // Innhent tilgang
             ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
                 App.REQUEST_ACCESS_FINE_LOCATION)
-            false
         }
+    }
+
 
     private fun checkPermissionForCamera() {
 
