@@ -31,7 +31,6 @@ Dette er dokumentet som beskrives i krav 2 i [oppgaveteksten](./oppgavetekst.pdf
     - [Database](#database)
     - [Lokal lagring generelt](#lokal-lagring-generelt)
     - [Multithreading](#multithreading)
-    - [Dialogs](#dialogs)
   - [Support-biblioteker](#support-biblioteker)
   - [Intents](#intents)
   - [Services og notifications](#services-og-notifications)
@@ -336,11 +335,12 @@ Shared preferences egner seg derimot godt til klassiske "key-value"-scenarier. D
 ### Multithreading 
 TODO ME 
 
-### Dialogs 
-TODO ME 
-
 ## Support-biblioteker 
-TODO ME 
+Da jeg startet paa Modulist, brukte jeg de samme support-bibliotekene som ble brukt i undervisningen. Support-bibliotekene gir bakoverkompatibilitet med tidligere versjoner av Android. Etter hvert byttet jeg til AndroidX, som er erstatningen paa de gamle support-bibliotekene<sup>12</sup>](#12). 
+
+Migreringen ble veldig enklel. Android Studio hadde en egen knapp som mer eller mindre gjorde alt for meg. 
+
+Utgangspuntet for at jeg oensket aa bytte, var at jeg oppdaget at noen bibliotek ikke fungerte like bra (eller ikke i det hele tatt) med mindre man hadde AndroidX. Saerlig stoette jeg paa problemer med [biblioteket jeg bruker til Youtube-spillere](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player).
 
 ## Intents 
 TODO ME 
@@ -432,6 +432,7 @@ __note__: Der tilstrekkelig informasjon ikke er oppgitt, kommer det frem i kilde
 * <span id="9">9:</span> Uspesifisert forfatter, Google. NA. "Save data in a local database using Room". https://developer.android.com/training/data-storage/room/ (lastet ned 28. April 2019)
 * <span id="10">10:</span> Obaro Ogbo. 21 September 2016. "How to store data locally in an Android app". https://www.androidauthority.com/how-to-store-data-locally-in-android-app-717190/ (lastet ned 28. April 2019)
 * <span id="11">11:</span> Uspesifisert forfatter, Google. NA. "Data and file storage overview". https://developer.android.com/guide/topics/data/data-storage (lastet ned 28. April 2019)
+* <span id="12">12:</span> Uspesifisert forfatter, Google. NA. "AndroidX Overview". https://developer.android.com/jetpack/androidx/#using_androidx (lastet ned 28. April 2019)
 
 
 
