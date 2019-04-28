@@ -322,9 +322,6 @@ Jeg har lagt noe felles funksjonalitet i de generiske Common-klassene. Da slapp 
 ![Databasediagram over mine entiteter](photos/diagrams/database-entity-diagram.png)
 Selve database-arkitekturen er forholdsvis enkel, men den fungerte mer enn godt nok for det jeg trengte. 
 
-
-TODO: Resonnering rundt selve valget av lagringsmetode kommer [senere](#lokal-lagring) i dokumentasjonen.
-
 ### Lokal lagring generelt 
 
 I min oppgave bruekr jeg hovedsaklig SQL-databaser til aa lagre data. Det finnes andre lagringsmetoder i Android: ekstern/intern fil-lagring og "SharedPreferences". SharedPreferences egner foerst og fremst godt til lagring av enklere datatyper, og opererer paa "key-value"-parr<sup>10</sup>](#10). Ikke til data om listene.
@@ -352,7 +349,16 @@ TODO ME
 TODO ME 
 
 ## Brukertest
-TODO ME 
+Jeg har gjennomfoert brukertester med venner og bekjente. Jeg har passet på å la både "tekniske" og "ikke-tekniske" kjente. Det vil si at jeg også testet folk som ikke er vant til å bruke mange apper og som sjelden lærer seg å bruke nye programmer. 
+
+Jeg fikk flere tilbakemeldinger: 
+* Ikke alle skjoente at de kunne redigere Seekbaren paa item-skjermen. Dette var noe saerlig de ikke-tekniske brukerene slet med. Derfor satte jeg den som default til 7. Da ligger den litt under hallveis mot midten. Min hypotese var at fargen ville skjaere litt i resten av bildet, og at det ville gjeore at folk la merke til den. Jeg later til aa ha hatt noe rett i det, for folk saa den mye tidligere enn foer etter denne endringen .
+* Da jeg startet testene, var jeg litt usikker paa om fargene var mer i veien enn til hjelp. De tar tross alt litt tid fra brukeren under oppsett av en liste, og de har ikke noedvendigvis saa mye funksjonlitet. Jeg fikk derimot beskjed av testobjektene om at dette var noe de likte. Derfor beholdt jeg det videre. 
+* De aller fleste som testet synes at det var litt vanskelig aa faa tak paa konseptet i appen til aa begynne med. De synes det var lettest var (ikke saa overraskende) de som hadde kjennskap til objektorietert programmering. Mange av de mindre tekniske testobjektene, trengte lenger tid. Dette foerte til to ting: 
+  1. Instruksjonsvideoer som en veldig lett tilgjengelig del av appen 
+  2. Enkelhet rundt konseptet. Jeg har skrevet mer om dette [tidligere i dokumentet](#tidlige-skisser).
+
+Appen har først og fremst blitt kjørt på min egen [Moto E Play](https://www.motorola.com/us/products/moto-e-play-gen-5). 
 seekbar  
 farger 
 ting de likte 
