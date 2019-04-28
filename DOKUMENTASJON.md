@@ -10,22 +10,34 @@ Dette er dokumentet som beskrives i krav 2 i [oppgaveteksten](./oppgavetekst.pdf
       - [Pakke til ferie](#pakke-til-ferie)
       - [Pakke til sommerferie](#pakke-til-sommerferie)
       - [Pakke til vinterferie](#pakke-til-vinterferie)
-    - [Utviklingav konseptet](#utviklingav-konseptet)
+    - [Utvikling av konseptet](#utvikling-av-konseptet)
   - [Appens muligheter](#appens-muligheter)
     - [Lister](#lister)
     - [Naviagasjon](#naviagasjon)
     - [Alle lister - skjermbilde](#alle-lister---skjermbilde)
     - [Se paa en spesifik liste - skjermbilde](#se-paa-en-spesifik-liste---skjermbilde)
+      - [Meny](#meny)
     - [Vaerplanlegging - skjermbilde](#vaerplanlegging---skjermbilde)
     - [Settings - skjermbilde](#settings---skjermbilde)
     - [Tutorials](#tutorials)
   - [Tidlige skisser](#tidlige-skisser)
   - [Arkitektur](#arkitektur)
+    - [Fragment](#fragment)
+    - [Actvities](#actvities)
+    - [App-klassen](#app-klassen)
+      - [Konstanter](#konstanter)
+      - [Notifications](#notifications)
+    - [Permissions](#permissions)
+    - [Room](#room)
+    - [Multithreading](#multithreading)
+    - [Dialogs](#dialogs)
+  - [Support-biblioteker](#support-biblioteker)
   - [Intents](#intents)
   - [Database](#database)
   - [Services og notifications](#services-og-notifications)
   - [Brukertest](#brukertest)
   - [Visuelt](#visuelt)
+  - [Versjoner](#versjoner)
   - [Navngivning](#navngivning)
   - [Publisering](#publisering)
   - [Kildeliste](#kildeliste)
@@ -95,7 +107,7 @@ tunge bøker er borte. Det må oppdateres i begge listene. Om man ser for seg at
 i tillegg, har man plutselig fire lister som må holdes synkronisert og oppdatert. Det blir fort kaos.
 Her skal Modulist hjelpe.
 
-### Utviklingav konseptet
+### Utvikling av konseptet
 Da jeg startet arbeidet ved semesterstart, var tanken å bygge en app som kunne dekke alle slags lister. Det være seg handlelister, pakkelister, generelle huskelister, osv.
 
 Kjappe soek paa app-butikker, viser at liste-apper ikke akkurat er nytt territorium[<sup>1</sup>](#1)[<sup>2</sup>](#2). Markedet for generelle liste-apper er rett og slett et veldig vanskelig marked aa vaere i. Derfor skjoente jeg fort at min strategi maatte vaere aa spisse konseptet saa mye som mulig - satse paa et nisje-marked fremfor aa gaa for massene. 
@@ -135,6 +147,7 @@ Nederst i hoeyre gjoerne har man en "Floating Action Button" for aa legge til ny
 
 Foerste gangen de fikk valget om hyppighet, synes de fleste brukerene at det var litt forvirrende. Derimot forsto saa godt som alle brukerene hva det var etter at elementet var lagt til. Terskelen for aa fjerne/legge til elemeenter er veldig lav, og derfor har jeg ikke gjort noen store endringer her. 
 
+#### Meny
 I app-baren ligger en [standard-meny](https://developer.android.com/guide/topics/ui/menus) (skjermbilde [her](#skjermbilde---meny-paa-liste)) som gir brukeren en rekke muligheter: 
 * _Toggle attic mode_
     
@@ -165,26 +178,153 @@ Det er tre instillinger tilgjengelig.
 Som nevnt tidligere i dette dokumentet, har appen en viss laeringskurve. Derfor har jeg lagt til instruksjonsvideoer som brukeren kan benytte seg av. Alle hovedfunkjsonliteter demonstreres i videoene.  
 
 ## Tidlige skisser 
+Jeg begynte aa skisse til oppgaven ganske tidlig. Da de ble tegnet, hadde jeg [som nevnt](#utvikling-av-konseptet) tenkt til aa lage mulighet for mer generelle lister. Allikevel har hovedtrekkne i skissene holdt seg igjen i det endelige resultatet. 
 
+Den [tidligeste skssen](#tidlig-skisse) viser noen smaa skisser og en haug med stikkord. Her hadde jeg en tett kopling mellom en liste og en lokasjon. Notatene viser ogsaa at jeg hadde delt inn listene i kategoriene. Dette har jeg (med unntak av location reminders) gaatt litt bort fra, for aa unnga unoedvendig kompleksitet. 
+
+[Neste skisse](#skisse---lister) viser en sketsj for en hovedskjerm, og utviding av lister. Selve liste-siden er ganske enkel i denne skissen, omtrent som i sluttlisten. "Seekbar"-menyen for antall dager dukker ikke opp her, fordi dette ble tegnet foer konseptet var spisset mot pakking. 
+
+Hjem-skjermen som vises i denne skissen, er ganske annerledes enn den som er i [resultatet](#skjermbilde---alle-lister). Her har man stoette for aa lege til lister som "favoritter" og som "aktuelle". Listene vises ogsaa i horisontale views. Dette var lenge en de lav appen, men jeg gikk etter hvert bort fra det. Ogsaa her handlet det om aa unngaa unoedvendig kompleksitet. 
+
+Oeverst i venstre hjoerene ser man at en basis for det som i dag ligger i [menyen](#meny) er til stede. ideene om aa dele lister og legge dem til i kalenderen har kommet inn, sammen med geofence-reminders (HER: "Add location at"). 
 
 ## Arkitektur 
 
+### Fragment 
+Programmet bruker en fragment-arkitektur, slik som 
+oppgaven spesifiserer. Fragments gir en fordel over activities her fordi de er mindre ressurskrevende å starte opp enn activities. 
+Fragments er mer fleksible enn activities var tenkt til å være. De kan gjenbrukes og, dersom man ønsker, kan man ha flere i samme skjerm (f.eks endring ved rotasjon). Det er ikke anbefalt at de skal være så store. De skal dele opp ganske store bolker. 
+
+Alle skjermer som kan naaes fra [navigasjonsmenyen](#navgasjonsmeny), bytter ut innholdet i en hoved-activity, `MainActivity.kt`.
+
+Jeg bruker kun ett fragment om gangen, og jeg har laast appen i portraint-rotasjon. Derfor er det først og fremst kostnaden ved å starte en fragment som jeg sparer. Det er fint her ved kjapp navigering mellom fragments. 
+
+Rotasjons-laasingen er slik som den er fordi hovedfunksjonaliteten i appen ikke er av en type hvor det er naturlig med landscape-rotasjon. Dersom appens fokus hadde vaert aa lese lange artikler, se paa bilder, film eller lignende, ville det derimot vaert mer naturlig. Denne appen skal vise lange, verttikale lister. Da ville landscape-modus skapt mer scrolling og unoedvendig tap av brukervennlighet. Det er ogsaa faa mennesker som faktisk bruker telefoner i landscape, saerlig paa Android[<sup>4</sup>](#4).
+
+![Activity to framgents](photos/diagrams/activity-to-fragment.png)
+
+Aa bytte fragmens innebaerer bare aa sjekke hvilket element i navigasjonsmenyen som klikkes, og saa bytte gjennom en `FragmentManager`. 
+```kotlin
+
+class MainActivity : BaseActivity() {
+
+    private fun setupDrawerItemListeners() {
+            
+        activity_main_navigation_view.bringToFront()
+        activity_main_navigation_view.setNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.nav_my_lists -> replaceMainFragment(MyListsFragment())
+                R.id.nav_weather_planner -> replaceMainFragment(WeatherPlannerFragment())
+                R.id.nav_settings -> replaceMainFragment(SettingsFragment())
+                R.id.nav_tutorial_videos -> replaceMainFragment(TutorialVideoFragment())
+            }
+            activity_main_drawer.closeDrawer(Gravity.START)
+            true
+        }
+    }
+
+    fun replaceMainFragment(fragment: Fragment) {
+
+        supportFragmentManager.beginTransaction()
+            .addToBackStack(null)
+            .replace(R.id.activity_base_frame_layout, fragment)
+            .commit()
+    }
+}
+// NOTE: kode som ikke er relevant for eksempel er fjernet 
+```
+
+### Actvities
+Activities er et eget GUI-vindu i Android, som kan startes i Android. En stor del av Android sin filosofi er at ting kan startes fra forskjellige steder: en app kan starte en annen app, osv[<sup>5</sup>](#5). Dette gjoeres gjerne gjennom intents ([mer senere](#intents)) som starter activities. 
+
+![Bilde av activity lifecycle](photos/diagrams/actvity-lifecycle.png)
+(bilde[<sup>6</sup>](#6))
+
+Activities har sin egen livssyklus, med tilhoerende metoder, som figuren over viser. Disse brukes til initialisering og "teardown"-hendelser i applikasjonen. Her bruker jeg saerlig oppstartsmetodene til aa intiere det som skal skje, sette opp lyttere o.l.
+```kotlin 
+//MainActivity.kt
+override fun onCreate(savedInstanceState: Bundle?) {
+
+    super.onCreate(savedInstanceState)
+
+    setContentView(R.layout.activity_main)
+    replaceMainFragment(MyListsFragment())
+    setUpActionBarWithDrawer()
+    setupDrawerItemListeners()
+}
+```
+
+Metodene kan ogsaa brukes for aa lagre states fra input o.l. Da kan man lagre dette i et bundle-objekt, som sendes i `savedInstanceState: Bundle?`. Det haandteres imidlertid ganske godt av Android fra foer, og jeg har ikke opplevt problemer ved bruk av appen. Derfor har jeg heller ikke haandtert dette manuelt. 
+
+Jeg har to activities som vises til brukeren, som begge er subklasser av en felles `BaseActivity.kt`: [Klassediagram for Actvity-klassene](photos/diagrams/activity-diagram-class.png)
+
+Jeg kunne valgt aa vise en liste i et fragment, sann som med de andre delene av appen min. Dette ville vaert hakket kjapperet, av [nevnte](#fragment) aarsaker. Allikevel har jeg oensket aa ha det i en fragment, av to aarsaker: 
+1. en activity spretter opp som et eget vindu. Naar jeg apner en liste i appen min, _foeles det riktig_, rett og slett; jeg er ferdig med aa navigere og bruke appens mange ekstrafunksjonaliteter. Naa skal jeg fokusere paa aa pakke. 
+2. For aa integrere bedre med andre apper paa telefonen, hadde det vaert stilig dersom andre apper kunne starte aktiviteten til en gitt liste. Dette kan man gjoere med intent-fitlers. Per i dag ligger ikke den type funksjonalitet i appen, men det er et hav av muligheter som kunne vaere veldig spennende. Derfor har jeg oensket aa holde doeren aapen. 
+
+I Android kan man som nevnt forvente at activities kan startes av andre applikasjoner. Bruksflyten er mer sporadisk, og jeg maa forvente at begge activities er det foerste en bruker moeter. Derfor maa jeg haandtere noen ting begge steder. I mitt tilfelle: aa legge paa fargetema, og aa hente inn tillatelser til aa bruke lokasjonstjenester(geofencing) og kamera(lys). Kodebiten som gjoer det, er vist nedenfor. 
+``` kotlin 
+override fun onCreate(savedInstanceState: Bundle?) {
+
+    applyTheme()
+    checkPermissionForLocation()
+    checkPermissionForCamera()
+    super.onCreate(savedInstanceState)
+}
+```
+
+### App-klassen 
+TODO ME 
+
+#### Konstanter
+TODO ME 
+
+#### Notifications 
+TODO ME 
+
+### Permissions 
+TODO ME 
+
+### Room 
+TODO ME 
+
+### Multithreading 
+TODO ME 
+
+### Dialogs 
+TODO ME 
+
+## Support-biblioteker 
+TODO ME 
+
 ## Intents 
+TODO ME 
 
 ## Database 
+TODO ME 
 
 ## Services og notifications 
+TODO ME 
 
 ## Brukertest
+TODO ME 
+seekbar  
+farger 
+ting de likte 
+noe de var kritiske til 
+Vanskelige konsepter -> strippet ned funksjonalitet til minimum.
 
 ## Visuelt
 Jeg har holdt meg til Material Design, og Google sine standard-komponenter. Disse er kjente for brukeren. Det er lagt opp til at brukeren skal kunne endre fargetema gjennom instillinger-skjermen. 
 
-Jeg har også laget et lite ikon til appen.
+Jeg har også laget et ikon til appen.
 ![startskjerm](./photos/icon.png)
 
+## Versjoner
 
 ## Navngivning 
+(samme som i _Tic Tac Toe_)
+
 Mange av navngivningskonvensjonene jeg har fulgt er veldig vanlige, standard-konvenserjoner. 
 B.la. bruker jeg [Camel Case](https://en.wikipedia.org/wiki/Camel_case) på de aller fleste variablelnavn. Kosntanter har store bokstaver. 
 
@@ -227,9 +367,13 @@ Prosjektet ligger også på et [github-repo](https://github.com/olaven/modulist)
 
 
 ## Kildeliste 
+__note__: Der tilstrekkelig informasjon ikke er oppgitt, kommer det frem i kildehenvisningen.
 * <span id="1">1:</span> https://play.google.com/store/search?q=todo&c=apps
 * <span id="2">2:</span> https://itunes.apple.com/us/app/wunderlist-to-do-list-tasks/id406644151?mt=8#see-all/customers-also-bought-apps
-* <span id="3">3:</span> Uspesifiert forfatter, Google. 2019. “Floating Action Buttons”. https://material.io/develop/android/components/floating-action-button/ (lastet ned 27. April 2019)
+* <span id="3">3:</span> Uspesifiert forfatter, Google. NA. “Floating Action Buttons”. https://material.io/develop/android/components/floating-action-button/ (lastet ned 27. April 2019)
+* <span id="4">4:</span> Rahul Reddy. 28 Juli 2017. “Smartphone vs Tablet Orientation: Who’s Using What?”. https://www.scientiamobile.com/smartphone-vs-tablet-orientation-whos-using-what/ (lastet ned 28. April 2019)
+* <span id="5">5:</span> Uspesifisert forfatter, Google. NA. “Introduction to Activities”. https://developer.android.com/guide/components/activities/intro-activities (lastet ned 28. April 2019)
+* <span id="6">6:</span> Uspesifisert forfatter, Google. NA. “Understand the Activity Lifecycle”. https://developer.android.com/guide/components/activities/activity-lifecycle (lastet ned 28. April 2019)
 
 ## Vedlegg
 ### Tidlig skisse 
