@@ -13,12 +13,11 @@ Dette er dokumentet som beskrives i krav 2 i [oppgaveteksten](./oppgavetekst.pdf
     - [Utviklingav konseptet](#utviklingav-konseptet)
   - [Appens muligheter](#appens-muligheter)
     - [Lister](#lister)
-    - [Alle lister](#alle-lister)
-    - [Se paa en spesifik liste](#se-paa-en-spesifik-liste)
-      - [Hovedfunkjsonalitet](#hovedfunkjsonalitet)
-      - [Side-meny](#side-meny)
-    - [Vaerplanlegging](#vaerplanlegging)
-    - [Settings](#settings)
+    - [Naviagasjon](#naviagasjon)
+    - [Alle lister - skjermbilde](#alle-lister---skjermbilde)
+    - [Se paa en spesifik liste - skjermbilde](#se-paa-en-spesifik-liste---skjermbilde)
+    - [Vaerplanlegging - skjermbilde](#vaerplanlegging---skjermbilde)
+    - [Settings - skjermbilde](#settings---skjermbilde)
     - [Tutorials](#tutorials)
   - [Tidlige skisser](#tidlige-skisser)
   - [Arkitektur](#arkitektur)
@@ -113,16 +112,19 @@ En stund etter at oppgaven ble utdelt, tegnet jeg noen enkle skisser for aa fors
 (__notis__: demo-lister kan legges til fra [innstillinger](#skjermbilde---innstillinger)]
 ### Lister
 
-### Alle lister 
-Naar man aapner appen, m;ter [alle listene](#skjermbilde---alle-lister) brukeren. 
-Dette gir en enkel inngang til selve listene. 
+### Naviagasjon   
+TODO skriv om navigasjonen 
+
+### Alle lister - [skjermbilde](#skjermbilde---alle-lister)
+Denne skjermen er det foerste som moeter brukeren naar det starter appen. 
+Sidne gir enkel tilgang til selve listene. 
 
 For aa legge til lister, trykker man paa en "Floating Action Button" (FAB) som vises i hjoernet. Dette er standard i Material Design, og er forholdsvis kjent for de fleste Android-brukere[<sup>3</sup>](#3). Naar man lager en liste, faar brukeren tre valg. Legge til et navn, legge til en farge, og legge de listene man vil arve elementer fra. Jeg fikk veldig positiv tilbakemelding paa at man hadde mulighet for aa legge til sine egne farger.
 
 Muligheten for aa legge til de man arver fra, var litt mer forvirrende. Allikevel har jeg valgt aa ha det inne fordi det er sapass sentralt til hensiktene med appen. Denne forvirringen har allikevel blit imoetegaatt med [instruksjonsvideoer](#skjermbilde---instruksjonsvideoer) som skal gjoere det lettere aa laere seg hvordan appen fungerer. 
 
-### Se paa en spesifik liste 
-Trykker man paa en liste, kommer man til [skjermen for én liste](#skjermbilde--en-liste). Paa mange maater er dette den viktigste siden i appen; det er her brukeren jobber med selve pakkelistene. 
+### Se paa en spesifik liste - [skjermbilde](#skjermbilde--en-liste)
+Paa mange maater er dette den viktigste siden i appen; det er her brukeren jobber med selve pakkelistene. 
 
 Her vises b.la. et "Seekbar"-element. Den brukes til aa juster til hvor mange dager man oensker aa pakke for. Naar den endres, oppdateres listene fortoepende. Til aa begynne med hadde jeg denne paa 0 som default. Da var tanken at brukeren selv skulle legge inn dager hver gang. I [brukertestene](#brukertest) oppdaget jeg at de mindre app-vante brukerene ikke oppfattet muligheten for aa justere antall dager i det hele tatt. Derfor har jeg satt den som litt "scrollet" (til 7) som default. Da forsvant problemet. 
 
@@ -137,7 +139,8 @@ I app-baren ligger en [standard-meny](https://developer.android.com/guide/topics
     
     "Attic Mode" bruker telefonens sensordata for aa gi ekstrafunksjonalitet. Tanken er at man vil befinne seg paa loftet fra tid til annen, naar man pakker. Ekstrafunksjonliteten bestaar av at telefonens lommelykt skrur seg paa nar det er moerkt rundt, og man vil faa en varsel om aa ta tak i en genser om det er kaldt. Det er viktig aa ta vare paa brukerens helse <3 
 * _Add location reminder_
-    Her gis det mulighet til aa legge til paaminnelser naar man ankommer et omraade. En typisk use-case kan vaere "minne meg paa a pakke naar jeg naermer meg jemadressen min".
+  
+    Her gis det mulighet til aa legge til paaminnelser naar man ankommer et omraade. En typisk use-case kan vaere "minne meg paa a pakke naar jeg naermer meg hjem-adresssen min". For a aapnaa dette, bruker jeg [geofencing](https://developer.android.com/training/location/geofencing).
 * _Share list_
 
     Denne muligheten gir brukeren mulighet til aa dele listene i tekstform, f.eks. via SMS eller mail. Alle apper som aapner for deling, kan koble seg paa dette. 
@@ -148,14 +151,20 @@ I app-baren ligger en [standard-meny](https://developer.android.com/guide/topics
 
     Listene skal leve over tid, og man skal kunne endre dem. Da kommer denne under-menyen inn! Her kan man oppdatere listens navn, "foreldre-lister" og farge, samt sletting av lister. 
 
-#### Hovedfunkjsonalitet
-#### Side-meny  
-### Vaerplanlegging 
-### Settings 
-### Tutorials 
+### Vaerplanlegging - [skjermbilde](#skjermbilde---vaer-planlegging)
+Pakking foregaar i all hovedsak foer man skal dra til et sted. Derfor har jeg lagt inn en "Weather-Planner" i appen min. Den henter data fra [Weatherbit](api.weatherbit.io). Data visualiseres i grafen. 
 
+### Settings - [skjermbilde](#skjermbilde---innstillinger)
+Det er tre instillinger tilgjengelig. 
+* legge til demo-data -> fin naar man skal laere seg aa bruke appen 
+* endre tema -> fargetemaer som lar brukeren tilpasse appen 
+* slette data -> gjoer akkurat det den sier 
+
+### Tutorials 
+Som nevnt tidligere i dette dokumentet, har appen en viss laeringskurve. Derfor har jeg lagt til instruksjonsvideoer som brukeren kan benytte seg av. Alle hovedfunkjsonliteter demonstreres i videoene.  
 
 ## Tidlige skisser 
+
 
 ## Arkitektur 
 
