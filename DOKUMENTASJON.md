@@ -12,20 +12,29 @@ Dette er dokumentet som beskrives i krav 2 i [oppgaveteksten](./oppgavetekst.pdf
       - [Pakke til vinterferie](#pakke-til-vinterferie)
     - [Utviklingav konseptet](#utviklingav-konseptet)
   - [Appens muligheter](#appens-muligheter)
-    - [Liste](#liste)
+    - [Lister](#lister)
+    - [Alle lister](#alle-lister)
+    - [Se paa en spesifik liste](#se-paa-en-spesifik-liste)
       - [Hovedfunkjsonalitet](#hovedfunkjsonalitet)
-      - [Meny](#meny)
+      - [Side-meny](#side-meny)
     - [Vaerplanlegging](#vaerplanlegging)
     - [Settings](#settings)
     - [Tutorials](#tutorials)
-  - [Skjermer](#skjermer)
   - [Tidlige skisser](#tidlige-skisser)
   - [Arkitektur](#arkitektur)
-  - [Brukertesting](#brukertesting)
+  - [Brukertest](#brukertest)
   - [Visuelt](#visuelt)
   - [Publisering](#publisering)
   - [Kildeliste](#kildeliste)
   - [Vedlegg](#vedlegg)
+    - [Tidlig skisse](#tidlig-skisse)
+    - [Skisse - lister](#skisse---lister)
+    - [Skisse - listeflyt](#skisse---listeflyt)
+    - [Skjermbilde - alle lister](#skjermbilde---alle-lister)
+    - [Skjermbilde - en liste](#skjermbilde---en-liste)
+    - [Skjermbilde - vaer-planlegging](#skjermbilde---vaer-planlegging)
+    - [Skjermbilde - innstillinger](#skjermbilde---innstillinger)
+    - [Skjermbilde - instruksjonsvideoer](#skjermbilde---instruksjonsvideoer)
 
 ## Om oppgaven 
 Oppgaven her var å skrive en appliksasjon som implementerte _Tic Tac Toe_ ("bondesjakke"). I tillegg var det krav om følgende: 
@@ -58,6 +67,7 @@ _Modulist_ lar brukeren lage pakkelister. Pakkelistene kan saa "utvides" av andr
 
 
 ### Eksempel:
+(__notis__: demo-lister kan legges til fra [innstillinger](#skjermbilde---innstillinger)]
 
 #### Pakke til ferie
 * tannbørste
@@ -92,24 +102,45 @@ Jeg reiser hyppig mellom ulike byer, og har derfor ogsaa mange pakkelister. Pros
 
 I og med at jeg gaar for et nisje-marked uansett, har jeg landet paa at fordelene med aa vaere i brukergruppen veier opp for ulempene. 
 
-En stund etter at oppgaven ble utdelt, tegnet jeg noen enkle skisser for aa forstaa hva jeg ville bygge foer jeg bygget dem. Disse omtales naermere [her](#tidilge-skisser).
+En stund etter at oppgaven ble utdelt, tegnet jeg noen enkle skisser for aa forstaa hva jeg ville bygge foer jeg bygget dem. Disse omtales naermere [her](#tidlige-skisser).
 
 ## Appens muligheter 
-### Liste
+(__notis__: demo-lister kan legges til fra [innstillinger](#skjermbilde---innstillinger)]
+### Lister
+
+### Alle lister 
+Naar man aapner appen, m;ter [alle listene](#skjermbilde---alle-lister) brukeren. 
+Dette gir en enkel inngang til selve listene. 
+
+For aa legge til lister, trykker man paa en "Floating Action Button" (FAB) som vises i hjoernet. Dette er standard i Material Design, og er forholdsvis kjent for de fleste Android-brukere[<sup>3</sup>](#3). Naar man lager en liste, faar brukeren tre valg. Legge til et navn, legge til en farge, og legge de listene man vil arve elementer fra. Jeg fikk veldig positiv tilbakemelding paa at man hadde mulighet for aa legge til sine egne farger.
+
+Muligheten for aa legge til de man arver fra, var litt mer forvirrende. Allikevel har jeg valgt aa ha det inne fordi det er sapass sentralt til hensiktene med appen. Denne forvirringen har allikevel blit imoetegaatt med [instruksjonsvideoer](#skjermbilde---instruksjonsvideoer) som skal gjoere det lettere aa laere seg hvordan appen fungerer. 
+
+### Se paa en spesifik liste 
+Trykker man paa en liste, kommer man til [skjermen for én liste](#skjermbilde--en-liste). Paa mange maater er dette den viktigste siden i appen; det er her brukeren jobber med selve pakkelistene. 
+
+Her vises b.la. et "Seekbar"-element. Den brukes til aa juster til hvor mange dager man oensker aa pakke for. Naar den endres, oppdateres listene fortoepende. Til aa begynne med hadde jeg denne paa 0 som default. Da var tanken at brukeren selv skulle legge inn dager hver gang. I [brukertestene](#brukertest) oppdaget jeg at de mindre app-vante brukerene ikke oppfattet muligheten for aa justere antall dager i det hele tatt. Derfor har jeg satt den som litt "scrollet" (til 7) som default. Da forsvant problemet. 
+
+Under dem har man selve elementene. De gir ganske enkelt mulighet for aa huke av- og slette elementer. Hvert element er kun knyttet til en liste, men dersom man forsoeker aa slette dem, vil de fjernes i "barne-listene" ogsaa. Det faar man en varsling om naar man sletter. 
+
+Nederst i hoeyre gjoerne har man en "Floating Action Button" for aa legge til nye liste-elementer. Prosessen tilsvarer aa legge til nye liste. Nye elementer legges ogsaa automatisk til "barne-lister". Naar man legger til et element faar man mulighet til aa legge til navn og _hyppighet_. Hyppighet handler om hvor mange dager som maa gaa foer man trenger aa pakke flere av elementet. 
+
+Foerste gangen de fikk valget om hyppighet, synes de fleste brukerene at det var litt forvirrende. Derimot forsto saa godt som alle brukerene hva det var etter at elementet var lagt til. Terskelen for aa fjerne/legge til elemeenter er veldig lav, og derfor har jeg ikke gjort noen store endringer her. 
+
+TODO options 
+
 #### Hovedfunkjsonalitet
-#### Meny  
+#### Side-meny  
 ### Vaerplanlegging 
 ### Settings 
 ### Tutorials 
 
 
-## Skjermer 
-
 ## Tidlige skisser 
 
 ## Arkitektur 
 
-## Brukertesting 
+## Brukertest
 
 ## Visuelt
 
@@ -121,14 +152,22 @@ Prosjektet ligger også på et [github-repo](https://github.com/olaven/modulist)
 ## Kildeliste 
 * <span id="1">1:</span> https://play.google.com/store/search?q=todo&c=apps
 * <span id="2">2:</span> https://itunes.apple.com/us/app/wunderlist-to-do-list-tasks/id406644151?mt=8#see-all/customers-also-bought-apps
+* <span id="3">3:</span> Uspesifiert forfatter, Google. 2019. “Floating Action Buttons”. https://material.io/develop/android/components/floating-action-button/ (lastet ned 27. April 2019)
 
 ## Vedlegg
+### Tidlig skisse 
 ![Tidlig skisse/idemyldring](photos/sketches/early_sketch.png) 
+### Skisse - lister 
 ![Skisse for sammenheng mellom lister](photos/sketches/list_flow.png) 
+### Skisse - listeflyt 
 ![Skisse for visning av lister](photos/sketches/list_view.png) 
+### Skjermbilde - alle lister 
 ![Skjermbilde av skjermen med alle lister](photos/screenshots/lists.png)
+### Skjermbilde - en liste
 ![Skjermbilde av skjermed med en liste](photos/screenshots/list.png) 
-![Skjermbilde vaer-skjermen](photos/screenshots/weather.png) 
-![Skjermbilde menye paa liste-skjerm](photos/screenshots/list-options.png) 
+### Skjermbilde - vaer-planlegging 
+![Skjermbilde vaerskjermen](photos/screenshots/weather.png) 
+### Skjermbilde - innstillinger 
 ![Skjermbilde instillings-skjermen](photos/screenshots/settings.png) 
-![Skjermbilde tutorial-skjermen](photos/screenshots/tutorials.png) 
+### Skjermbilde - instruksjonsvideoer
+![Skjermbilde instruksjonsskjermen](photos/screenshots/tutorials.png) 
