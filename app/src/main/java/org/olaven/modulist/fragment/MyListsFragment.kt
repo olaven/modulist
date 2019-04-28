@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.fragment_my_lists.*
 import org.olaven.modulist.R
 import org.olaven.modulist.adapter.ModulelistsRecyclerAdapter
-import org.olaven.modulist.database.Models
+import org.olaven.modulist.database.ModelFactory
 import org.olaven.modulist.database.entity.ModuleList
 import org.olaven.modulist.dialog.add.AddModuleListDialog
 import org.olaven.modulist.setVisibilityOf
@@ -62,7 +62,7 @@ class MyListsFragment : androidx.fragment.app.Fragment() {
 
     private fun setupModuleListListener() {
 
-        val liveModuleLists = Models
+        val liveModuleLists = ModelFactory
             .getModuleListModel(activity!!.application)
             .getAllModuleListsLive()
 

@@ -2,7 +2,7 @@ package org.olaven.modulist.dialog.update
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import org.olaven.modulist.database.Models
+import org.olaven.modulist.database.ModelFactory
 import org.olaven.modulist.database.entity.ModuleList
 import org.olaven.modulist.task.GetParentsTask
 import org.olaven.modulist.task.update.UpdateParentsTask
@@ -11,7 +11,7 @@ class UpdateParentsDialog(moduleList: ModuleList, activity: AppCompatActivity): 
 
     override fun show() {
 
-        Models.getModuleListModel(activity.application).getAllModuleListsLive().observe(activity, Observer {
+        ModelFactory.getModuleListModel(activity.application).getAllModuleListsLive().observe(activity, Observer {
 
             it?.let { moduleLists ->
 

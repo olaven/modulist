@@ -48,6 +48,5 @@ class App: Application() {
             val manager = getSystemService(Service.NOTIFICATION_SERVICE) as NotificationManager
             manager.createNotificationChannel(channel)
         }
-
     }
 }

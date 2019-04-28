@@ -23,7 +23,7 @@ import org.olaven.modulist.App
 import org.olaven.modulist.PlacesInput
 import org.olaven.modulist.R
 import org.olaven.modulist.adapter.ItemsRecyclerAdapter
-import org.olaven.modulist.database.Models
+import org.olaven.modulist.database.ModelFactory
 import org.olaven.modulist.database.entity.Item
 import org.olaven.modulist.database.entity.ModuleList
 import org.olaven.modulist.dialog.add.AddItemDialog
@@ -80,8 +80,8 @@ class ModuleListActivity : BaseActivity() {
         val key = getString(R.string.extra_modulelist_key)
         val id = intent.extras[key] as Long
 
-        val moduleListModel = Models.getModuleListModel(application)
-        val itemModel = Models.getItemModel(application)
+        val moduleListModel = ModelFactory.getModuleListModel(application)
+        val itemModel = ModelFactory.getItemModel(application)
 
         moduleListModel.getByIdLive(id).observe(this, Observer {
 

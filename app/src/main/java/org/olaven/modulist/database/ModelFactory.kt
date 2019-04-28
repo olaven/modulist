@@ -5,7 +5,7 @@ import org.olaven.modulist.database.model.ItemModel
 import org.olaven.modulist.database.model.ListRelationModel
 import org.olaven.modulist.database.model.ModuleListModel
 
-class Models {
+class ModelFactory {
 
     companion object {
 

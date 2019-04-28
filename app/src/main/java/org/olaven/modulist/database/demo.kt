@@ -11,9 +11,9 @@ import kotlin.random.Random
 @WorkerThread
 fun addDemoData(application: Application) {
 
-    val moduleListModel = Models.getModuleListModel(application)
-    val itemModel = Models.getItemModel(application)
-    val listRelationModuleList = Models.getListRelationModel(application)
+    val moduleListModel = ModelFactory.getModuleListModel(application)
+    val itemModel = ModelFactory.getItemModel(application)
+    val listRelationModuleList = ModelFactory.getListRelationModel(application)
 
     val holiday = ModuleList("Holiday", Color.MAGENTA)
     val winterHoliday = ModuleList("Winter holiday", Color.CYAN)
@@ -35,7 +35,7 @@ fun addDemoData(application: Application) {
 
     moduleLists.forEach {
 
-        Models.getModuleListModel(application)
+        ModelFactory.getModuleListModel(application)
             .insert(it)
     }
 

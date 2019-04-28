@@ -2,7 +2,7 @@ package org.olaven.modulist.dialog.add
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatActivity
-import org.olaven.modulist.database.Models
+import org.olaven.modulist.database.ModelFactory
 import org.olaven.modulist.dialog.CustomDialog
 import org.olaven.modulist.task.add.AddDemoDataTask
 
@@ -32,8 +32,8 @@ class AddDemoDataDialog(activity: AppCompatActivity): CustomDialog(activity) {
 
     private fun clearDatabase(application: Application) {
 
-        Models.getListRelationModel(application).deleteAll()
-        Models.getItemModel(application).deleteAll()
-        Models.getModuleListModel(application).deleteAll()
+        ModelFactory.getListRelationModel(application).deleteAll()
+        ModelFactory.getItemModel(application).deleteAll()
+        ModelFactory.getModuleListModel(application).deleteAll()
     }
 }
