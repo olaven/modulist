@@ -28,12 +28,12 @@ Dette er dokumentet som beskrives i krav 2 i [oppgaveteksten](./oppgavetekst.pdf
       - [Konstanter](#konstanter)
       - [Notifications](#notifications)
     - [Permissions](#permissions)
-    - [Room](#room)
+    - [Database](#database)
+    - [Lokal lagring generelt](#lokal-lagring-generelt)
     - [Multithreading](#multithreading)
     - [Dialogs](#dialogs)
   - [Support-biblioteker](#support-biblioteker)
   - [Intents](#intents)
-  - [Database](#database)
   - [Services og notifications](#services-og-notifications)
   - [Brukertest](#brukertest)
   - [Visuelt](#visuelt)
@@ -274,19 +274,67 @@ override fun onCreate(savedInstanceState: Bundle?) {
 ```
 
 ### App-klassen 
-TODO ME 
+Jeg har laget en Applikasjonsklasse som extender `android.app.Application`. Den er definert i `AndroidManifest.xml`, slik at den kjoerer som hoved-applikasjonsklasse for programmet. Jeg bruker denne klassen til to ting: Konstanter og oppretting av en "notification channels". 
 
 #### Konstanter
-TODO ME 
+Appen noen konstanter som trengs i loepet av appens liv. Det er API-noekler og diverse ID'er for requestkoder. De ligger tilgjengelig som statiske klassevariable `App.kt`. 
+
+Det er ikke optimalt aa legge API-noekler paa denne maaten. Allikevel har jeg valgt aa gjoere det i dette tilfellet. Delvis fordi det er enklere, men foerst og fremst av grunnene som staar i kommentarene under: 
 
 #### Notifications 
-TODO ME 
+I nyere versjoner av Android, er man noedt til aa opprette "Notification Channels" for aa sende Notificaiotions til brukeren. Formaalet med dette er at brukeren skal faa mer kontroll over notifikasjone som sendes fra ulike apper. Hvis en app registrerer forskjellige "Channels", kan en bruker legge ulike innstillinger paa hver av dem[<sup>7</sup>](#7)
+
+En "Channel" har en ID, et nan og et vitkighetsnivaa. Jeg har valgt aa sette viktighetsnivaaet til `NotificaionManager.IMPORTANCE_DEFAULT`. Mine varsler (for aa pakke) er ikke noe jeg anser som veldig viktig. Det er heller ikke uviktig. Med "default"-viktighetsnivaaet vil en notification spille lyd og dukke opp i status bar[<sup>8</sup>](#8). 
+
+```kotlin
+private fun createNotificationChannels() {
+
+    // ta hoeyede for endringer i notifikasjoner i android O
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+        val channel = NotificationChannel(
+            CHANNEL_ID,
+            CHANNEL_NAME,
+            NotificationManager.IMPORTANCE_DEFAULT
+        )
+        channel.description = "Main channel for modulist notificaions"
+
+        val manager = getSystemService(Service.NOTIFICATION_SERVICE) as NotificationManager
+        manager.createNotificationChannel(channel)
+    }
+}
+```
 
 ### Permissions 
 TODO ME 
 
-### Room 
-TODO ME 
+### Database  
+Å lese fra en database er en forholdsvis tidkrevende prosess. Derfor er det viktig at dette ikke gjøres på samme tråd som kjører brukergrensesnittet ("UI-tråden"). Da vil man blokkere alt annet som skjer, grensesnittet mot brukeren vil henge dersom ting tar tid. Det senker brukeropplevelsen. På databaser er det faktisk så nøye at Android i utgangspuntket ikke lar deg kjøre database kall på UI-tråden i det hele tatt. 
+
+For å håndtere dette, har jeg brukt arkitekturen som har blitt brukt i forelesning, og som Google har på sine eksempelsider<sup>9</sup>](#9). Den bygger på [Kotlins "coroutines"](https://kotlinlang.org/docs/reference/coroutines/basics.html) og [@WorkerThread](https://developer.android.com/reference/android/support/annotation/WorkerThread) for å oppnå multithreading. 
+Den har vært oversiktlig og fin. En ulempe med den er at den er litt vel omfattende; det er ganske mye kode for ganske lite, sammenlignet med å kjøre spørringer på separate tråder, med litt færre abstraksjonslag mellom "funksjonskalleren" og databasen. Jeg har holdt meg til den allikevel, først og fremst fordi den faste strukturen var lett å jobbe med. 
+
+Jeg har flere entiteter: `Item`, `ListRelation` og `ModuleList`. For aa foelge arkitekturen, blir det ogsaa ganske mange klasser. De skal ha en DAO, et Repository og en Model i tillegg til selve entitet-klassen. Noen ting er felles blant disse. Jeg har derfor bygget videre paa arkitekturen fra forelesningen, og endt opp med dette: 
+![Klassediagram over mine databaseklasser](photos/diagrams/database-class-diagram-modulelist.png)
+
+Jeg har lagt noe felles funksjonalitet i de generiske Common-klassene. Da slapp jeg aa definere metoder for aa legge til, oppdatere og slette elementer for hvert av modellene manuelt. Godene med dette hadde vaert tydeligere dersom jeg hadde hatt fere entiteter, men jeg mene at jeg fikk igjen for generaliseringen i mitt prosjekt ogsaa. 
+
+![Databasediagram over mine entiteter](photos/diagrams/database-entity-diagram.png)
+Selve database-arkitekturen er forholdsvis enkel, men den fungerte mer enn godt nok for det jeg trengte. 
+
+
+TODO: Resonnering rundt selve valget av lagringsmetode kommer [senere](#lokal-lagring) i dokumentasjonen.
+
+### Lokal lagring generelt 
+
+I min oppgave bruekr jeg hovedsaklig SQL-databaser til aa lagre data. Det finnes andre lagringsmetoder i Android: ekstern/intern fil-lagring og "SharedPreferences". SharedPreferences egner foerst og fremst godt til lagring av enklere datatyper, og opererer paa "key-value"-parr<sup>10</sup>](#10). Ikke til data om listene.
+
+Internt og eksternt storage er enda mulighet som jeg kunne brukt. Det egner seg til litt stoerre megnder data, men jeg konkluderte med at en relasjonsdatabase passer enda bedre fordi dataen er strukturert<sup>11</sup>](#11). Med en relasjonsdatabase kan jeg dessuten gjoere spoerringer paa dataen (f.eks. hente ut etter X kritereie). SQL-databaser er godt optimalisert for akkurat denne oppgaven, saerlig sammenlignet med de andre alternativene.
+
+Videre er "SharedPreferences" i ment for å lagre enklere data som `String`, `Int` osv. 
+Man kunne konvertert objektene frem og tilbake til et format som JSON-strings, men det ville forkludret koden unødvendig mye i forhold til gevinsten, slik jeg vurderte det.  
+
+Shared preferences egner seg derimot godt til klassiske "key-value"-scenarier. Det går også kjappere å lese fra "SharedPreferences" enn fra en SQL-database. Derfor har jeg valgt å bruke "SharedPreferences" for å lagre fargetemaene. 
 
 ### Multithreading 
 TODO ME 
@@ -298,9 +346,6 @@ TODO ME
 TODO ME 
 
 ## Intents 
-TODO ME 
-
-## Database 
 TODO ME 
 
 ## Services og notifications 
@@ -321,6 +366,8 @@ Jeg har også laget et ikon til appen.
 ![startskjerm](./photos/icon.png)
 
 ## Versjoner
+TODO ME 
+
 
 ## Navngivning 
 (samme som i _Tic Tac Toe_)
@@ -374,6 +421,15 @@ __note__: Der tilstrekkelig informasjon ikke er oppgitt, kommer det frem i kilde
 * <span id="4">4:</span> Rahul Reddy. 28 Juli 2017. “Smartphone vs Tablet Orientation: Who’s Using What?”. https://www.scientiamobile.com/smartphone-vs-tablet-orientation-whos-using-what/ (lastet ned 28. April 2019)
 * <span id="5">5:</span> Uspesifisert forfatter, Google. NA. “Introduction to Activities”. https://developer.android.com/guide/components/activities/intro-activities (lastet ned 28. April 2019)
 * <span id="6">6:</span> Uspesifisert forfatter, Google. NA. “Understand the Activity Lifecycle”. https://developer.android.com/guide/components/activities/activity-lifecycle (lastet ned 28. April 2019)
+* <span id="7">7:</span> Uspesifisert forfatter, Google. "Create and Manage Notification Channels”. https://developer.android.com/training/notify-user/channels (lastet ned 28. April 2019)
+* <span id="8">8:</span> Uspesifisert forfatter, Google. NA. "Set the importance level". https://developer.android.com/training/notify-user/channels#importance (lastet ned 28. April 2019)
+* <span id="9">9:</span> Uspesifisert forfatter, Google. NA. "Save data in a local database using Room". https://developer.android.com/training/data-storage/room/ (lastet ned 28. April 2019)
+* <span id="10">10:</span> Obaro Ogbo. 21 September 2016. "How to store data locally in an Android app". https://www.androidauthority.com/how-to-store-data-locally-in-android-app-717190/ (lastet ned 28. April 2019)
+* <span id="11">11:</span> Uspesifisert forfatter, Google. NA. "Data and file storage overview". https://developer.android.com/guide/topics/data/data-storage (lastet ned 28. April 2019)
+
+
+
+
 
 ## Vedlegg
 ### Tidlig skisse 
