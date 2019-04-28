@@ -56,6 +56,7 @@ This project is in an early state of development.
 - [ ] Lag modell av database-løsningen (klasser)
 - [ ] Modeller er singletons -> kommer frem i arkitektur
 - [ ] Lag modell av database-løsningen (database)
+- [ ] hvorfor lagre konstante strings i resources
 - [ ] Snakke om at jeg ikke har overskrevet tabellnavn o.l. for lesbarehetens skyld (viser at jeg kjenner muligheten)
 - [ ] Asynkronitet i databaseoperasjoner og hvorfor det er nødvendig
 - [ ] Gå gjennom alle dependencies i gradle
