@@ -22,6 +22,9 @@ Dette er dokumentet som beskrives i krav 2 i [oppgaveteksten](./oppgavetekst.pdf
     - [Tutorials](#tutorials)
   - [Tidlige skisser](#tidlige-skisser)
   - [Arkitektur](#arkitektur)
+  - [Intents](#intents)
+  - [Database](#database)
+  - [Services og notifications](#services-og-notifications)
   - [Brukertest](#brukertest)
   - [Visuelt](#visuelt)
   - [Publisering](#publisering)
@@ -32,6 +35,8 @@ Dette er dokumentet som beskrives i krav 2 i [oppgaveteksten](./oppgavetekst.pdf
     - [Skisse - listeflyt](#skisse---listeflyt)
     - [Skjermbilde - alle lister](#skjermbilde---alle-lister)
     - [Skjermbilde - en liste](#skjermbilde---en-liste)
+    - [Skjermbilde - meny paa liste](#skjermbilde---meny-paa-liste)
+    - [Skjermbilde - redigeringsmeny paa liste](#skjermbilde---redigeringsmeny-paa-liste)
     - [Skjermbilde - vaer-planlegging](#skjermbilde---vaer-planlegging)
     - [Skjermbilde - innstillinger](#skjermbilde---innstillinger)
     - [Skjermbilde - instruksjonsvideoer](#skjermbilde---instruksjonsvideoer)
@@ -127,7 +132,21 @@ Nederst i hoeyre gjoerne har man en "Floating Action Button" for aa legge til ny
 
 Foerste gangen de fikk valget om hyppighet, synes de fleste brukerene at det var litt forvirrende. Derimot forsto saa godt som alle brukerene hva det var etter at elementet var lagt til. Terskelen for aa fjerne/legge til elemeenter er veldig lav, og derfor har jeg ikke gjort noen store endringer her. 
 
-TODO options 
+I app-baren ligger en [standard-meny](https://developer.android.com/guide/topics/ui/menus) (skjermbilde [her](#skjermbilde---meny-paa-liste)) som gir brukeren en rekke muligheter: 
+* _Toggle attic mode_
+    
+    "Attic Mode" bruker telefonens sensordata for aa gi ekstrafunksjonalitet. Tanken er at man vil befinne seg paa loftet fra tid til annen, naar man pakker. Ekstrafunksjonliteten bestaar av at telefonens lommelykt skrur seg paa nar det er moerkt rundt, og man vil faa en varsel om aa ta tak i en genser om det er kaldt. Det er viktig aa ta vare paa brukerens helse <3 
+* _Add location reminder_
+    Her gis det mulighet til aa legge til paaminnelser naar man ankommer et omraade. En typisk use-case kan vaere "minne meg paa a pakke naar jeg naermer meg jemadressen min".
+* _Share list_
+
+    Denne muligheten gir brukeren mulighet til aa dele listene i tekstform, f.eks. via SMS eller mail. Alle apper som aapner for deling, kan koble seg paa dette. 
+* _Add to calendar_
+
+    Lar brukeren legge til et kalender-event i kalenderen sin, basert paa listen. Akkurat som med delingen, kan brukeren velge sin egen app for haandtering her. Som default (og i min testing, primaert) har det vaert Google Calendar. 
+* _Edit list_ - [skjermbilde](#skjermbilde---redigeringsmeny-paa-liste)
+
+    Listene skal leve over tid, og man skal kunne endre dem. Da kommer denne under-menyen inn! Her kan man oppdatere listens navn, "foreldre-lister" og farge, samt sletting av lister. 
 
 #### Hovedfunkjsonalitet
 #### Side-meny  
@@ -139,6 +158,12 @@ TODO options
 ## Tidlige skisser 
 
 ## Arkitektur 
+
+## Intents 
+
+## Database 
+
+## Services og notifications 
 
 ## Brukertest
 
@@ -165,6 +190,10 @@ Prosjektet ligger også på et [github-repo](https://github.com/olaven/modulist)
 ![Skjermbilde av skjermen med alle lister](photos/screenshots/lists.png)
 ### Skjermbilde - en liste
 ![Skjermbilde av skjermed med en liste](photos/screenshots/list.png) 
+### Skjermbilde - meny paa liste 
+![Skjermbilde av skjermed med en liste](photos/screenshots/list-options.png) 
+### Skjermbilde - redigeringsmeny paa liste 
+![Skjermbilde av skjermed med en liste](photos/screenshots/list-edit.png) 
 ### Skjermbilde - vaer-planlegging 
 ![Skjermbilde vaerskjermen](photos/screenshots/weather.png) 
 ### Skjermbilde - innstillinger 
