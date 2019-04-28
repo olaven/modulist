@@ -26,6 +26,7 @@ Dette er dokumentet som beskrives i krav 2 i [oppgaveteksten](./oppgavetekst.pdf
   - [Services og notifications](#services-og-notifications)
   - [Brukertest](#brukertest)
   - [Visuelt](#visuelt)
+  - [Navngivning](#navngivning)
   - [Publisering](#publisering)
   - [Kildeliste](#kildeliste)
   - [Vedlegg](#vedlegg)
@@ -177,6 +178,48 @@ Som nevnt tidligere i dette dokumentet, har appen en viss laeringskurve. Derfor 
 ## Brukertest
 
 ## Visuelt
+Jeg har holdt meg til Material Design, og Google sine standard-komponenter. Disse er kjente for brukeren. Det er lagt opp til at brukeren skal kunne endre fargetema gjennom instillinger-skjermen. 
+
+Jeg har også laget et lite ikon til appen.
+![startskjerm](./photos/icon.png)
+
+
+## Navngivning 
+Mange av navngivningskonvensjonene jeg har fulgt er veldig vanlige, standard-konvenserjoner. 
+B.la. bruker jeg [Camel Case](https://en.wikipedia.org/wiki/Camel_case) på de aller fleste variablelnavn. Kosntanter har store bokstaver. 
+
+Hva navngivning av XML-id'er har jeg ikke vært like tradisjonell. Her har det vært ekstra viktig å ha en navngivningskonvensjon som faktisk er _helt_ identifiserende. Dette er fordi at ID'ene er tilgjengelige i globalt scope. Konvensjonen jeg landet på har følgende sturktur: "parent, type"\_"parent, navn"\_"element, type"_"element, navn". Under er et eksempel i en activity som heter `DemoActivity`. ID er satt på `TextView`-tagen: 
+```XML
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context=".gui.DemoActivity">
+
+     <TextView
+        <!-- ID med min konvensenjon: -->
+        android:id="@+id/activity_demo_text_welcome_message"
+        android:text="Hei, velkommen til min demo!"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop-toBottomOf="parent"
+      />
+
+</android.support.constraint.ConstraintLayout>
+```
+
+Sammensatte ord separeres også med understrek ("activity_demo_text_welcome_message", ikke _activity_demo_text_welcomeMessage"). Det kan være litt forvirrende, men mitt personlige inntrykk var at dette var bedre å forholde seg til det ørlille usikkerhetsmomentet enn å ha blandingen av store og små bokstaver der jeg allerde separerte med "_". 
+
+Når jeg refererer til XML-elementer i Kotlin-kode, har jeg brukt [Kotlin View Binding](https://kotlinlang.org/docs/tutorials/android-plugin.html#view-binding). Der har spart meg for masse unødvendig "boilerplate"-kode. Det har også gjort at de lange navnkonvensjonene mine ikke har vært  så til hinder som man kanskje kunne frykte 
+```kotlin
+
+// uten view binding 
+val textPlayer1 = findViewById(R.id.fragment_game_text_player1) as TextView; 
+textPlayer1.setTextColor(activePlayerColor)
+
+// med view binding 
+fragment_game_text_player1.setTextColor(activePlayerColor)
+```
+
 
 ## Publisering 
 TODO: playstore 
