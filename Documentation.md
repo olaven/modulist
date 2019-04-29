@@ -317,12 +317,12 @@ Av tillatelsene jeg krever av brukeren, må jeg be om følgende eksplisitt:
 * ACCESS_FINE_LOCATION
 * CAMERA
 
-Det er fordi at det står på [Google sin liste](https://developer.android.com/guide/topics/permissions/overview#permission-groups) over "Dangerous Permissions". Jeg ber om tillatelser når en av de to activitiene starter opp starter opp. Jeg viser også en melding som viser hvorfor jeg trenger tillatelser. Hvis brukeren velger å svare nei _og_ sier at de ikke ønsker å bli spurt igjen, er reglene fra Android slik at jeg ikke har lov til å spørre igjen<sup>9</sup>](#9). Dersom en bruker forsøker å bruke en av mulighetene som krever kamera eller lokasjon (henholdsvis "Attic Mode" og "Location Reminder"), forteller jeg at appen ikke har tillatelse i en "Snackbar", og gir en knapp som går til instillinger, slik at brukeren kan rette opp idet, dersom det er ønskelig.
+Det er fordi at det står på [Google sin liste](https://developer.android.com/guide/topics/permissions/overview#permission-groups) over "Dangerous Permissions". Jeg ber om tillatelser når en av de to activitiene starter opp starter opp. Jeg viser også en melding som viser hvorfor jeg trenger tillatelser. Hvis brukeren velger å svare nei _og_ sier at de ikke ønsker å bli spurt igjen, er reglene fra Android slik at jeg ikke har lov til å spørre igjen[<sup>9</sup>](#9). Dersom en bruker forsøker å bruke en av mulighetene som krever kamera eller lokasjon (henholdsvis "Attic Mode" og "Location Reminder"), forteller jeg at appen ikke har tillatelse i en "Snackbar", og gir en knapp som går til instillinger, slik at brukeren kan rette opp idet, dersom det er ønskelig.
 
 ### Database  
 Å lese fra en database er en forholdsvis tidkrevende prosess. Derfor er det viktig at dette ikke gjøres på samme tråd som kjører brukergrensesnittet ("UI-tråden"). Da vil man blokkere alt annet som skjer, grensesnittet mot brukeren vil henge dersom ting tar tid. Det senker brukeropplevelsen. På databaser er det faktisk så nøye at Android i utgangspuntket ikke lar deg kjøre database kall på UI-tråden i det hele tatt. 
 
-For å håndtere dette, har jeg brukt arkitekturen som har blitt brukt i forelesning, og som Google har på sine eksempelsider<sup>9</sup>](#9). Den bygger på [Kotlins "coroutines"](https://kotlinlang.org/docs/reference/coroutines/basics.html) og [@WorkerThread](https://developer.android.com/reference/android/support/annotation/WorkerThread) for å oppnå multithreading. 
+For å håndtere dette, har jeg brukt arkitekturen som har blitt brukt i forelesning, og som Google har på sine eksempelsider[<sup>10</sup>](#10). Den bygger på [@WorkerThread](https://developer.android.com/reference/android/support/annotation/WorkerThread) for å oppnå multithreading. 
 Den har vært oversiktlig og fin. En ulempe med den er at den er litt vel omfattende; det er ganske mye kode for ganske lite, sammenlignet med å kjøre spørringer på separate tråder, med litt færre abstraksjonslag mellom "funksjonskalleren" og databasen. Jeg har holdt meg til den allikevel, først og fremst fordi den faste strukturen var lett å jobbe med. 
 
 Jeg har flere entiteter: `Item`, `ListRelation` og `ModuleList`. For å følge arkitekturen, blir det også ganske mange klasser. De skal ha en DAO, et Repository og en Model i tillegg til selve entitet-klassen. Noen ting er felles blant disse. Jeg har derfor bygget videre på arkitekturen fra forelesningen, og endt opp med dette: 
@@ -335,9 +335,9 @@ Selve database-arkitekturen er forholdsvis enkel, men den fungerte mer enn godt 
 
 ### Lokal lagring generelt 
 
-I min oppgave bruker jeg hovedsaklig SQL-databaser til å lagre data. Det finnes andre lagringsmetoder i Android: ekstern/intern fil-lagring og "SharedPreferences". SharedPreferences egner først og fremst godt til lagring av enklere datatyper, og opererer på "key-value"-parr<sup>10</sup>](#10). Ikke til data om listene.
+I min oppgave bruker jeg hovedsaklig SQL-databaser til å lagre data. Det finnes andre lagringsmetoder i Android: ekstern/intern fil-lagring og "SharedPreferences". SharedPreferences egner først og fremst godt til lagring av enklere datatyper, og opererer på "key-value"-parr[<sup>11</sup>](#11). Ikke til data om listene.
 
-Internt og eksternt storage er enda mulighet som jeg kunne brukt. Det egner seg til litt større megnder data, men jeg konkluderte med at en relasjonsdatabase passer enda bedre fordi dataen er strukturert<sup>12</sup>](#12). Med en relasjonsdatabase kan jeg dessuten gjøre spørringer på dataen (f.eks. hente ut etter X kritereie). SQL-databaser er godt optimalisert for akkurat denne oppgaven, særlig sammenlignet med de andre alternativene.
+Internt og eksternt storage er enda mulighet som jeg kunne brukt. Det egner seg til litt større megnder data, men jeg konkluderte med at en relasjonsdatabase passer enda bedre fordi dataen er strukturert[<sup>12</sup>](#12). Med en relasjonsdatabase kan jeg dessuten gjøre spørringer på dataen (f.eks. hente ut etter X kritereie). SQL-databaser er godt optimalisert for akkurat denne oppgaven, særlig sammenlignet med de andre alternativene.
 
 Videre er "SharedPreferences" i ment for å lagre enklere data som `String`, `Int` osv. 
 Man kunne konvertert objektene frem og tilbake til et format som JSON-strings, men det ville forkludret koden unødvendig mye i forhold til gevinsten, slik jeg vurderte det.  
@@ -387,7 +387,7 @@ Implisitte intents forteller sender jeg de gangene jeg vil at brukeren/android-s
 Dette gjør jeg b.la. for å åpne kalender og for å dele en liste. Her legger ikke jeg meg opp i hva slags kalender eller meldingsapp brukeren skal benytte seg av, jeg stoler bare på at det finnes _en eller annen_ applikasjon som kan gjøre det, og at systemet/brukeren har valgt den løsningen som fungerer best.
 
 ## Services og notifications 
-Jeg bruker en Service til å fange opp geofence-hendelser. Deretter sender jeg en notifikasjon til brukeren, fra den samme Service-klassen (`TransitionService.kt`). Man kunne tenke seg at denne burde kjøre hele tiden, sånn at man kunne være sikker på at man fikk varsel på det stedet man ønsket. For apper som har API level 26 eller høyere (som min har), er det lagt flere begrensinger på hva en Service (mer spesifikt, "Background Services") kan gjøre<sup>12</sup>](#12). 
+Jeg bruker en Service til å fange opp geofence-hendelser. Deretter sender jeg en notifikasjon til brukeren, fra den samme Service-klassen (`TransitionService.kt`). Man kunne tenke seg at denne burde kjøre hele tiden, sånn at man kunne være sikker på at man fikk varsel på det stedet man ønsket. For apper som har API level 26 eller høyere (som min har), er det lagt flere begrensinger på hva en Service (mer spesifikt, "Background Services") kan gjøre<sup>13</sup>](#13). 
 
 Her kunne jeg valgt å bruke en "Foreground Service" istedenfor. En foreground service kan kjøre selv om dens tilhørende app ikke kjører. "Ulempen" er at man er nødt til å vise et varsel om at Servicen kjører hele tiden. I sum er det lett å argumenterer for at dette en veldig god ting. Personvern på maskiner som er veldig viktig for mange, undertegnede inkludert. 
 
@@ -396,7 +396,7 @@ Grunnen til at det er en ulempe for meg, er at en pakkeliste-app ikke føles vik
 Derfor kjører Service-klassen bare når appen er oppe. 
 
 ## Strings 
-Der hvor jeg har statiske strings som skal møte brukeren, har jeg lagt dem i `strings.xml`. På denne måten, blir det lettere å oversetet appen på et senere tidspunkt, dersom jeg skulle ønske å treffe markeder hvor brukerne ikke kan lese engelsk<sup>13</sup>](#13)
+Der hvor jeg har statiske strings som skal møte brukeren, har jeg lagt dem i `strings.xml`. På denne måten, blir det lettere å oversetet appen på et senere tidspunkt, dersom jeg skulle ønske å treffe markeder hvor brukerne ikke kan lese engelsk[<sup>14</sup>](#14)
 
 ## Brukertest
 Jeg har gjennomført brukertester med venner og bekjente. Jeg har passet på å la både "tekniske" og "ikke-tekniske" kjente. Det vil si at jeg også testet folk som ikke er vant til å bruke mange apper og som sjelden lærer seg å bruke nye programmer. 
@@ -418,7 +418,7 @@ Jeg har også laget et ikon til appen.
 ![startskjerm](./photos/icon.png)
 
 ## Support-bibliotek
-Da jeg startet på Modulist, brukte jeg de samme support-bibliotekene som ble brukt i undervisningen. Support-bibliotekene gir bakoverkompatibilitet med tidligere versjoner av Android. Etter hvert byttet jeg til AndroidX, som er erstatningen på de gamle support-bibliotekene<sup>12</sup>](#12). 
+Da jeg startet på Modulist, brukte jeg de samme support-bibliotekene som ble brukt i undervisningen. Support-bibliotekene gir bakoverkompatibilitet med tidligere versjoner av Android. Etter hvert byttet jeg til AndroidX, som er erstatningen på de gamle support-bibliotekene<sup>15</sup>](#15). 
 
 Migreringen ble veldig enklel. Android Studio hadde en egen knapp som mer eller mindre gjorde alt for meg. 
 
@@ -448,13 +448,12 @@ Utgangspuntet for at jeg ønsket å bytte, var at jeg oppdaget at noen bibliotek
 
 ## Versjoner
 ![Fragmentering av Androi sin brukerbase](photos/android-market-share.png)
-(Grafen er hentet fra _Statistia_[<sup>13</sup>](#13))
+(Grafen er hentet fra _Statistia_[<sup>16</sup>](#16))
 
-Brukere på Android er, som grafen viser, svært spredt. Derfor har valget av versjon en del å si for hvilke brukere som har mulighet til å bruke appen. Denne appen er laget mot API level 26 som minimum. Det vil si at jeg har utelukket en god del brukere (spesielt på global basis[<sup>13</sup>](#13))). Jeg har allikevel valgt å gjøre dette av tre grunner: 
+Brukere på Android er, som grafen viser, svært spredt. Derfor har valget av versjon en del å si for hvilke brukere som har mulighet til å bruke appen. Denne appen er laget mot API level 26 som minimum. Det vil si at jeg har utelukket en god del brukere (spesielt på global basis[<sup>17</sup>](#17))). Jeg har allikevel valgt å gjøre dette av tre grunner: 
 1. Det gjør livet som utvikler morsommere å være med på nye versjoner, synes jeg. Arugmentet er kanskje litt følelsesladd, men jeg har hatt lyst til å lage morsomme ting, ikke tilpasse meg gamle versjoner og "depricated" APIer.
-2. Google har gitt tydelig uttrykk for at de ønsker at folk skal jobbe mot de nyere versjonene, og at de ønsker at brukerene skal dit[<sup>14</sup>](#14) 
-3. i Norge og tilsvarende land, er det forholds vis mange som ligger på de nyeste versjonene uansett, og det er mot disse landenne at appen er publisert i Play Store[<sup>15</sup>](#15) 
-
+2. Google har gitt uttrykk for at de ønsker at folk skal jobbe mot de nyere versjonene, og at de ønsker at brukerene skal dit[<sup>14</sup>](#18) 
+3. i Norge og tilsvarende land, er det forholds vis mange som ligger på de nyeste versjonene uansett, og det er mot disse landene at appen er publisert i Play Store[<sup>19</sup>](#19) 
 
 ## Navngivning 
 (samme som i _Tic Tac Toe_)
@@ -511,16 +510,16 @@ __note__: Der tilstrekkelig informasjon ikke er oppgitt, kommer det frem i kilde
 * <span id="7">7:</span> Uspesifisert forfatter, Google. "Create and Manage Notification Channels”. https://developer.android.com/training/notify-user/channels (lastet ned 28. April 2019)
 * <span id="8">8:</span> Uspesifisert forfatter, Google. NA. "Set the importance level". https://developer.android.com/training/notify-user/channels#importance (lastet ned 28. April 2019)
 * <span id="9">9:</span> Uspesifisert forfatter, Google. NA. "Request App Permissions". https://developer.android.com/training/permissions/requesting (lastet ned 29. April 2019)
-* <span id="9">9:</span> Uspesifisert forfatter, Google. NA. "Save data in a local database using Room". https://developer.android.com/training/data-storage/room/ (lastet ned 28. April 2019)
-* <span id="10">10:</span> Obaro Ogbo. 21 September 2016. "How to store data locally in an Android app". https://www.androidauthority.com/how-to-store-data-locally-in-android-app-717190/ (lastet ned 28. April 2019)
-* <span id="12">12:</span> Uspesifisert forfatter, Google. NA. "Services overview". https://developer.android.com/guide/components/services (lastet ned 28. April 2019)
+* <span id="10">10:</span> Uspesifisert forfatter, Google. NA. "Save data in a local database using Room". https://developer.android.com/training/data-storage/room/ (lastet ned 28. April 2019)
+* <span id="11">11:</span> Obaro Ogbo. 21 September 2016. "How to store data locally in an Android app". https://www.androidauthority.com/how-to-store-data-locally-in-android-app-717190/ (lastet ned 28. April 2019)
 * <span id="12">12:</span> Uspesifisert forfatter, Google. NA. "Data and file storage overview". https://developer.android.com/guide/topics/data/data-storage (lastet ned 28. April 2019)
-* <span id="13">13:</span> Uspesifisert forfatter, Google. NA. "AndroidX Overview". https://developer.android.com/jetpack/androidx/#using_androidx (lastet ned 28. April 2019)
-* <span id="13">13:</span> Uspesifisert forfatter, Google. NA. "Localize your app". https://developer.android.com/guide/topics/resources/localization.html (lastet ned 29. April 2019)
-*  <span id="14">14:</span> Android. October 2018. “Android version market share distribution among smartphone owners as of September 2018". https://www.statista.com/statistics/271774/share-of-android-platforms-on-mobile-devices-with-android-os/ (lastet ned 27. April 2019)
-*  <span id="15">15:</span> Uspesifiert forfatter, Google. 2019. “Distribution dashboard”. https://developer.android.com/about/dashboards/ (lastet ned 29. April 2019)
-* <span id="16">16:</span> Uspesifiert forfatter, Google. NA. “Meet Google Play's target API level requirement” https://developer.android.com/distribute/best-practices/develop/target-sdk (lastet ned 29. April 2019)
-* <span id="17">17:</span> Uspesifiert forfatter, statcounter. NA. “Mobile & Tablet Android Version Market Share Norway” http://gs.statcounter.com/android-version-market-share/mobile-tablet/norway (lastet ned 29. April 2019)
+* <span id="13">13:</span> Uspesifisert forfatter, Google. NA. "Services overview". https://developer.android.com/guide/components/services (lastet ned 28. April 2019)
+* <span id="14">14:</span> Uspesifisert forfatter, Google. NA. "Localize your app". https://developer.android.com/guide/topics/resources/localization.html (lastet ned 29. April 2019)
+* <span id="15">15:</span> Uspesifisert forfatter, Google. NA. "AndroidX Overview". https://developer.android.com/jetpack/androidx/#using_androidx (lastet ned 28. April 2019)
+*  <span id="16">16:</span> Android. October 2018. “Android version market share distribution among smartphone owners as of September 2018". https://www.statista.com/statistics/271774/share-of-android-platforms-on-mobile-devices-with-android-os/ (lastet ned 27. April 2019)
+*  <span id="17">17:</span> Uspesifiert forfatter, Google. 2019. “Distribution dashboard”. https://developer.android.com/about/dashboards/ (lastet ned 29. April 2019)
+* <span id="18">18:</span> Uspesifiert forfatter, Google. NA. “Meet Google Play's target API level requirement” https://developer.android.com/distribute/best-practices/develop/target-sdk (lastet ned 29. April 2019)
+* <span id="19">19:</span> Uspesifiert forfatter, statcounter. NA. “Mobile & Tablet Android Version Market Share Norway” http://gs.statcounter.com/android-version-market-share/mobile-tablet/norway (lastet ned 29. April 2019)
 
 
 
