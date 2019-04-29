@@ -35,8 +35,8 @@ Dette er dokumentet som beskrives i krav 2 i [oppgaveteksten](./oppgavetekst.pdf
   - [Services og notifications](#services-og-notifications)
   - [Brukertest](#brukertest)
   - [Visuelt](#visuelt)
-  - [Support-biblioteker](#support-biblioteker)
-  - [Øvrige biblioteker](#%C3%B8vrige-biblioteker)
+  - [Support-bibliotek](#support-bibliotek)
+  - [Øvrige bibliotek](#%C3%B8vrige-bibliotek)
   - [Versjoner](#versjoner)
   - [Navngivning](#navngivning)
   - [Publisering](#publisering)
@@ -312,7 +312,11 @@ private fun createNotificationChannels() {
 ```
 
 ### Permissions 
-TODO ME 
+Av tillatelsene jeg krever av brukeren, må jeg be om følgende eksplisitt: 
+* ACCESS_FINE_LOCATION
+* CAMERA
+
+Det er fordi at det står på [Google sin liste](https://developer.android.com/guide/topics/permissions/overview#permission-groups) over "Dangerous Permissions". Jeg ber om tillatelser når en av de to activitiene starter opp starter opp. Jeg viser også en melding som viser hvorfor jeg trenger tillatelser. Hvis brukeren velger å svare nei _og_ sier at de ikke ønsker å bli spurt igjen, er reglene fra Android slik at jeg ikke har lov til å spørre igjen<sup>9</sup>](#9). Dersom en bruker forsøker å bruke en av mulighetene som krever kamera eller lokasjon (henholdsvis "Attic Mode" og "Location Reminder"), forteller jeg at appen ikke har tillatelse i en "Snackbar", og gir en knapp som går til instillinger, slik at brukeren kan rette opp idet, dersom det er ønskelig.
 
 ### Database  
 Å lese fra en database er en forholdsvis tidkrevende prosess. Derfor er det viktig at dette ikke gjøres på samme tråd som kjører brukergrensesnittet ("UI-tråden"). Da vil man blokkere alt annet som skjer, grensesnittet mot brukeren vil henge dersom ting tar tid. Det senker brukeropplevelsen. På databaser er det faktisk så nøye at Android i utgangspuntket ikke lar deg kjøre database kall på UI-tråden i det hele tatt. 
@@ -332,7 +336,7 @@ Selve database-arkitekturen er forholdsvis enkel, men den fungerte mer enn godt 
 
 I min oppgave bruker jeg hovedsaklig SQL-databaser til aa lagre data. Det finnes andre lagringsmetoder i Android: ekstern/intern fil-lagring og "SharedPreferences". SharedPreferences egner foerst og fremst godt til lagring av enklere datatyper, og opererer paa "key-value"-parr<sup>10</sup>](#10). Ikke til data om listene.
 
-Internt og eksternt storage er enda mulighet som jeg kunne brukt. Det egner seg til litt stoerre megnder data, men jeg konkluderte med at en relasjonsdatabase passer enda bedre fordi dataen er strukturert<sup>11</sup>](#11). Med en relasjonsdatabase kan jeg dessuten gjoere spoerringer paa dataen (f.eks. hente ut etter X kritereie). SQL-databaser er godt optimalisert for akkurat denne oppgaven, saerlig sammenlignet med de andre alternativene.
+Internt og eksternt storage er enda mulighet som jeg kunne brukt. Det egner seg til litt stoerre megnder data, men jeg konkluderte med at en relasjonsdatabase passer enda bedre fordi dataen er strukturert<sup>12</sup>](#12). Med en relasjonsdatabase kan jeg dessuten gjoere spoerringer paa dataen (f.eks. hente ut etter X kritereie). SQL-databaser er godt optimalisert for akkurat denne oppgaven, saerlig sammenlignet med de andre alternativene.
 
 Videre er "SharedPreferences" i ment for å lagre enklere data som `String`, `Int` osv. 
 Man kunne konvertert objektene frem og tilbake til et format som JSON-strings, men det ville forkludret koden unødvendig mye i forhold til gevinsten, slik jeg vurderte det.  
@@ -342,14 +346,53 @@ Shared preferences egner seg derimot godt til klassiske "key-value"-scenarier. D
 ### Multithreading 
 Når jeg gjør operasjoner mot databasen, er det viktig å kjøre den koden i en separat tråd. det er fordi at koden er tidkrevende, og da risikerer man å "blokkere" UI. Dette gir en svært dårlig brukeropplevelse. De brukes også til API-kall, som er en annen tidkrevende prosess.
 
-For å skrive UI har jeg valgt å bruke `AsyncTask`. 
+Noen steder har jeg fulgt oppsettet som ble brukt i forelesning. Det vil si at jeg bruker [@WorkerThread](https://developer.android.com/reference/android/support/annotation/WorkerThread) i Repository-klassene, og returnerer `LiveData`, som jeg siden kan lytte på. 
+__notis:__: henter repository gjennom "Modeller". (se [tidligere i rapporten](#database))
+```kotlin 
+val liveModuleLists = ModelFactory
+    .getModuleListModel(activity!!.application)
+    .getAllModuleListsLive()
+
+liveModuleLists.observe(this, Observer {
+    
+    it?.let { moduleLists ->
+
+        // gjøre noe med listene fra databasen 
+    }
+})
+```
+
+Jeg likte denne måten å gjøre det på når jeg skulle få data fortløpende, i et GUI e.l. Når jeg derimot skulle gjøre ting hvor løpende oppdateringer ikke var nødvendig, har jeg brukt `AsyncTask`. Jeg har også droppet LiveData. Dette sparte meg for mange linjer kode som observe-patternet ville gitt (f.eks. i `AddItemTask.kt`). Ulempen med min måte å gjøre det på, er at en del spørringer mot databasen måtte legges in dobbelt: 
+```kotlin 
+@WorkerThread
+fun getByModuleListIdLive(id: Long) =
+        itemDAO.getByModuleListIdLive(id)
+
+fun getByModuleListId(id: Long): List<Item> =
+            itemDAO.getByModuleListId(id)
+```
+
+Jeg likte AsyncTask fordi jeg hadde sans den eksplisitte måten å definere output/input-typer gjennom generics. Jeg kunne også valgt å bruke [Anko](https://github.com/Kotlin/anko). Da hadde jeg fått et API som er langt mer minimalistisk. Jeg gikk vekk fra det, rett og slett fordi jeg ble komfortabel med AsyncTask relativt fort, og likte å jobbe med det. Nedlasning av et tredjepartsbibliotek tar dessuten plass, som er unødvendig når AsyncTask allerede ligger tilgjengelig. 
 
 
 ## Intents 
-TODO ME 
+Intents er, kort fortalt, en melding om at man ønsker at en handling skal håndteres av noen andre.
+Jeg bruker både eksplisitte og implisitte intents. 
+
+Eksplisitte intens brukes når jeg skal starte mine egne activities og services, samt med "Google Places-Input".
+Implisitte intens   
+
+Implisitte intents forteller sender jeg de gangene jeg vil at brukeren/android-systemet skal kunne velge sine egne måter å håndtere noe på. Jeg definerer altså ingen mottaker ekplisitt. 
+Dette gjør jeg b.la. for å åpne kalender og for å dele en liste. Her legger ikke jeg meg opp i hva slags kalender eller meldingsapp brukeren skal benytte seg av, jeg stoler bare på at det finnes _en eller annen_ applikasjon som kan gjøre det, og at systemet/brukeren har valgt den løsningen som fungerer best.
 
 ## Services og notifications 
-TODO ME 
+Jeg bruker en Service til å fange opp geofence-hendelser. Deretter sender jeg en notifikasjon til brukeren, fra den samme Service-klassen (`TransitionService.kt`). Man kunne tenke seg at denne burde kjøre hele tiden, sånn at man kunne være sikker på at man fikk varsel på det stedet man ønsket. For apper som har API level 26 eller høyere (som min har), er det lagt flere begrensinger på hva en Service (mer spesifikt, "Background Services") kan gjøre<sup>12</sup>](#12). 
+
+Her kunne jeg valgt å bruke en "Foreground Service" istedenfor. En foreground service kan kjøre selv om dens tilhørende app ikke kjører. "Ulempen" er at man er nødt til å vise et varsel om at Servicen kjører hele tiden. I sum er det lett å argumenterer for at dette en veldig god ting. Personvern på maskiner som er veldig viktig for mange, undertegnede inkludert. 
+
+Grunnen til at det er en ulempe for meg, er at en pakkeliste-app ikke føles viktig nok til å alltid vise en notifikasjon. Både jeg og en del av dem jeg [brukertestet](#brukertest), sa at noe slikt ville gjort at de likte appen mindre.
+
+Derfor kjører Service-klassen bare når appen er oppe. 
 
 ## Brukertest
 Jeg har gjennomfoert brukertester med venner og bekjente. Jeg har passet på å la både "tekniske" og "ikke-tekniske" kjente. Det vil si at jeg også testet folk som ikke er vant til å bruke mange apper og som sjelden lærer seg å bruke nye programmer. 
@@ -360,6 +403,7 @@ Jeg fikk flere tilbakemeldinger:
 * De aller fleste som testet synes at det var litt vanskelig aa faa tak paa konseptet i appen til aa begynne med. De synes det var lettest var (ikke saa overraskende) de som hadde kjennskap til objektorietert programmering. Mange av de mindre tekniske testobjektene, trengte lenger tid. Dette foerte til to ting: 
   1. Instruksjonsvideoer som en veldig lett tilgjengelig del av appen 
   2. Enkelhet rundt konseptet. Jeg har skrevet mer om dette [tidligere i dokumentet](#tidlige-skisser).
+* Jeg forhørte meg om hva folk tenkte om varselet vedrørende at `TransitionService.kt` kjørte som en "Foreground Service". Det var folk stort sett negative eller nøytrale til. Derfor gjør den ikke det, delvis på bekostning av varsel-funksjonaliteten.  
 
 Appen har først og fremst blitt kjørt på min egen [Moto E Play](https://www.motorola.com/us/products/moto-e-play-gen-5). 
 
@@ -369,7 +413,7 @@ Jeg har holdt meg til Material Design, og Google sine standard-komponenter. Diss
 Jeg har også laget et ikon til appen.
 ![startskjerm](./photos/icon.png)
 
-## Support-biblioteker 
+## Support-bibliotek
 Da jeg startet paa Modulist, brukte jeg de samme support-bibliotekene som ble brukt i undervisningen. Support-bibliotekene gir bakoverkompatibilitet med tidligere versjoner av Android. Etter hvert byttet jeg til AndroidX, som er erstatningen paa de gamle support-bibliotekene<sup>12</sup>](#12). 
 
 Migreringen ble veldig enklel. Android Studio hadde en egen knapp som mer eller mindre gjorde alt for meg. 
@@ -377,8 +421,26 @@ Migreringen ble veldig enklel. Android Studio hadde en egen knapp som mer eller 
 Utgangspuntet for at jeg oensket aa bytte, var at jeg oppdaget at noen bibliotek ikke fungerte like bra (eller ikke i det hele tatt) med mindre man hadde AndroidX. Saerlig stoette jeg paa problemer med [biblioteket jeg bruker til Youtube-spillere](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player).
 
 
-## Øvrige biblioteker 
-TODO kort om ekstrabiblioteker 
+## Øvrige bibliotek
+* [Android Material Color Picker](https://github.com/Pes8/android-material-color-picker-dialog)
+  * Brukes for å få fine dialoger for å velge farge.
+* Lokasjons-API Fra google 
+  * brukes til lokasjonstjenester, for stedssøk og geofencing 
+* [Android-SimpleLocation](https://github.com/delight-im/Android-SimpleLocation)
+  * tar svært liten plass
+  * gir veldig enkelt tilgang til brukerens lokasjon, gjennom Google sitt API 
+* [OkHttp](https://github.com/square/okhttp)
+  * intuitivt API for å kalle eksterne API-er
+  * se `FetchWeatherTask.kt` for bruk
+* [Klaxon](https://github.com/cbeust/klaxon) 
+  * object-binding mellom Kotlin-objekter og JSON-strings.
+  * se `FetchWeatherTask.kt` for bruk
+* [GraphView](https://github.com/jjoe64/GraphView)
+  * brukes til å vise vær-grafen 
+  * Har et API som var langt mer intuitivt enn [MPAndroidChart](https://github.com/PhilJay/MPAndroidChart), som også ble vurdert. Sistnevnte har flere muligheter, men jeg trengte ikke de muligheten. 
+* [Android-YouTube-Player](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player)
+  * Brukes til instruksjonsvideoer
+  * Jeg valgte dette over Google sitt alternativ fordi dette så ut til å være bedre støttet og dokumentert på en mer forståelig måte. 
 
 ## Versjoner
 ![Fragmentering av Androi sin brukerbase](photos/android-market-share.png)
@@ -444,14 +506,16 @@ __note__: Der tilstrekkelig informasjon ikke er oppgitt, kommer det frem i kilde
 * <span id="6">6:</span> Uspesifisert forfatter, Google. NA. “Understand the Activity Lifecycle”. https://developer.android.com/guide/components/activities/activity-lifecycle (lastet ned 28. April 2019)
 * <span id="7">7:</span> Uspesifisert forfatter, Google. "Create and Manage Notification Channels”. https://developer.android.com/training/notify-user/channels (lastet ned 28. April 2019)
 * <span id="8">8:</span> Uspesifisert forfatter, Google. NA. "Set the importance level". https://developer.android.com/training/notify-user/channels#importance (lastet ned 28. April 2019)
+* <span id="9">9:</span> Uspesifisert forfatter, Google. NA. "Request App Permissions". https://developer.android.com/training/permissions/requesting (lastet ned 29. April 2019)
 * <span id="9">9:</span> Uspesifisert forfatter, Google. NA. "Save data in a local database using Room". https://developer.android.com/training/data-storage/room/ (lastet ned 28. April 2019)
 * <span id="10">10:</span> Obaro Ogbo. 21 September 2016. "How to store data locally in an Android app". https://www.androidauthority.com/how-to-store-data-locally-in-android-app-717190/ (lastet ned 28. April 2019)
-* <span id="11">11:</span> Uspesifisert forfatter, Google. NA. "Data and file storage overview". https://developer.android.com/guide/topics/data/data-storage (lastet ned 28. April 2019)
-* <span id="12">12:</span> Uspesifisert forfatter, Google. NA. "AndroidX Overview". https://developer.android.com/jetpack/androidx/#using_androidx (lastet ned 28. April 2019)
-*  <span id="13">13:</span> Android. October 2018. “Android version market share distribution among smartphone owners as of September 2018". https://www.statista.com/statistics/271774/share-of-android-platforms-on-mobile-devices-with-android-os/ (lastet ned 27. April 2019)
-*  <span id="14">14:</span> Uspesifiert forfatter, Google. 2019. “Distribution dashboard”. https://developer.android.com/about/dashboards/ (lastet ned 29. April 2019)
-* <span id="15">15:</span> Uspesifiert forfatter, Google. NA. “Meet Google Play's target API level requirement” https://developer.android.com/distribute/best-practices/develop/target-sdk (lastet ned 29. April 2019)
-* <span id="15">15:</span> Uspesifiert forfatter, statcounter. NA. “Mobile & Tablet Android Version Market Share Norway” http://gs.statcounter.com/android-version-market-share/mobile-tablet/norway (lastet ned 29. April 2019)
+* <span id="12">12:</span> Uspesifisert forfatter, Google. NA. "Services overview". https://developer.android.com/guide/components/services (lastet ned 28. April 2019)
+* <span id="12">12:</span> Uspesifisert forfatter, Google. NA. "Data and file storage overview". https://developer.android.com/guide/topics/data/data-storage (lastet ned 28. April 2019)
+* <span id="13">13:</span> Uspesifisert forfatter, Google. NA. "AndroidX Overview". https://developer.android.com/jetpack/androidx/#using_androidx (lastet ned 28. April 2019)
+*  <span id="14">14:</span> Android. October 2018. “Android version market share distribution among smartphone owners as of September 2018". https://www.statista.com/statistics/271774/share-of-android-platforms-on-mobile-devices-with-android-os/ (lastet ned 27. April 2019)
+*  <span id="15">15:</span> Uspesifiert forfatter, Google. 2019. “Distribution dashboard”. https://developer.android.com/about/dashboards/ (lastet ned 29. April 2019)
+* <span id="16">16:</span> Uspesifiert forfatter, Google. NA. “Meet Google Play's target API level requirement” https://developer.android.com/distribute/best-practices/develop/target-sdk (lastet ned 29. April 2019)
+* <span id="17">17:</span> Uspesifiert forfatter, statcounter. NA. “Mobile & Tablet Android Version Market Share Norway” http://gs.statcounter.com/android-version-market-share/mobile-tablet/norway (lastet ned 29. April 2019)
 
 
 

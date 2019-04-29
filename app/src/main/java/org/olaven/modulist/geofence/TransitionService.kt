@@ -27,7 +27,6 @@ class TransitionService: IntentService("Intent service for transitions") {
         val triggeringGeofences = event.triggeringGeofences
 
         triggeringGeofences.forEach {
-            print(it.toString() + " - " + it.requestId)
 
             if (event.geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER || event.geofenceTransition == Geofence.GEOFENCE_TRANSITION_DWELL) {
 
@@ -46,7 +45,7 @@ class TransitionService: IntentService("Intent service for transitions") {
 
         val notification = NotificationCompat.Builder(this, App.CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
-            .setContentTitle("Notification content title")
+            .setContentTitle("Modulist")
             .setAutoCancel(true)
             .setFullScreenIntent(pendingIntent, false)
             .setContentText(message)

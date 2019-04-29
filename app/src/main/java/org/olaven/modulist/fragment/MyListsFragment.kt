@@ -67,6 +67,7 @@ class MyListsFragment : androidx.fragment.app.Fragment() {
             .getAllModuleListsLive()
 
         liveModuleLists.observe(this, Observer {
+
             it?.let { moduleLists ->
 
                 if (moduleLists.isEmpty()) {
