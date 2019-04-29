@@ -56,7 +56,9 @@ Dette er dokumentet som beskrives i krav 2 i [oppgaveteksten](./oppgavetekst.pdf
     - [Skjermbilde - instruksjonsvideoer](#skjermbilde---instruksjonsvideoer)
 
 ## Om oppgaven 
-Oppgaven her var å lage en applikasjon. Hva slags applikasjon det skulle være, sto man ganske fritt til å velge. 
+Oppgaven her var å lage en applikasjon. I dette dokumetnet skal jeg beskrive løsningen min. Det være seg hvordan koden er strukturert, hvorfor jeg har tatt de valgene jeg har tatt, og hvorfor den treffer målet om å være en god applikasjon. 
+
+Hva slags applikasjon det skulle være, sto man ganske fritt til å velge, innenfor visse rammer: 
 1. Applikasjonen skal ha et tydelig definert konsept og formål
 2. Applikasjonen skal ha en Fragment-arkitektur.
 3. Applikasjonen skal gjøre bruk av et eksternt API. 
@@ -117,7 +119,7 @@ Kjappe søk på app-butikker, viser at liste-apper ikke akkurat er nytt territor
 Etter samtaler med venner og bekjente, kom jeg frem til at det spesielt var en type liste hvor flere så nytten av "liste-arv"-konseptet mitt:
 pakkelister
 
-Jeg reiser hyppig mellom ulike byer, og har derfor også mange pakkelister. Prosjektet ble derfor fort et lite "scratch my own itch"-prosjekt. På en side har dette vært en fordel. Jeg har kjent min brukergruppe godt (jeg er den jo!). En potensiell ulempe er at jeg blir så last i mine egne behov at jeg ikke forstår markedet som helhet. Denne ulempen er høyst reell, men jeg hadde nok vurdert den som mer avgjørende hvis jeg hadde gått for masse-markedet. 
+Jeg reiser hyppig mellom ulike byer, og har derfor også mange pakkelister. Prosjektet ble fort et lite "scratch my own itch"-prosjekt. På en side har dette vært en fordel. Jeg har kjent min brukergruppe godt (jeg er den jo!). En potensiell ulempe er at jeg blir så last i mine egne behov at jeg ikke forstår markedet som helhet. Denne ulempen er høyst reell, men jeg hadde nok vurdert den som mer avgjørende hvis jeg hadde gått for masse-markedet. 
 
 I og med at jeg går for et nisje-marked uansett, har jeg landet på at fordelene med å være i brukergruppen veier opp for ulempene. 
 
@@ -387,7 +389,7 @@ Implisitte intents forteller sender jeg de gangene jeg vil at brukeren/android-s
 Dette gjør jeg b.la. for å åpne kalender og for å dele en liste. Her legger ikke jeg meg opp i hva slags kalender eller meldingsapp brukeren skal benytte seg av, jeg stoler bare på at det finnes _en eller annen_ applikasjon som kan gjøre det, og at systemet/brukeren har valgt den løsningen som fungerer best.
 
 ## Services og notifications 
-Jeg bruker en Service til å fange opp geofence-hendelser. Deretter sender jeg en notifikasjon til brukeren, fra den samme Service-klassen (`TransitionService.kt`). Man kunne tenke seg at denne burde kjøre hele tiden, sånn at man kunne være sikker på at man fikk varsel på det stedet man ønsket. For apper som har API level 26 eller høyere (som min har), er det lagt flere begrensinger på hva en Service (mer spesifikt, "Background Services") kan gjøre<sup>13</sup>](#13). 
+Jeg bruker en Service til å fange opp geofence-hendelser. Deretter sender jeg en notifikasjon til brukeren, fra den samme Service-klassen (`TransitionService.kt`). Man kunne tenke seg at denne burde kjøre hele tiden, sånn at man kunne være sikker på at man fikk varsel på det stedet man ønsket. For apper som har API level 26 eller høyere (som min har), er det lagt flere begrensinger på hva en Service (mer spesifikt, "Background Services") kan gjøre[<sup>13</sup>](#13). 
 
 Her kunne jeg valgt å bruke en "Foreground Service" istedenfor. En foreground service kan kjøre selv om dens tilhørende app ikke kjører. "Ulempen" er at man er nødt til å vise et varsel om at Servicen kjører hele tiden. I sum er det lett å argumenterer for at dette en veldig god ting. Personvern på maskiner som er veldig viktig for mange, undertegnede inkludert. 
 
@@ -418,7 +420,7 @@ Jeg har også laget et ikon til appen.
 ![startskjerm](./photos/icon.png)
 
 ## Support-bibliotek
-Da jeg startet på Modulist, brukte jeg de samme support-bibliotekene som ble brukt i undervisningen. Support-bibliotekene gir bakoverkompatibilitet med tidligere versjoner av Android. Etter hvert byttet jeg til AndroidX, som er erstatningen på de gamle support-bibliotekene<sup>15</sup>](#15). 
+Da jeg startet på Modulist, brukte jeg de samme support-bibliotekene som ble brukt i undervisningen. Support-bibliotekene gir bakoverkompatibilitet med tidligere versjoner av Android. Etter hvert byttet jeg til AndroidX, som er erstatningen på de gamle support-bibliotekene[<sup>15</sup>](#15). 
 
 Migreringen ble veldig enklel. Android Studio hadde en egen knapp som mer eller mindre gjorde alt for meg. 
 
