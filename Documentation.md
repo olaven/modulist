@@ -13,7 +13,7 @@ Dette er dokumentet som beskrives i krav 2 i [oppgaveteksten](./oppgavetekst.pdf
     - [Utvikling av konseptet](#utvikling-av-konseptet)
   - [Appens muligheter](#appens-muligheter)
     - [Lister](#lister)
-    - [Naviagasjon](#naviagasjon)
+    - [Naviagasjon - skjermbilde](#naviagasjon---skjermbilde)
     - [Alle lister - skjermbilde](#alle-lister---skjermbilde)
     - [Se paa en spesifik liste - skjermbilde](#se-paa-en-spesifik-liste---skjermbilde)
       - [Meny](#meny)
@@ -31,11 +31,12 @@ Dette er dokumentet som beskrives i krav 2 i [oppgaveteksten](./oppgavetekst.pdf
     - [Database](#database)
     - [Lokal lagring generelt](#lokal-lagring-generelt)
     - [Multithreading](#multithreading)
-  - [Support-biblioteker](#support-biblioteker)
   - [Intents](#intents)
   - [Services og notifications](#services-og-notifications)
   - [Brukertest](#brukertest)
   - [Visuelt](#visuelt)
+  - [Support-biblioteker](#support-biblioteker)
+  - [Øvrige biblioteker](#%C3%B8vrige-biblioteker)
   - [Versjoner](#versjoner)
   - [Navngivning](#navngivning)
   - [Publisering](#publisering)
@@ -44,6 +45,7 @@ Dette er dokumentet som beskrives i krav 2 i [oppgaveteksten](./oppgavetekst.pdf
     - [Tidlig skisse](#tidlig-skisse)
     - [Skisse - lister](#skisse---lister)
     - [Skisse - listeflyt](#skisse---listeflyt)
+    - [Skjermbilde - navigasjon](#skjermbilde---navigasjon)
     - [Skjermbilde - alle lister](#skjermbilde---alle-lister)
     - [Skjermbilde - en liste](#skjermbilde---en-liste)
     - [Skjermbilde - meny paa liste](#skjermbilde---meny-paa-liste)
@@ -124,8 +126,13 @@ En stund etter at oppgaven ble utdelt, tegnet jeg noen enkle skisser for aa fors
 (__notis__: demo-lister kan legges til fra [innstillinger](#skjermbilde---innstillinger)]
 ### Lister
 
-### Naviagasjon   
-TODO skriv om navigasjonen 
+### Naviagasjon - [skjermbilde](#skjermbilde---navigasjon)
+Jeg har valgt en enkel navigasjonsmeny på siden. Dette er en klassisk "Navigation Drawer", og er 
+veien brukeren har til hele applikasjonen. 
+
+Et annet alternativ jeg kunne valgt er en "Navigation Bar" på bunnen. Disse er også fine og lett tilgjengelige, men det første alternativet har to fordeler som avgjorde: 
+1. "Drawer"-menyen krasjer ikke med Androids veletablerte bunnmeny, som allerede ligger der på mange telefoner ("tilbake", "hjem", "options")
+2. En drawer har mer plass vertikalt enn en bunnmeny er horisontalt. Den plassen kan komme godt med dersom man skal legge til nye features, som krever flere navigasjonsmuligheter.
 
 ### Alle lister - [skjermbilde](#skjermbilde---alle-lister)
 Denne skjermen er det foerste som moeter brukeren naar det starter appen. 
@@ -323,7 +330,7 @@ Selve database-arkitekturen er forholdsvis enkel, men den fungerte mer enn godt 
 
 ### Lokal lagring generelt 
 
-I min oppgave bruekr jeg hovedsaklig SQL-databaser til aa lagre data. Det finnes andre lagringsmetoder i Android: ekstern/intern fil-lagring og "SharedPreferences". SharedPreferences egner foerst og fremst godt til lagring av enklere datatyper, og opererer paa "key-value"-parr<sup>10</sup>](#10). Ikke til data om listene.
+I min oppgave bruker jeg hovedsaklig SQL-databaser til aa lagre data. Det finnes andre lagringsmetoder i Android: ekstern/intern fil-lagring og "SharedPreferences". SharedPreferences egner foerst og fremst godt til lagring av enklere datatyper, og opererer paa "key-value"-parr<sup>10</sup>](#10). Ikke til data om listene.
 
 Internt og eksternt storage er enda mulighet som jeg kunne brukt. Det egner seg til litt stoerre megnder data, men jeg konkluderte med at en relasjonsdatabase passer enda bedre fordi dataen er strukturert<sup>11</sup>](#11). Med en relasjonsdatabase kan jeg dessuten gjoere spoerringer paa dataen (f.eks. hente ut etter X kritereie). SQL-databaser er godt optimalisert for akkurat denne oppgaven, saerlig sammenlignet med de andre alternativene.
 
@@ -333,14 +340,10 @@ Man kunne konvertert objektene frem og tilbake til et format som JSON-strings, m
 Shared preferences egner seg derimot godt til klassiske "key-value"-scenarier. Det går også kjappere å lese fra "SharedPreferences" enn fra en SQL-database. Derfor har jeg valgt å bruke "SharedPreferences" for å lagre fargetemaene. 
 
 ### Multithreading 
-TODO ME 
+Når jeg gjør operasjoner mot databasen, er det viktig å kjøre den koden i en separat tråd. det er fordi at koden er tidkrevende, og da risikerer man å "blokkere" UI. Dette gir en svært dårlig brukeropplevelse. De brukes også til API-kall, som er en annen tidkrevende prosess.
 
-## Support-biblioteker 
-Da jeg startet paa Modulist, brukte jeg de samme support-bibliotekene som ble brukt i undervisningen. Support-bibliotekene gir bakoverkompatibilitet med tidligere versjoner av Android. Etter hvert byttet jeg til AndroidX, som er erstatningen paa de gamle support-bibliotekene<sup>12</sup>](#12). 
+For å skrive UI har jeg valgt å bruke `AsyncTask`. 
 
-Migreringen ble veldig enklel. Android Studio hadde en egen knapp som mer eller mindre gjorde alt for meg. 
-
-Utgangspuntet for at jeg oensket aa bytte, var at jeg oppdaget at noen bibliotek ikke fungerte like bra (eller ikke i det hele tatt) med mindre man hadde AndroidX. Saerlig stoette jeg paa problemer med [biblioteket jeg bruker til Youtube-spillere](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player).
 
 ## Intents 
 TODO ME 
@@ -359,11 +362,6 @@ Jeg fikk flere tilbakemeldinger:
   2. Enkelhet rundt konseptet. Jeg har skrevet mer om dette [tidligere i dokumentet](#tidlige-skisser).
 
 Appen har først og fremst blitt kjørt på min egen [Moto E Play](https://www.motorola.com/us/products/moto-e-play-gen-5). 
-seekbar  
-farger 
-ting de likte 
-noe de var kritiske til 
-Vanskelige konsepter -> strippet ned funksjonalitet til minimum.
 
 ## Visuelt
 Jeg har holdt meg til Material Design, og Google sine standard-komponenter. Disse er kjente for brukeren. Det er lagt opp til at brukeren skal kunne endre fargetema gjennom instillinger-skjermen. 
@@ -371,8 +369,25 @@ Jeg har holdt meg til Material Design, og Google sine standard-komponenter. Diss
 Jeg har også laget et ikon til appen.
 ![startskjerm](./photos/icon.png)
 
+## Support-biblioteker 
+Da jeg startet paa Modulist, brukte jeg de samme support-bibliotekene som ble brukt i undervisningen. Support-bibliotekene gir bakoverkompatibilitet med tidligere versjoner av Android. Etter hvert byttet jeg til AndroidX, som er erstatningen paa de gamle support-bibliotekene<sup>12</sup>](#12). 
+
+Migreringen ble veldig enklel. Android Studio hadde en egen knapp som mer eller mindre gjorde alt for meg. 
+
+Utgangspuntet for at jeg oensket aa bytte, var at jeg oppdaget at noen bibliotek ikke fungerte like bra (eller ikke i det hele tatt) med mindre man hadde AndroidX. Saerlig stoette jeg paa problemer med [biblioteket jeg bruker til Youtube-spillere](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player).
+
+
+## Øvrige biblioteker 
+TODO kort om ekstrabiblioteker 
+
 ## Versjoner
-TODO ME 
+![Fragmentering av Androi sin brukerbase](photos/android-market-share.png)
+(Grafen er hentet fra _Statistia_[<sup>13</sup>](#13))
+
+Brukere på Android er, som grafen viser, svært spredt. Derfor har valget av versjon en del å si for hvilke brukere som har mulighet til å bruke appen. Denne appen er laget mot API level 26 som minimum. Det vil si at jeg har utelukket en god del brukere (spesielt på global basis[<sup>13</sup>](#13))). Jeg har allikevel valgt å gjøre dette av tre grunner: 
+1. Det gjør livet som utvikler morsommere å være med på nye versjoner, synes jeg. Arugmentet er kanskje litt følelsesladd, men jeg har hatt lyst til å lage morsomme ting, ikke tilpasse meg gamle versjoner og "depricated" APIer.
+2. Google har gitt tydelig uttrykk for at de ønsker at folk skal jobbe mot de nyere versjonene, og at de ønsker at brukerene skal dit[<sup>14</sup>](#14) 
+3. i Norge og tilsvarende land, er det forholds vis mange som ligger på de nyeste versjonene uansett, og det er mot disse landenne at appen er publisert i Play Store[<sup>15</sup>](#15) 
 
 
 ## Navngivning 
@@ -415,7 +430,7 @@ fragment_game_text_player1.setTextColor(activePlayerColor)
 
 
 ## Publisering 
-TODO: playstore 
+Appen er publisert til [Play Store](https://play.google.com/store/apps/details?id=org.olaven.modulist)
 Prosjektet ligger også på et [github-repo](https://github.com/olaven/modulist)
 
 
@@ -433,7 +448,10 @@ __note__: Der tilstrekkelig informasjon ikke er oppgitt, kommer det frem i kilde
 * <span id="10">10:</span> Obaro Ogbo. 21 September 2016. "How to store data locally in an Android app". https://www.androidauthority.com/how-to-store-data-locally-in-android-app-717190/ (lastet ned 28. April 2019)
 * <span id="11">11:</span> Uspesifisert forfatter, Google. NA. "Data and file storage overview". https://developer.android.com/guide/topics/data/data-storage (lastet ned 28. April 2019)
 * <span id="12">12:</span> Uspesifisert forfatter, Google. NA. "AndroidX Overview". https://developer.android.com/jetpack/androidx/#using_androidx (lastet ned 28. April 2019)
-
+*  <span id="13">13:</span> Android. October 2018. “Android version market share distribution among smartphone owners as of September 2018". https://www.statista.com/statistics/271774/share-of-android-platforms-on-mobile-devices-with-android-os/ (lastet ned 27. April 2019)
+*  <span id="14">14:</span> Uspesifiert forfatter, Google. 2019. “Distribution dashboard”. https://developer.android.com/about/dashboards/ (lastet ned 29. April 2019)
+* <span id="15">15:</span> Uspesifiert forfatter, Google. NA. “Meet Google Play's target API level requirement” https://developer.android.com/distribute/best-practices/develop/target-sdk (lastet ned 29. April 2019)
+* <span id="15">15:</span> Uspesifiert forfatter, statcounter. NA. “Mobile & Tablet Android Version Market Share Norway” http://gs.statcounter.com/android-version-market-share/mobile-tablet/norway (lastet ned 29. April 2019)
 
 
 
@@ -445,6 +463,8 @@ __note__: Der tilstrekkelig informasjon ikke er oppgitt, kommer det frem i kilde
 ![Skisse for sammenheng mellom lister](photos/sketches/list_flow.png) 
 ### Skisse - listeflyt 
 ![Skisse for visning av lister](photos/sketches/list_view.png) 
+### Skjermbilde - navigasjon
+![Skjermbilde av navaigasjonsmenyen](photos/screenshots/navigation.png) 
 ### Skjermbilde - alle lister 
 ![Skjermbilde av skjermen med alle lister](photos/screenshots/lists.png)
 ### Skjermbilde - en liste
