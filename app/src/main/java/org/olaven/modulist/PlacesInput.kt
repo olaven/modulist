@@ -48,7 +48,7 @@ class PlacesInput(
             } else {
 
                 Snackbar
-                    .make(view, "Some error occured", Snackbar.LENGTH_LONG)
+                    .make(view, activity.getString(R.string.snackbar_error), Snackbar.LENGTH_LONG)
                     .show()
             }
         }

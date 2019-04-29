@@ -11,7 +11,6 @@ class TemperatureSensor(manager: SensorManager): CustomSensor(manager) {
     override fun eventCheck(event: SensorEvent): Boolean {
 
         val temperature = event.values[0]
-        print("sensor: temperature: $temperature")
         return temperature < 5
     }
 }

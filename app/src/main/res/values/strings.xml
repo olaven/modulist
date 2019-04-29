@@ -70,6 +70,28 @@
     <string name="dialog_add_demo_data_title">Insert demo data</string>
     <string name="dialog_add_demo_data_message">Demo data will permanently REPLACE your data</string>
 
+
+    <!-- Permission dialogs -->
+    <string name="permission_location_title">Please allow location access.</string>
+
+    <!-- Snackbar text -->
+    <string name="snackbar_location_reminder">Added reminder at: %1$s</string>
+    <string name="snackbar_sensor_it_is_dark">It is dark. Flashlight is on.</string>
+    <string name="snackbar_sensor_turn_light_off">Turn off.</string>
+    <string name="snackbar_sensor_lacking_access">This application does not have access to your camera</string>
+    <string name="snackbar_sensor_allow_access">Allow camera usage</string>
+    <string name="snackbar_sensor_it_is_cold">It is cold. Maybe grab a jumper while you are at it?</string>
+    <string name="snackbar_sensor_cold_positive">Good idea!</string>
+    <string name="snackbar_error">Some error occured</string>
+
+    <!-- intents -->
+    <string name="intent_calendar_title">Pack for %1$s</string>
+    <string name="intent_sharing_title">Share list using..</string>
+
+    <!-- GUI in ModuleListActivity -->
+    <string name="packing_for_count">Packing for %1$d days</string>
+
+
     <string-array name="theme_options">
 
         <item>

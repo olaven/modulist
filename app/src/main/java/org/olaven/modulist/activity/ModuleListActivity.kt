@@ -211,9 +211,9 @@ class ModuleListActivity : BaseActivity() {
             startActivityForResult(intent, App.REQUEST_CODE_PLACES_ADRESS)
         } else {
 
-            Snackbar.make(activity_module_list, "Allow location permissions.", Snackbar.LENGTH_INDEFINITE).apply {
+            Snackbar.make(activity_module_list, getString(R.string.permission_location_title), Snackbar.LENGTH_INDEFINITE).apply {
 
-                setAction("Ok") {
+                setAction(getString(R.string.dialog_positive)) {
 
                     Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:$packageName"))
                         .apply {
@@ -235,7 +235,7 @@ class ModuleListActivity : BaseActivity() {
             val customGeofence = CustomGeofence(this)
             customGeofence.addFence(moduleList, place.name!!, place.latLng!!.latitude, place.latLng!!.longitude)
             Snackbar
-                .make(activity_module_list, "Added reminder at: ${place.name}", Snackbar.LENGTH_LONG)
+                .make(activity_module_list, getString(R.string.snackbar_location_reminder, place.name), Snackbar.LENGTH_LONG) //"Added reminder at: ${place.name}"
                 .show()
 
         }
@@ -257,7 +257,7 @@ class ModuleListActivity : BaseActivity() {
 
         val intent = Intent(Intent.ACTION_EDIT)
         intent.type = "vnd.android.cursor.item/event"
-        intent.putExtra(CalendarContract.Events.TITLE, "Pack for ${moduleList.name}")
+        intent.putExtra(CalendarContract.Events.TITLE, getString(R.string.intent_calendar_title, moduleList.name))//"Pack for ${moduleList.name}"
         startActivity(intent)
     }
 
@@ -268,14 +268,13 @@ class ModuleListActivity : BaseActivity() {
 
         val listAsString = toString()
         intent.putExtra(Intent.EXTRA_TEXT, listAsString)
-        // TODO: Implement sharing of images intent.extras[Intent.EXTRA_STREAM] = File() //ATAHCMENTS
-        startActivity(Intent.createChooser(intent, "Share list using.."))
+        startActivity(Intent.createChooser(intent, getString(R.string.intent_sharing_title)))
     }
 
     private fun changeProgressText(dayCount: Int) {
 
         activity_module_list_text_days.text =
-            "Packing for $dayCount days"
+            getString(R.string.packing_for_count, dayCount)
     }
 
 

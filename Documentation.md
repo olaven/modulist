@@ -33,6 +33,7 @@ Dette er dokumentet som beskrives i krav 2 i [oppgaveteksten](./oppgavetekst.pdf
     - [Multithreading](#multithreading)
   - [Intents](#intents)
   - [Services og notifications](#services-og-notifications)
+  - [Strings](#strings)
   - [Brukertest](#brukertest)
   - [Visuelt](#visuelt)
   - [Support-bibliotek](#support-bibliotek)
@@ -394,6 +395,9 @@ Grunnen til at det er en ulempe for meg, er at en pakkeliste-app ikke føles vik
 
 Derfor kjører Service-klassen bare når appen er oppe. 
 
+## Strings 
+Der hvor jeg har statiske strings som skal møte brukeren, har jeg lagt dem i `strings.xml`. På denne måten, blir det lettere å oversetet appen på et senere tidspunkt, dersom jeg skulle ønske å treffe markeder hvor brukerne ikke kan lese engelsk<sup>13</sup>](#13)
+
 ## Brukertest
 Jeg har gjennomført brukertester med venner og bekjente. Jeg har passet på å la både "tekniske" og "ikke-tekniske" kjente. Det vil si at jeg også testet folk som ikke er vant til å bruke mange apper og som sjelden lærer seg å bruke nye programmer. 
 
@@ -512,6 +516,7 @@ __note__: Der tilstrekkelig informasjon ikke er oppgitt, kommer det frem i kilde
 * <span id="12">12:</span> Uspesifisert forfatter, Google. NA. "Services overview". https://developer.android.com/guide/components/services (lastet ned 28. April 2019)
 * <span id="12">12:</span> Uspesifisert forfatter, Google. NA. "Data and file storage overview". https://developer.android.com/guide/topics/data/data-storage (lastet ned 28. April 2019)
 * <span id="13">13:</span> Uspesifisert forfatter, Google. NA. "AndroidX Overview". https://developer.android.com/jetpack/androidx/#using_androidx (lastet ned 28. April 2019)
+* <span id="13">13:</span> Uspesifisert forfatter, Google. NA. "Localize your app". https://developer.android.com/guide/topics/resources/localization.html (lastet ned 29. April 2019)
 *  <span id="14">14:</span> Android. October 2018. “Android version market share distribution among smartphone owners as of September 2018". https://www.statista.com/statistics/271774/share-of-android-platforms-on-mobile-devices-with-android-os/ (lastet ned 27. April 2019)
 *  <span id="15">15:</span> Uspesifiert forfatter, Google. 2019. “Distribution dashboard”. https://developer.android.com/about/dashboards/ (lastet ned 29. April 2019)
 * <span id="16">16:</span> Uspesifiert forfatter, Google. NA. “Meet Google Play's target API level requirement” https://developer.android.com/distribute/best-practices/develop/target-sdk (lastet ned 29. April 2019)

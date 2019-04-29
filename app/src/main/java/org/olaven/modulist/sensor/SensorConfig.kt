@@ -9,6 +9,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import org.olaven.modulist.Flashlight
+import org.olaven.modulist.R
 
 /**
  * This file provides methods
@@ -43,15 +44,15 @@ class SensorConfig(val activity: AppCompatActivity, val view: View) {
 
                 if (flashlight.isAvailable()) {
                     flashlight.turnOn()
-                    Snackbar.make(view, "It is dark. Flashlight is on.", Snackbar.LENGTH_INDEFINITE).apply {
-                        setAction("Turn off.") {
+                    Snackbar.make(view, activity.getString(R.string.snackbar_sensor_it_is_dark), Snackbar.LENGTH_INDEFINITE).apply {
+                        setAction(activity.getString(R.string.snackbar_sensor_turn_light_off)) {
 
                             flashlight.turnOff()
                         }
                     }.show()
                 } else {
-                    Snackbar.make(view, "This application does not have access to your camera", Snackbar.LENGTH_LONG).apply {
-                        setAction("Allow camera usage") {
+                    Snackbar.make(view, activity.getString(R.string.snackbar_sensor_lacking_access), Snackbar.LENGTH_LONG).apply {
+                        setAction(activity.getString(R.string.snackbar_sensor_allow_access)) {
                             Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:${activity.packageName}"))
                                 .apply {
                                     addCategory(Intent.CATEGORY_DEFAULT)
@@ -68,8 +69,8 @@ class SensorConfig(val activity: AppCompatActivity, val view: View) {
 
             action = {
 
-                Snackbar.make(view, "It is cold. Maybe grab a jumper while you are at it?", Snackbar.LENGTH_LONG).apply {
-                    setAction("Good idea!") {}
+                Snackbar.make(view, activity.getString(R.string.snackbar_sensor_it_is_cold), Snackbar.LENGTH_LONG).apply {
+                    setAction(activity.getString(R.string.snackbar_sensor_cold_positive)) {}
                 }.show()
             }
         }
