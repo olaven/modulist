@@ -16,7 +16,7 @@ class ChangeThemeDialog(activity: AppCompatActivity): CustomDialog(activity) {
 
         val options = activity.resources.getStringArray(R.array.theme_options)
 
-        showCustomDialog("Select your new selectedTheme") {
+        showCustomDialog(activity.getString(R.string.dialog_select_theme)) {
 
             it.setSingleChoiceItems(R.array.theme_options, -1) { _, index ->
 

@@ -27,7 +27,7 @@ class AddModuleListDialog(private val inheritanceOptions: List<ModuleList>, acti
 
 
 
-        showCustomDialog("Add a list called..") {
+        showCustomDialog(activity.getString(R.string.dialog_add_module_list)) {
 
             val textView = EditText(activity)
             it.setView(textView)

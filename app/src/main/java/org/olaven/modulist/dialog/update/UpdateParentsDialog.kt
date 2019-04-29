@@ -2,6 +2,7 @@ package org.olaven.modulist.dialog.update
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import org.olaven.modulist.R
 import org.olaven.modulist.database.ModelFactory
 import org.olaven.modulist.database.entity.ModuleList
 import org.olaven.modulist.task.GetParentsTask
@@ -21,7 +22,7 @@ class UpdateParentsDialog(moduleList: ModuleList, activity: AppCompatActivity): 
                 val checked = inheritanceOptions.map { isParent(it) }.toBooleanArray()
                 val selected = inheritanceOptions.filter { isParent(it)}.toMutableList()
 
-                showCustomDialog("Select parents") {
+                showCustomDialog(activity.getString(R.string.dialog_update_parents)) {
 
                     it.setMultiChoiceItems(names, checked) {dialog, which, isChecked ->
 

@@ -49,11 +49,26 @@
 
 
     <!-- Dialogs -->
-    <!-- <string name="dialog_positive">(ᵔᴥᵔ)</string>
-    <string name="dialog_negative">ε(´סּ︵סּ`)з</string>-->
     <string name="dialog_positive">OK</string>
     <string name="dialog_negative">NO</string>
-
+    <string name="dialog_negative_serious">Go back to safety!</string>
+    <string name="dialog_positive_serious">I am sure.</string>
+    <string name="dialog_delete_item">This will delete the item from all child-lists as well</string>
+    <string name="dialog_clear_data">Clear all data</string>
+    <string name="dialog_select_theme">Select your new selectedTheme</string>
+    <string name="dialog_camera_permission_title">Usage of camera</string>
+    <string name="dialog_camera_permission_message">The camera-flash is only used as a flashlight.</string>
+    <string name="dialog_update_parents">Select parents</string>
+    <string name="dialog_update_name">Enter new name</string>
+    <string name="dialog_delete_module_list">This will delete the list PERMANENTLY.</string>
+    <string name="dialog_add_module_list">Add a list called..</string>
+    <string name="dialog_add_item_name">Add an item called...</string>
+    <string name="dialog_add_item_day_distribution">Pack one for every ... days</string>
+    <string name="dialog_add_item_day_final_message">"Name: %1$s \n Distribution: %2$s"</string>
+    <string name="dialog_add_item_day_just_the_one">Pack just the one</string>
+    <string name="dialog_add_item_okay_question">Does this look okay?</string>
+    <string name="dialog_add_demo_data_title">Insert demo data</string>
+    <string name="dialog_add_demo_data_message">Demo data will permanently REPLACE your data</string>
 
     <string-array name="theme_options">
 

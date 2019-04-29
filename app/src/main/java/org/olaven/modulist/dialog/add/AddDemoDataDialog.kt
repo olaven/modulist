@@ -2,6 +2,7 @@ package org.olaven.modulist.dialog.add
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatActivity
+import org.olaven.modulist.R
 import org.olaven.modulist.database.ModelFactory
 import org.olaven.modulist.dialog.CustomDialog
 import org.olaven.modulist.task.add.AddDemoDataTask
@@ -10,16 +11,16 @@ class AddDemoDataDialog(activity: AppCompatActivity): CustomDialog(activity) {
 
     override fun show() {
 
-        showCustomDialog("Insert demo data") {
+        showCustomDialog(activity.getString(R.string.dialog_add_demo_data_title)) {
 
-            it.setMessage("Demo data will permanently REPLACE your data")
+            it.setMessage(activity.getString(R.string.dialog_add_demo_data_message))
 
-            setPositiveButton("I am sure") {
+            setPositiveButton(activity.getString(R.string.dialog_positive_serious)) {
 
                 insertDemoData(activity.application)
             }
 
-            setNegativeButton("Take me back to safety") {}
+            setNegativeButton(activity.getString(R.string.dialog_negative_serious)) {}
         }
     }
 

@@ -1,6 +1,7 @@
 package org.olaven.modulist.dialog
 
 import androidx.appcompat.app.AppCompatActivity
+import org.olaven.modulist.R
 import org.olaven.modulist.database.entity.Item
 import org.olaven.modulist.database.entity.ModuleList
 import org.olaven.modulist.task.DeleteItemTask
@@ -9,7 +10,7 @@ class DeleteItemDialog(private val item: Item, val moduleList: ModuleList, activ
 
     override fun show() {
 
-        showCustomDialog("This will delete the item from all child-lists as well") {
+        showCustomDialog(activity.getString(R.string.dialog_delete_item)) {
 
             setPositiveButton {
 

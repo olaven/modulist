@@ -2,22 +2,23 @@ package org.olaven.modulist.dialog
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatActivity
+import org.olaven.modulist.R
 import org.olaven.modulist.database.ModelFactory
 
 class ClearDataDialog(activity: AppCompatActivity): CustomDialog(activity) {
 
     override fun show() {
 
-        showCustomDialog("Clear all data") {
+        showCustomDialog(activity.getString(R.string.dialog_clear_data)) {
 
-            setPositiveButton("I am sure.") {
+            setPositiveButton(activity.getString(R.string.dialog_positive_serious)) {
 
                 activity.application?.let {
                     clearDatabase(it)
                 }
             }
 
-            setNegativeButton("Go back to safety!") {}
+            setNegativeButton(activity.getString(R.string.dialog_negative_serious)) {}
         }
     }
 

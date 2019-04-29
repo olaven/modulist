@@ -2,6 +2,7 @@ package org.olaven.modulist.dialog.update
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
+import org.olaven.modulist.R
 import org.olaven.modulist.activity.MainActivity
 import org.olaven.modulist.database.ModelFactory
 import org.olaven.modulist.database.entity.ModuleList
@@ -10,7 +11,7 @@ class DeleteModuleListDialog(moduleList: ModuleList, activity: AppCompatActivity
 
     override fun show() {
 
-        showCustomDialog("This will delete the list PERMANENTLY.") {
+        showCustomDialog(activity.getString(R.string.dialog_delete_module_list)) {
 
             setPositiveButton {
 

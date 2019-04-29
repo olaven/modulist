@@ -17,7 +17,7 @@ class AddItemDialog(val moduleList: ModuleList, activity: AppCompatActivity): Cu
 
     override fun show() {
 
-        showCustomDialog("Add an item called...") {
+        showCustomDialog(activity.getString(R.string.dialog_add_item_name)) {
 
             val view = EditText(alertContext)
             it.setView(view)
@@ -25,7 +25,7 @@ class AddItemDialog(val moduleList: ModuleList, activity: AppCompatActivity): Cu
 
                 name = view.text.toString()
 
-                showCustomDialog("Pack one for every ... days") {
+                showCustomDialog(activity.getString(R.string.dialog_add_item_day_distribution)) {
 
                     val dayOptions = activity.resources.getStringArray(R.array.day_options)
                     it.setSingleChoiceItems(dayOptions, -1) { _, item ->
@@ -42,15 +42,15 @@ class AddItemDialog(val moduleList: ModuleList, activity: AppCompatActivity): Cu
 
                         val distributionMessage =
                             if (dayDistribution == Integer.MAX_VALUE)
-                                "Pack just the one."
+                                activity.getString(R.string.dialog_add_item_day_just_the_one)
                             else
                                 dayDistribution.toString()
 
                         val view = TextView(alertContext).apply {
-                            text = "Name: $name \n Distribution: $distributionMessage"
+                            text = activity.getString(R.string.dialog_add_item_day_final_message, name, distributionMessage)
                         }
 
-                        showCustomDialog("Does this look okay?") {
+                        showCustomDialog(activity.getString(R.string.dialog_add_item_okay_question)) {
 
                             it.setView(view)
                             setPositiveButton {
